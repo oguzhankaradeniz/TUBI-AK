@@ -515,45 +515,67 @@
     section.panel[hidden]{ display:none !important; }
     .panel-head p{ color:#333; }
     .table-scroll{ border:none; box-shadow:none; overflow:visible; border-radius:0; background:none; }
-    table, tbody, tr{ display:table-row-group !important; }
+
+    /* table-layout:fixed sutun genislikleri thead ve tbody arasinda ORTAK olmali.
+       Onceki surumde "table, tbody, tr{...}" birlesik kurali, tbody icindeki
+       tr'leri "tbody tr" ile geri duzeltiyordu ama thead'in kendi tr'si hicbir
+       yerde duzeltilmedigi icin table-row-group olarak kalip kendi basina ayri
+       bir sutun genisligi hesaplayan bagimsiz bir blok gibi davraniyordu - bu da
+       baslik ile govde hizasinin kaymasina sebep oluyordu. Simdi thead/tbody'nin
+       kendi tr'leri ayri ayri, acikca dogru display degerine sabitleniyor. */
     table{ display:table !important; font-size:10.5px; width:100%; table-layout:fixed; border-collapse:collapse; }
     thead{ display:table-header-group !important; }
+    thead tr{ display:table-row !important; }
+    tbody{ display:table-row-group !important; }
     tbody tr{ display:table-row !important; background:none; border:none; box-shadow:none; padding:0; margin:0; }
-    thead th{ position:static; background:#fff; color:#000; border-bottom:1px solid #000; white-space:nowrap !important; word-break:normal; overflow-wrap:normal; padding:4px 5px; font-size:8.5px; letter-spacing:0; }
+    thead th, tbody td{ display:table-cell !important; }
+
+    thead th{ position:static; background:#fff; color:#000; font-weight:700; border-bottom:1.5px solid #000; white-space:nowrap !important; word-break:normal; overflow-wrap:normal; padding:5px 5px; font-size:8.5px; letter-spacing:.02em; text-align:left; }
+    thead th.num{ text-align:right !important; }
     thead th .arrow{ display:none !important; }
-    tbody td{ display:table-cell !important; color:#000; border-bottom:1px solid #ccc; white-space:normal; word-break:break-word; overflow-wrap:break-word; padding:5px 6px; vertical-align:top; text-align:left !important; }
+    tbody td{ color:#000; border-bottom:1px solid #ddd; white-space:normal; word-break:break-word; overflow-wrap:break-word; padding:5px 5px; vertical-align:top; text-align:left !important; line-height:1.35; }
     td::before{ content:none !important; }
-    td.num{ text-align:right !important; }
+    td.num{ text-align:right !important; font-variant-numeric:tabular-nums; }
     td.mono, td.num, td.name, td.feed{ max-width:none; }
-    tbody tr:hover td{ background:none; }
+    /* Zebra serit: genis/yogun tablolarda goz satirdan satira kaymadan tek
+       bakista okunabilsin diye - klasik rapor/tablo tasarimi pratigi. */
+    tbody tr:nth-child(even) td{ background:#f4f4f4 !important; }
+    tbody tr:hover td{ background:inherit; }
     tr, td, th{ page-break-inside:avoid; }
+    td.mono{ font-weight:600; }
     .badge{ border:1px solid #000 !important; background:none !important; color:#000 !important; white-space:normal !important; }
     .feed-extra, .feed-total{ color:#333; }
     .expand-btn, .expand-panel{ display:none !important; }
 
-    /* Bayi'de Var, Web'de Yok tablosu: SKU/Koridor/Kat/Göz gibi kısa başlıkların
-       dar sütunlarda kelime ortasından bölünmemesi için sabit genişlik oranları. */
-    #bayi-table th:nth-child(1), #bayi-table td:nth-child(1){ width:12%; }
+    /* Bayi'de Var, Web'de Yok tablosu (5 sutun): en cok yer isteyen Urun Adi'na
+       agirlik verilir, Koridor/Kat/Goz gibi kisa kodlara ancak ihtiyaci kadar
+       (bir onceki surumde "Kat" tek haneli bir sayi icin gereksiz genisti). */
+    #bayi-table th:nth-child(1), #bayi-table td:nth-child(1){ width:13%; }
     #bayi-table th:nth-child(2), #bayi-table td:nth-child(2){ width:46%; }
-    #bayi-table th:nth-child(3), #bayi-table td:nth-child(3){ width:12%; }
-    #bayi-table th:nth-child(4), #bayi-table td:nth-child(4){ width:10%; }
-    #bayi-table th:nth-child(5), #bayi-table td:nth-child(5){ width:20%; }
+    #bayi-table th:nth-child(3), #bayi-table td:nth-child(3){ width:9%; }
+    #bayi-table th:nth-child(4), #bayi-table td:nth-child(4){ width:6%; }
+    #bayi-table th:nth-child(5), #bayi-table td:nth-child(5){ width:26%; }
 
     /* Yazdırmada sadece temel alanlar: SKU, Ürün Adı, Sipariş Sayısı, Toplam Talep,
        Toplam Eksik, Besleme Adresi. Stok ve Bağlı Siparişler sütunları (çok veri
        içerip sayfa sayısını artırdığı için) çıktıya dahil edilmez. */
     :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(5), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(5),
     :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(8), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(8){ display:none !important; }
-    :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(1), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(1){ width:10%; }
-    :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(2), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(2){ width:30%; }
+    :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(1), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(1){ width:11%; }
+    :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(2), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(2){ width:37%; }
     :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(3), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(3),
     :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(4), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(4),
-    :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(6), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(6){ width:12%; }
-    :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(7), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(7){ width:24%; }
+    :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(6), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(6){ width:9%; }
+    :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(7), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(7){ width:25%; }
+
     #bigorder-table th:nth-child(1), #bigorder-table td:nth-child(1){ width:14%; }
     #bigorder-table th:nth-child(2), #bigorder-table td:nth-child(2){ width:8%; }
+    #bigorder-table th:nth-child(3), #bigorder-table td:nth-child(3){ width:9%; }
     #bigorder-table th:nth-child(4), #bigorder-table td:nth-child(4){ width:9%; }
-    #bigorder-table th:nth-child(5), #bigorder-table td:nth-child(5){ width:24%; }
+    #bigorder-table th:nth-child(5), #bigorder-table td:nth-child(5){ width:27%; }
+    #bigorder-table th:nth-child(6), #bigorder-table td:nth-child(6){ width:8%; }
+    #bigorder-table th:nth-child(7), #bigorder-table td:nth-child(7){ width:8%; }
+    #bigorder-table th:nth-child(8), #bigorder-table td:nth-child(8){ width:17%; }
   }
 </style>
 
