@@ -1,1 +1,912 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Tübitak Göz Takibi</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#f5f1e6;
+    --paper-raised:#fbf8f1;
+    --ink:#211c14;
+    --ink-soft:#4a4030;
+    --muted:#8a7c60;
+    --line:#ddd2b8;
+    --accent:#c1631f;
+    --accent-ink:#7a3c10;
+    --accent-soft:#f2ddc4;
+    --ok:#3c7a53;
+    --ok-soft:#dcecdf;
+    --risk:#ad3324;
+    --risk-soft:#f6ded9;
+    --shadow: 0 1px 2px rgba(33,28,20,.06), 0 6px 16px rgba(33,28,20,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#1c1811;
+      --paper-raised:#252017;
+      --ink:#eee6d4;
+      --ink-soft:#cabf9f;
+      --muted:#9c8f70;
+      --line:#3c3423;
+      --accent:#e0904a;
+      --accent-ink:#f6cf9d;
+      --accent-soft:#3a2a17;
+      --ok:#6ebd8b;
+      --ok-soft:#22362a;
+      --risk:#e2695a;
+      --risk-soft:#3c2521;
+      --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 24px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#1c1811;
+    --paper-raised:#252017;
+    --ink:#eee6d4;
+    --ink-soft:#cabf9f;
+    --muted:#9c8f70;
+    --line:#3c3423;
+    --accent:#e0904a;
+    --accent-ink:#f6cf9d;
+    --accent-soft:#3a2a17;
+    --ok:#6ebd8b;
+    --ok-soft:#22362a;
+    --risk:#e2695a;
+    --risk-soft:#3c2521;
+    --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 24px rgba(0,0,0,.35);
+  }
 
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Public Sans", system-ui, -apple-system, sans-serif;
+    padding-inline:20px;
+    padding-block:0 40px;
+  }
+  ::selection{ background:var(--accent-soft); color:var(--accent-ink); }
+
+  .wrap{ max-width:1080px; margin:0 auto; }
+
+  header.top{
+    display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between;
+    gap:16px 24px;
+    padding-block:28px 18px;
+    border-bottom:2px solid var(--line);
+  }
+  .brand{ display:flex; flex-direction:column; gap:2px; }
+  .eyebrow{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--accent-ink); font-weight:500;
+  }
+  h1{
+    font-family:"Barlow Condensed", sans-serif;
+    font-weight:700;
+    font-size:clamp(2rem, 5vw, 2.9rem);
+    letter-spacing:.01em;
+    margin:0;
+    text-wrap:balance;
+    line-height:1;
+  }
+  .updated{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:.82rem;
+    color:var(--muted);
+    display:flex; align-items:center; gap:8px;
+    padding:9px 14px;
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:999px;
+    box-shadow:var(--shadow);
+    white-space:nowrap;
+  }
+  .updated .dot{
+    width:7px; height:7px; border-radius:50%; background:var(--ok);
+    box-shadow:0 0 0 3px var(--ok-soft);
+    flex:none;
+  }
+
+  .stats{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:14px;
+    margin-block:22px 30px;
+  }
+  .stat{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:16px 18px;
+    box-shadow:var(--shadow);
+  }
+  .stat .n{
+    font-family:"Barlow Condensed", sans-serif;
+    font-weight:700;
+    font-size:2.4rem;
+    line-height:1;
+    font-variant-numeric:tabular-nums;
+    color:var(--accent-ink);
+  }
+  .stat .l{
+    margin-top:6px;
+    font-size:.86rem;
+    color:var(--ink-soft);
+    max-width:26ch;
+  }
+  .stat{
+    cursor:pointer;
+    text-align:left;
+    font:inherit;
+    color:inherit;
+    transition:border-color .15s ease;
+  }
+  .stat:hover, .stat:focus-visible{ border-color:var(--accent); }
+  .stat[aria-pressed="true"]{ border-color:var(--accent); box-shadow:var(--shadow), inset 0 0 0 1px var(--accent); }
+  @media (max-width:860px){ .stats{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:480px){ .stats{ grid-template-columns:1fr; } }
+
+  .tabbar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:4px 8px;
+    border-bottom:2px solid var(--line);
+    margin-block:28px 22px;
+  }
+  .tabbtn{
+    font-family:"Barlow Condensed", sans-serif;
+    font-weight:700;
+    font-size:1.05rem;
+    letter-spacing:.01em;
+    background:none;
+    border:none;
+    color:var(--muted);
+    padding:9px 4px 12px;
+    margin-bottom:-2px;
+    border-bottom:3px solid transparent;
+    cursor:pointer;
+  }
+  .tabbtn:hover{ color:var(--ink-soft); }
+  .tabbtn[aria-selected="true"]{ color:var(--ink); border-bottom-color:var(--accent); }
+  .tabbtn:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  .tabbtn .tcount{
+    font-family:"IBM Plex Mono", monospace;
+    font-weight:500;
+    font-size:.78rem;
+    color:var(--muted);
+    margin-left:6px;
+  }
+
+  section.panel{ margin-block:0; }
+  section.panel[hidden]{ display:none; }
+  .panel-head{
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
+    gap:10px 20px;
+    margin-bottom:14px;
+  }
+  .panel-head h2{
+    font-family:"Barlow Condensed", sans-serif;
+    font-weight:700;
+    font-size:1.5rem;
+    margin:0;
+    letter-spacing:.01em;
+  }
+  .panel-head p{
+    margin:2px 0 0;
+    font-size:.86rem;
+    color:var(--muted);
+    max-width:60ch;
+  }
+
+  .controls{
+    display:flex; flex-wrap:wrap; gap:8px 10px; align-items:center;
+    margin-bottom:12px;
+  }
+  input.search{
+    font:inherit;
+    font-family:"Public Sans", sans-serif;
+    font-size:.88rem;
+    padding:8px 12px;
+    border:1px solid var(--line);
+    border-radius:7px;
+    background:var(--paper-raised);
+    color:var(--ink);
+    min-width:220px;
+    flex:1 1 220px;
+  }
+  input.search:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+  .chip{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:.76rem;
+    letter-spacing:.02em;
+    padding:7px 12px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:var(--paper-raised);
+    color:var(--ink-soft);
+    cursor:pointer;
+  }
+  .chip:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+  .chip[aria-pressed="true"]{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:#fff8ee;
+  }
+  .count-pill{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:.76rem;
+    color:var(--muted);
+  }
+
+  .table-scroll{
+    overflow-x:auto;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--paper-raised);
+    box-shadow:var(--shadow);
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.86rem;
+  }
+  thead th{
+    position:sticky; top:0;
+    background:var(--paper-raised);
+    text-align:left;
+    font-family:"IBM Plex Mono", monospace;
+    font-weight:500;
+    font-size:.72rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:11px 14px;
+    border-bottom:1px solid var(--line);
+    cursor:pointer;
+    white-space:nowrap;
+    user-select:none;
+  }
+  thead th.num{ text-align:right; }
+  thead th .arrow{ opacity:.35; margin-left:4px; }
+  thead th[aria-sort="ascending"] .arrow, thead th[aria-sort="descending"] .arrow{ opacity:1; color:var(--accent); }
+  tbody td{
+    padding:9px 14px;
+    border-bottom:1px solid var(--line);
+    vertical-align:top;
+  }
+  tbody tr:last-child td{ border-bottom:none; }
+  tbody tr:hover td{ background:var(--accent-soft); }
+  td.num, th.num{ text-align:right; font-variant-numeric:tabular-nums; }
+  td.mono, .mono{ font-family:"IBM Plex Mono", monospace; font-size:.82rem; }
+  td.name{ max-width:38ch; }
+
+  .badge{
+    display:inline-flex; align-items:center; gap:5px;
+    padding:3px 9px;
+    border-radius:999px;
+    font-family:"IBM Plex Mono", monospace;
+    font-size:.78rem;
+    font-weight:500;
+    font-variant-numeric:tabular-nums;
+  }
+  .badge.risk{ background:var(--risk-soft); color:var(--risk); }
+  .badge.corridor{ background:var(--paper); border:1px solid var(--line); color:var(--ink-soft); }
+  .badge.feed{ background:var(--ok-soft); color:var(--ok); border:1px solid transparent; }
+  .feed-extra{ font-family:"IBM Plex Mono", monospace; font-size:.74rem; color:var(--muted); margin-left:5px; }
+  .feed-total{ font-size:.72rem; color:var(--muted); margin-top:3px; }
+  td.feed{ min-width:15ch; }
+
+  .empty-row td{ text-align:center; color:var(--muted); padding:26px; font-style:italic; }
+
+  footer{
+    margin-top:40px;
+    padding-top:16px;
+    border-top:1px solid var(--line);
+    font-size:.78rem;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  footer code{ font-family:"IBM Plex Mono", monospace; background:var(--paper-raised); padding:1px 5px; border-radius:4px; border:1px solid var(--line); }
+
+  .print-btn{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:.78rem;
+    letter-spacing:.02em;
+    padding:9px 14px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:var(--paper-raised);
+    color:var(--ink-soft);
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    box-shadow:var(--shadow);
+  }
+  .print-btn:hover, .print-btn:focus-visible{ border-color:var(--accent); color:var(--ink); }
+
+  .share-overlay{
+    position:fixed; inset:0; background:rgba(20,16,10,.5);
+    display:flex; align-items:center; justify-content:center;
+    padding:20px; z-index:100;
+  }
+  .share-overlay[hidden]{ display:none; }
+  .share-card{
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:14px;
+    box-shadow:var(--shadow); padding:24px; max-width:340px; width:100%;
+    text-align:center;
+  }
+  .share-card h3{
+    font-family:"Barlow Condensed", sans-serif; font-weight:700; font-size:1.3rem;
+    margin:0 0 6px;
+  }
+  .share-card p{ font-size:.82rem; color:var(--ink-soft); margin:0 0 16px; line-height:1.5; }
+  .share-qr{
+    display:flex; align-items:center; justify-content:center;
+    background:#fff; border-radius:10px; padding:12px; margin:0 auto 14px;
+    width:200px; height:200px;
+  }
+  .share-link-row{
+    display:flex; gap:6px; margin-bottom:10px;
+  }
+  .share-link-row input{
+    flex:1; font-family:"IBM Plex Mono", monospace; font-size:.76rem;
+    padding:8px 10px; border:1px solid var(--line); border-radius:7px;
+    background:var(--paper); color:var(--ink);
+  }
+  .share-copy-btn, .share-close-btn{
+    font-family:"IBM Plex Mono", monospace; font-size:.78rem;
+    padding:8px 12px; border-radius:7px; border:1px solid var(--line);
+    background:var(--paper); color:var(--ink-soft); cursor:pointer;
+  }
+  .share-copy-btn:hover, .share-close-btn:hover{ border-color:var(--accent); color:var(--ink); }
+  .share-close-btn{ margin-top:6px; width:100%; }
+  .share-note{ font-size:.74rem; color:var(--muted); margin-top:14px; line-height:1.5; text-align:left; }
+
+  @media print{
+    header.top .updated, .stats, .tabbar, .controls, footer, .print-btn, .share-overlay{ display:none !important; }
+    body{ background:#fff; color:#000; padding:0; }
+    .wrap{ max-width:none; }
+    header.top{ border-bottom:2px solid #000; padding-block:0 10px; }
+    .eyebrow{ color:#000; }
+    section.panel[hidden]{ display:none !important; }
+    .panel-head p{ color:#333; }
+    .table-scroll{ border:none; box-shadow:none; overflow:visible; border-radius:0; }
+    table{ font-size:10.5px; }
+    thead th{ position:static; background:#fff; color:#000; border-bottom:1px solid #000; }
+    tbody td{ color:#000; border-bottom:1px solid #ccc; }
+    tbody tr:hover td{ background:none; }
+    .badge{ border:1px solid #000 !important; background:none !important; color:#000 !important; }
+    .feed-extra, .feed-total{ color:#333; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand">
+      <span class="eyebrow">Akyurt Deposu · Tübitak</span>
+      <h1>Göz Takibi</h1>
+    </div>
+    <div class="updated"><span class="dot"></span><span id="updated-text">—</span></div>
+    <button class="print-btn" type="button" id="share-btn">Telefondan aç / paylaş</button>
+    <button class="print-btn" type="button" id="print-btn">Açık tabloyu yazdır</button>
+  </header>
+
+  <div class="share-overlay" id="share-overlay" hidden>
+    <div class="share-card">
+      <h3>Telefondan aç</h3>
+      <p>Kodu telefon kamerasıyla okutun veya linki kopyalayıp paylaşın.</p>
+      <div class="share-qr" id="share-qr"></div>
+      <div class="share-link-row">
+        <input type="text" id="share-link-input" readonly>
+        <button class="share-copy-btn" type="button" id="share-copy-btn">Kopyala</button>
+      </div>
+      <div class="share-note">Bu sayfa özel — iş arkadaşlarınızın görebilmesi için sağ üstteki <strong>Share</strong> menüsünden erişim açık olmalı.</div>
+      <button class="share-close-btn" type="button" id="share-close-btn">Kapat</button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <button class="stat" type="button" data-tab="bayi" aria-pressed="false">
+      <div class="n" id="stat-bayi">0</div>
+      <div class="l">bayi gözünde stoklu, web (TB) gözünde hiç yok</div>
+    </button>
+    <button class="stat" type="button" data-tab="shortfall" aria-pressed="false">
+      <div class="n" id="stat-lines">0</div>
+      <div class="l">sipariş kalemi TB gözünde yetersiz kalacak</div>
+    </button>
+    <button class="stat" type="button" data-tab="shortfall" aria-pressed="false">
+      <div class="n" id="stat-orders">0</div>
+      <div class="l">istek alındı, &lt;100 adetlik sipariş etkileniyor</div>
+    </button>
+    <button class="stat" type="button" data-tab="bigorder" aria-pressed="false">
+      <div class="n" id="stat-bigorders">0</div>
+      <div class="l">100+ adetlik sipariş, bayi gözü tek başına yetersiz</div>
+    </button>
+  </div>
+
+  <div class="tabbar" role="tablist">
+    <button class="tabbtn" type="button" role="tab" data-tab="bayi" id="tab-bayi" aria-controls="panel-bayi" aria-selected="true">Bayi'de Var, Web'de Yok<span class="tcount" id="tcount-bayi"></span></button>
+    <button class="tabbtn" type="button" role="tab" data-tab="shortfall" id="tab-shortfall" aria-controls="panel-shortfall" aria-selected="false">Sipariş Yetersizliği<span class="tcount" id="tcount-shortfall"></span></button>
+    <button class="tabbtn" type="button" role="tab" data-tab="bigorder" id="tab-bigorder" aria-controls="panel-bigorder" aria-selected="false">100+ Sipariş Bayi Eksiği<span class="tcount" id="tcount-bigorder"></span></button>
+  </div>
+
+  <section class="panel" id="panel-bayi" role="tabpanel" aria-labelledby="tab-bayi">
+    <div class="panel-head">
+      <div>
+        <h2>Bayi gözünde var, web'de yok</h2>
+        <p>F/FT/G/GT/H/HT toplama gözlerinde stok var, TB gözlerinin hiçbirinde yok — bu ürünler web siparişleri için bayi gözünden toplattırılmalı.</p>
+      </div>
+      <span class="count-pill"><span id="bayi-count">0</span> göz kaydı</span>
+    </div>
+    <div class="controls">
+      <input class="search" id="bayi-search" type="text" placeholder="SKU veya ürün adı ara…">
+      <button class="chip" data-cor="all" aria-pressed="true">Tümü</button>
+      <button class="chip" data-cor="1">Kat 1</button>
+      <button class="chip" data-cor="F">F Koridoru</button>
+      <button class="chip" data-cor="G">G Koridoru</button>
+      <button class="chip" data-cor="H">H Koridoru</button>
+    </div>
+    <div class="table-scroll">
+      <table id="bayi-table">
+        <thead>
+          <tr>
+            <th data-key="sku">SKU<span class="arrow">↕</span></th>
+            <th data-key="name">Ürün Adı<span class="arrow">↕</span></th>
+            <th data-key="corridor">Koridor<span class="arrow">↕</span></th>
+            <th data-key="level" class="num">Kat<span class="arrow">↕</span></th>
+            <th data-key="goz">Göz<span class="arrow">↕</span></th>
+          </tr>
+        </thead>
+        <tbody id="bayi-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-shortfall" role="tabpanel" aria-labelledby="tab-shortfall" hidden>
+    <div class="panel-head">
+      <div>
+        <h2>Ürün bazlı yetersizlik</h2>
+        <p>"İstek alındı" durumunda, toplamı 100 adedin altındaki siparişlerde, ürünün TB gözündeki stoku bu ürünü isteyen siparişlerin toplam talebini karşılamıyor (sipariş oluşturulma sırasına göre — TB stoku önce en eski siparişe ayrılır, kalan siparişler eksik sayılır). Aynı ürün birden çok siparişte eksik çıkabiliyor — tek seferde beslendiği için burada <strong>SKU başına tek satır</strong> gösterilir; hangi siparişleri karşıladığı <strong>Bağlı Siparişler</strong> sütununda listelenir. <strong>Besleme Adresi</strong> sütunu, ürünün bayi (F/FT/G/GT/H/HT) gözlerinde nerede ve ne kadar stok bulunduğunu gösterir.</p>
+      </div>
+      <span class="count-pill"><span id="shortfall-count">0</span> ürün</span>
+    </div>
+    <div class="controls">
+      <input class="search" id="shortfall-search" type="text" placeholder="Sipariş no, SKU veya ürün adı ara…">
+    </div>
+    <div class="table-scroll">
+      <table id="shortfall-table">
+        <thead>
+          <tr>
+            <th data-key="sku">SKU<span class="arrow">↕</span></th>
+            <th data-key="urun_adi">Ürün Adı<span class="arrow">↕</span></th>
+            <th data-key="siparis_sayisi" class="num">Sipariş Sayısı<span class="arrow">↕</span></th>
+            <th data-key="toplam_talep" class="num">Toplam Talep<span class="arrow">↕</span></th>
+            <th data-key="tb_stok" class="num">TB Stok<span class="arrow">↕</span></th>
+            <th data-key="toplam_eksik" class="num">Toplam Eksik<span class="arrow">↕</span></th>
+            <th data-key="bayi_total" class="num">Besleme Adresi (Bayi)<span class="arrow">↕</span></th>
+            <th>Bağlı Siparişler</th>
+          </tr>
+        </thead>
+        <tbody id="shortfall-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-bigorder" role="tabpanel" aria-labelledby="tab-bigorder" hidden>
+    <div class="panel-head">
+      <div>
+        <h2>100+ adetlik siparişlerde bayi gözü yetersizliği</h2>
+        <p>Henüz "İstek alındı" durumunda (toplama başlamamış), toplamı 100 adedin üzerindeki siparişlerde, kalemin bayi (F/FT/G/GT/H/HT) gözündeki stoku sipariş adedini karşılamıyor — bu ürünler yüzünden sipariş tek başına bayi gözünden toplanamıyor, web gözünden tamamlanmak zorunda kalıyor. Toplama başlamış ("Picking") siparişler bu listeye dahil edilmez.</p>
+      </div>
+      <span class="count-pill"><span id="bigorder-count">0</span> kalem</span>
+    </div>
+    <div class="controls">
+      <input class="search" id="bigorder-search" type="text" placeholder="Sipariş no, SKU veya ürün adı ara…">
+    </div>
+    <div class="table-scroll">
+      <table id="bigorder-table">
+        <thead>
+          <tr>
+            <th data-key="siparis_no">Sipariş No<span class="arrow">↕</span></th>
+            <th data-key="durum">Durum<span class="arrow">↕</span></th>
+            <th data-key="siparis_toplam_adet" class="num">Sip. Toplam<span class="arrow">↕</span></th>
+            <th data-key="sku">SKU<span class="arrow">↕</span></th>
+            <th data-key="urun_adi">Ürün Adı<span class="arrow">↕</span></th>
+            <th data-key="satir_adet" class="num">Kalem Adet<span class="arrow">↕</span></th>
+            <th data-key="bayi_stok" class="num">Bayi Stok<span class="arrow">↕</span></th>
+            <th data-key="eksik" class="num">Web'den Tamamlanacak<span class="arrow">↕</span></th>
+          </tr>
+        </thead>
+        <tbody id="bigorder-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    Veri kaynağı: <code>tr_ank_1</code> Maestro WMS (Akyurt) · gerçek toplama gözleri (<code>PrimeCell</code>) baz alınır.
+    Göz etiketleri zon/yön korunarak Kat–Göz sırasına çevrilir (örn. <code>F-Y1-P100-K5 → F-Y1-K5-G100</code>).
+    "Sipariş Yetersizliği" sekmesindeki <strong>Besleme Adresi</strong> sütunu, ilgili SKU'nun bayi (F/FT/G/GT/H/HT) gözlerindeki gerçek toplama adreslerini stok miktarıyla birlikte gösterir; üzerine gelindiğinde tüm adresler listelenir.
+    Eksik hesabı SKU bazında kümülatif yapılır: aynı ürünü isteyen tüm "İstek alındı" siparişlerin toplam talebi, TB gözündeki güncel stoktan (siparişlerin oluşturulma sırasına göre, en eskiden başlanarak) düşülür — tek bir sipariş kendi başına stoktan az istiyor diye küçük ama toplamda gerçek olan eksikler gözden kaçmaz.
+    Bu sayfa, sorgular yeniden çalıştırılıp yayınlandığında güncellenir; 09:00–21:00 arası 2 saatte bir tazelenecek şekilde ayarlıdır.
+  </footer>
+
+</div>
+
+<script type="application/json" id="data-bayi">
+[{"sku":"TDYP-1358-8","name":"1001 Minik Hayvanı Bulun - Basım Sayısı: 8. Basım","addr":"H-Y1-P125-K2"},{"sku":"TDYP-1390-3","name":"Anadolu'daki Vahşi Kediler - Basım Sayısı: 3. Basım","addr":"F-Y2-P33-K2"},{"sku":"TDYP-1390-3","name":"Anadolu'daki Vahşi Kediler - Basım Sayısı: 3. Basım","addr":"F-Y2-P33-K3"},{"sku":"TDYP-1390-3","name":"Anadolu'daki Vahşi Kediler - Basım Sayısı: 3. Basım","addr":"F-Y2-P34-K3"},{"sku":"TDYP-1390-3","name":"Anadolu'daki Vahşi Kediler - Basım Sayısı: 3. Basım","addr":"F-Y2-P35-K3"},{"sku":"TDYP-1151-4","name":"Ara ve Bul Resimli Bulmacalar - Ormanda - Basım Sayısı: 4. Basım","addr":"FT-Y1-P91-K1"},{"sku":"TDYP-1351-3","name":"Ara ve Bul Resimli Bulmacalar Tropik Ormanlar - Basım Sayısı: 3. Basım","addr":"F-Y1-P95-K2"},{"sku":"TDYP-1104-5","name":"Bebekler Nereden Gelir? - Basım Sayısı: 5. Basım","addr":"F-Y2-P104-K2"},{"sku":"TDYP-1104-5","name":"Bebekler Nereden Gelir? - Basım Sayısı: 5. Basım","addr":"FT-Y2-P104-K1"},{"sku":"TDYP-1104-5","name":"Bebekler Nereden Gelir? - Basım Sayısı: 5. Basım","addr":"GT-Y1-P132-K1"},{"sku":"TDYP-494-3","name":"Bilim Bunu Çözer - Burun Bilir - Basım Sayısı: 3. Basım","addr":"F-Y1-P70-K3"},{"sku":"TDYP-494-3","name":"Bilim Bunu Çözer - Burun Bilir - Basım Sayısı: 3. Basım","addr":"F-Y2-P101-K3"},{"sku":"TDYP-494-3","name":"Bilim Bunu Çözer - Burun Bilir - Basım Sayısı: 3. Basım","addr":"F-Y2-P108-K1"},{"sku":"TDYP-494-3","name":"Bilim Bunu Çözer - Burun Bilir - Basım Sayısı: 3. Basım","addr":"F-Y2-P78-K3"},{"sku":"TDYP-502-3","name":"Bilim Bunu Çözer - Küf Gizemi - Basım Sayısı: 3. Basım","addr":"F-Y1-P102-K4"},{"sku":"TDYP-502-3","name":"Bilim Bunu Çözer - Küf Gizemi - Basım Sayısı: 3. Basım","addr":"F-Y1-P104-K1"},{"sku":"TDYP-502-3","name":"Bilim Bunu Çözer - Küf Gizemi - Basım Sayısı: 3. Basım","addr":"F-Y2-P100-K3"},{"sku":"TDYP-502-3","name":"Bilim Bunu Çözer - Küf Gizemi - Basım Sayısı: 3. Basım","addr":"F-Y2-P82-K3"},{"sku":"TDYP-1798-0","name":"Bilim ve Teknik (Eylül 2026)","addr":"G-Y1-P128-K2"},{"sku":"TDYP-1798-0","name":"Bilim ve Teknik (Eylül 2026)","addr":"G-Y2-P125-K1"},{"sku":"TDYP-1798-0","name":"Bilim ve Teknik (Eylül 2026)","addr":"GT-Y2-P125-K1"},{"sku":"BILIM-COCUK","name":"Bilim Çocuk","addr":"FT-Y2-P134-K1"},{"sku":"TDYP-1812-1","name":"Doğada Bir An - Basım Sayısı: 1. Basım","addr":"F-Y2-P79-K3"},{"sku":"TDYP-457-5","name":"Dünyanın Dört Bir Yanından Yapımı Kolay Oyuncaklar - Basım Sayısı: 5. Basım","addr":"F-Y2-P115-K2"},{"sku":"TDYP-457-5","name":"Dünyanın Dört Bir Yanından Yapımı Kolay Oyuncaklar - Basım Sayısı: 5. Basım","addr":"FT-Y2-P113-K1"},{"sku":"TDYP-1809-1","name":"En Muhteşem Fikir - Basım Sayısı: 1. Basım","addr":"F-Y1-P100-K4"},{"sku":"TDYP-1491-2","name":"Farklı Düşün Farklı Yaz - Basım Sayısı: 2. Basım","addr":"F-Y1-P97-K2"},{"sku":"TDYP-1491-2","name":"Farklı Düşün Farklı Yaz - Basım Sayısı: 2. Basım","addr":"GT-Y1-P134-K1"},{"sku":"TDYP-1806-1","name":"Flamingo - Basım Sayısı: 1. Basım","addr":"F-Y1-P67-K1"},{"sku":"TDYP-1806-1","name":"Flamingo - Basım Sayısı: 1. Basım","addr":"GT-Y2-P130-K1"},{"sku":"TDYP-431-5","name":"Genç Astronotun El Kitabı - Basım Sayısı: 5. Basım","addr":"F-Y1-P118-K5"},{"sku":"TDYP-431-5","name":"Genç Astronotun El Kitabı - Basım Sayısı: 5. Basım","addr":"FT-Y1-P127-K1"},{"sku":"TDYP-1796-1","name":"Görevimiz Bilim - Basım Sayısı: 1. Basım","addr":"F-Y1-P119-K5"},{"sku":"TDYP-1796-1","name":"Görevimiz Bilim - Basım Sayısı: 1. Basım","addr":"F-Y1-P120-K5"},{"sku":"TDYP-1796-1","name":"Görevimiz Bilim - Basım Sayısı: 1. Basım","addr":"F-Y1-P130-K2"},{"sku":"TDYP-1796-1","name":"Görevimiz Bilim - Basım Sayısı: 1. Basım","addr":"F-Y1-P134-K5"},{"sku":"TDYP-1796-1","name":"Görevimiz Bilim - Basım Sayısı: 1. Basım","addr":"FT-Y1-P125-K1"},{"sku":"TDYP-1796-1","name":"Görevimiz Bilim - Basım Sayısı: 1. Basım","addr":"FT-Y1-P130-K2"},{"sku":"TDYP-1804-1","name":"Haydi Hayvanlara Bak! - Basım Sayısı: 1. Basım","addr":"F-Y2-P78-K1"},{"sku":"TDYP-1803-1","name":"Haydi Çevrene Bak! - Basım Sayısı: 1. Basım","addr":"FT-Y2-P126-K1"},{"sku":"TDYP-1805-1","name":"Haydi Şekillere Bak! - Basım Sayısı: 1. Basım","addr":"F-Y1-P66-K1"},{"sku":"TDYP-1407-2","name":"Keşfedin! İnsan Vücüdu - Basım Sayısı: 2. Basım","addr":"F-Y2-P80-K3"},{"sku":"TDYP-918-3","name":"Kutup Seferleri - Basım Sayısı: 3. Basım","addr":"FT-Y2-P136-K1"},{"sku":"TDYP-1603-1","name":"Kuzey ve Güney - İki Yarım Kürenin Hikâyesi - Basım Sayısı: 1. Basım","addr":"FT-Y1-P134-K1"},{"sku":"TDYP-1713-1","name":"Köyümde - Basım Sayısı: 1. Basım","addr":"F-Y1-P77-K2"},{"sku":"TDYP-1713-1","name":"Köyümde - Basım Sayısı: 1. Basım","addr":"F-Y2-P72-K4"},{"sku":"TDYP-1713-1","name":"Köyümde - Basım Sayısı: 1. Basım","addr":"FT-Y2-P128-K1"},{"sku":"TDYP-1797-0","name":"Meraklı Minik (Eylül 2026)","addr":"F-Y1-P67-K3"},{"sku":"TDYP-1797-0","name":"Meraklı Minik (Eylül 2026)","addr":"FT-Y1-P128-K1"},{"sku":"TDYP-1797-0","name":"Meraklı Minik (Eylül 2026)","addr":"FT-Y1-P129-K1"},{"sku":"TDYP-1729-0","name":"Meraklı Minik (Mart 2026)","addr":"G-Y1-P132-K3"},{"sku":"TDYP-929-4","name":"Neden Formda Kalmalıyım - Basım Sayısı: 4. Basım","addr":"F-Y2-P76-K3"},{"sku":"TDYP-929-4","name":"Neden Formda Kalmalıyım - Basım Sayısı: 4. Basım","addr":"F-Y2-P84-K3"},{"sku":"TDYP-929-4","name":"Neden Formda Kalmalıyım - Basım Sayısı: 4. Basım","addr":"GT-Y1-P132-K1"},{"sku":"TDYP-1401-3","name":"Teknolojiye İlham Veren Hayvanlar - Basım Sayısı: 3. Basım","addr":"G-Y1-P116-K5"},{"sku":"TDYP-627-4","name":"Ulu Meşeyle Bir Yıl - Basım Sayısı: 4. Basım","addr":"G-Y2-P135-K2"},{"sku":"TDYP-1801-1","name":"Vücudumuz Nasıl Çalışır? - Basım Sayısı: 1. Basım","addr":"G-Y1-P119-K3"},{"sku":"TDYP-1801-1","name":"Vücudumuz Nasıl Çalışır? - Basım Sayısı: 1. Basım","addr":"G-Y1-P123-K5"},{"sku":"TDYP-1801-1","name":"Vücudumuz Nasıl Çalışır? - Basım Sayısı: 1. Basım","addr":"G-Y1-P126-K2"},{"sku":"TDYP-1801-1","name":"Vücudumuz Nasıl Çalışır? - Basım Sayısı: 1. Basım","addr":"G-Y1-P133-K2"},{"sku":"TDYP-1801-1","name":"Vücudumuz Nasıl Çalışır? - Basım Sayısı: 1. Basım","addr":"H-Y1-P122-K5"},{"sku":"TDYP-348-4","name":"Yaprak Dedikleri Var Ya... - Basım Sayısı: 4. Basım","addr":"GT-Y1-P126-K1"},{"sku":"TDYP-348-4","name":"Yaprak Dedikleri Var Ya... - Basım Sayısı: 4. Basım","addr":"H-Y1-P119-K2"},{"sku":"TDYP-385-7","name":"İlk Okuma - Yağmur Ormanları - Basım Sayısı: 7. Basım","addr":"G-Y2-P127-K4"},{"sku":"TDYP-1810-1","name":"İnsan Vücudu Hakkında Her Şeyi Bildiğini mi Sanıyorsun? - Basım Sayısı: 1. Basım","addr":"G-Y2-P124-K5"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y1-P131-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y1-P135-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y2-P122-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y2-P129-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y2-P131-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y2-P132-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y2-P133-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"G-Y2-P128-K4"}]
+</script>
+<script type="application/json" id="data-shortfall">
+[{"siparis_no": "TDYP-ORDERP-737585_1", "siparis_toplam_adet": 2, "sku": "TDYP-1104-5", "urun_adi": "Bebekler Nereden Gelir? - Basım Sayısı: 5. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y2-P104-K2", "qty": 966}, {"addr": "FT-Y2-P104-K1", "qty": 10}]}, {"siparis_no": "TDYP-ORDERP-738072_1", "siparis_toplam_adet": 17, "sku": "TDYP-1148-4", "urun_adi": "Ara ve Bul Resimli Bulmacalar - Denizde - Basım Sayısı: 4. Basım", "satir_adet": 1, "tb_stok": 1, "eksik": 1, "bayi": [{"addr": "FT-Y1-P85-K1", "qty": 4628}, {"addr": "F-Y1-P117-K3", "qty": 4140}]}, {"siparis_no": "TDYP-ORDERP-738066_1", "siparis_toplam_adet": 10, "sku": "TDYP-1148-4", "urun_adi": "Ara ve Bul Resimli Bulmacalar - Denizde - Basım Sayısı: 4. Basım", "satir_adet": 1, "tb_stok": 1, "eksik": 1, "bayi": [{"addr": "FT-Y1-P85-K1", "qty": 4628}, {"addr": "F-Y1-P117-K3", "qty": 4140}]}, {"siparis_no": "TDYP-ORDERP-738048_1", "siparis_toplam_adet": 7, "sku": "TDYP-1148-4", "urun_adi": "Ara ve Bul Resimli Bulmacalar - Denizde - Basım Sayısı: 4. Basım", "satir_adet": 1, "tb_stok": 1, "eksik": 1, "bayi": [{"addr": "FT-Y1-P85-K1", "qty": 4628}, {"addr": "F-Y1-P117-K3", "qty": 4140}]}, {"siparis_no": "TDYP-ORDERP-737915_1", "siparis_toplam_adet": 8, "sku": "TDYP-1148-4", "urun_adi": "Ara ve Bul Resimli Bulmacalar - Denizde - Basım Sayısı: 4. Basım", "satir_adet": 1, "tb_stok": 1, "eksik": 1, "bayi": [{"addr": "FT-Y1-P85-K1", "qty": 4628}, {"addr": "F-Y1-P117-K3", "qty": 4140}]}, {"siparis_no": "TDYP-ORDERP-737906_1", "siparis_toplam_adet": 11, "sku": "TDYP-1148-4", "urun_adi": "Ara ve Bul Resimli Bulmacalar - Denizde - Basım Sayısı: 4. Basım", "satir_adet": 1, "tb_stok": 1, "eksik": 1, "bayi": [{"addr": "FT-Y1-P85-K1", "qty": 4628}, {"addr": "F-Y1-P117-K3", "qty": 4140}]}, {"siparis_no": "TDYP-ORDERP-738040_1", "siparis_toplam_adet": 6, "sku": "TDYP-1254-5", "urun_adi": "Yapabilirim ! - Basım Sayısı: 5. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P93-K3", "qty": 2607}]}, {"siparis_no": "TDYP-ORDERP-738213_1", "siparis_toplam_adet": 3, "sku": "TDYP-1351-3", "urun_adi": "Ara ve Bul Resimli Bulmacalar Tropik Ormanlar - Basım Sayısı: 3. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P95-K2", "qty": 4629}]}, {"siparis_no": "TDYP-ORDERP-738122_1", "siparis_toplam_adet": 13, "sku": "TDYP-1351-3", "urun_adi": "Ara ve Bul Resimli Bulmacalar Tropik Ormanlar - Basım Sayısı: 3. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P95-K2", "qty": 4629}]}, {"siparis_no": "TDYP-ORDERP-738072_1", "siparis_toplam_adet": 17, "sku": "TDYP-1351-3", "urun_adi": "Ara ve Bul Resimli Bulmacalar Tropik Ormanlar - Basım Sayısı: 3. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P95-K2", "qty": 4629}]}, {"siparis_no": "TDYP-ORDERP-738066_1", "siparis_toplam_adet": 10, "sku": "TDYP-1351-3", "urun_adi": "Ara ve Bul Resimli Bulmacalar Tropik Ormanlar - Basım Sayısı: 3. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P95-K2", "qty": 4629}]}, {"siparis_no": "TDYP-ORDERP-738018_1", "siparis_toplam_adet": 10, "sku": "TDYP-1351-3", "urun_adi": "Ara ve Bul Resimli Bulmacalar Tropik Ormanlar - Basım Sayısı: 3. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P95-K2", "qty": 4629}]}, {"siparis_no": "TDYP-ORDERP-737965_1", "siparis_toplam_adet": 9, "sku": "TDYP-1351-3", "urun_adi": "Ara ve Bul Resimli Bulmacalar Tropik Ormanlar - Basım Sayısı: 3. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P95-K2", "qty": 4629}]}, {"siparis_no": "TDYP-ORDERP-737915_1", "siparis_toplam_adet": 8, "sku": "TDYP-1351-3", "urun_adi": "Ara ve Bul Resimli Bulmacalar Tropik Ormanlar - Basım Sayısı: 3. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P95-K2", "qty": 4629}]}, {"siparis_no": "TDYP-ORDERP-737906_1", "siparis_toplam_adet": 11, "sku": "TDYP-1351-3", "urun_adi": "Ara ve Bul Resimli Bulmacalar Tropik Ormanlar - Basım Sayısı: 3. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P95-K2", "qty": 4629}]}, {"siparis_no": "TDYP-ORDERP-737855_1", "siparis_toplam_adet": 4, "sku": "TDYP-1351-3", "urun_adi": "Ara ve Bul Resimli Bulmacalar Tropik Ormanlar - Basım Sayısı: 3. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P95-K2", "qty": 4629}]}, {"siparis_no": "TDYP-ORDERP-737823_1", "siparis_toplam_adet": 22, "sku": "TDYP-1351-3", "urun_adi": "Ara ve Bul Resimli Bulmacalar Tropik Ormanlar - Basım Sayısı: 3. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P95-K2", "qty": 4629}]}, {"siparis_no": "TDYP-ORDERP-737650_1", "siparis_toplam_adet": 7, "sku": "TDYP-1351-3", "urun_adi": "Ara ve Bul Resimli Bulmacalar Tropik Ormanlar - Basım Sayısı: 3. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P95-K2", "qty": 4629}]}, {"siparis_no": "TDYP-ORDERP-737823_1", "siparis_toplam_adet": 22, "sku": "TDYP-1357-3", "urun_adi": "Neden? - Basım Sayısı: 3. Basım", "satir_adet": 1, "tb_stok": 3, "eksik": 1, "bayi": [{"addr": "F-Y1-P129-K3", "qty": 3058}]}, {"siparis_no": "TDYP-ORDERP-737652_1", "siparis_toplam_adet": 5, "sku": "TDYP-1357-3", "urun_adi": "Neden? - Basım Sayısı: 3. Basım", "satir_adet": 1, "tb_stok": 3, "eksik": 1, "bayi": [{"addr": "F-Y1-P129-K3", "qty": 3058}]}, {"siparis_no": "TDYP-ORDERP-737584_1", "siparis_toplam_adet": 5, "sku": "TDYP-1357-3", "urun_adi": "Neden? - Basım Sayısı: 3. Basım", "satir_adet": 1, "tb_stok": 3, "eksik": 1, "bayi": [{"addr": "F-Y1-P129-K3", "qty": 3058}]}, {"siparis_no": "TDYP-ORDERP-738122_1", "siparis_toplam_adet": 13, "sku": "TDYP-1358-8", "urun_adi": "1001 Minik Hayvanı Bulun - Basım Sayısı: 8. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P125-K2", "qty": 311}]}, {"siparis_no": "TDYP-ORDERP-738040_1", "siparis_toplam_adet": 6, "sku": "TDYP-1358-8", "urun_adi": "1001 Minik Hayvanı Bulun - Basım Sayısı: 8. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P125-K2", "qty": 311}]}, {"siparis_no": "TDYP-ORDERP-737960_1", "siparis_toplam_adet": 9, "sku": "TDYP-1358-8", "urun_adi": "1001 Minik Hayvanı Bulun - Basım Sayısı: 8. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P125-K2", "qty": 311}]}, {"siparis_no": "TDYP-ORDERP-737906_1", "siparis_toplam_adet": 11, "sku": "TDYP-1358-8", "urun_adi": "1001 Minik Hayvanı Bulun - Basım Sayısı: 8. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P125-K2", "qty": 311}]}, {"siparis_no": "TDYP-ORDERP-737618_1", "siparis_toplam_adet": 7, "sku": "TDYP-1358-8", "urun_adi": "1001 Minik Hayvanı Bulun - Basım Sayısı: 8. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P125-K2", "qty": 311}]}, {"siparis_no": "TDYP-ORDERP-737725_1", "siparis_toplam_adet": 8, "sku": "TDYP-1365-3", "urun_adi": "Şaşırtıcı Gerçekler - Mühendislik - Basım Sayısı: 3. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y2-P134-K2", "qty": 3040}, {"addr": "GT-Y1-P127-K1", "qty": 3020}, {"addr": "F-Y2-P125-K1", "qty": 2876}]}, {"siparis_no": "TDYP-ORDERP-738097_1", "siparis_toplam_adet": 4, "sku": "TDYP-1512-2", "urun_adi": "Bilim İnsanları Tüm Gün Ne Yapar ? - Basım Sayısı: 2. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P124-K3", "qty": 2840}, {"addr": "H-Y1-P123-K4", "qty": 1520}, {"addr": "H-Y1-P122-K3", "qty": 1309}]}, {"siparis_no": "TDYP-ORDERP-737564_1", "siparis_toplam_adet": 2, "sku": "TDYP-1512-2", "urun_adi": "Bilim İnsanları Tüm Gün Ne Yapar ? - Basım Sayısı: 2. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P124-K3", "qty": 2840}, {"addr": "H-Y1-P123-K4", "qty": 1520}, {"addr": "H-Y1-P122-K3", "qty": 1309}]}, {"siparis_no": "TDYP-ORDERP-737869_1", "siparis_toplam_adet": 9, "sku": "TDYP-1563-1", "urun_adi": "Mevsimler - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "HT-Y1-P134-K1", "qty": 4374}, {"addr": "G-Y1-P130-K5", "qty": 380}]}, {"siparis_no": "TDYP-ORDERP-738057_1", "siparis_toplam_adet": 5, "sku": "TDYP-1688-3", "urun_adi": "Uzay Kâşifinin El Kitabı - Basım Sayısı: 3. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "HT-Y1-P122-K1", "qty": 2189}]}, {"siparis_no": "TDYP-ORDERP-738237_1", "siparis_toplam_adet": 9, "sku": "TDYP-1715-1", "urun_adi": "Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y2-P35-K2", "qty": 1430}, {"addr": "F-Y1-P87-K4", "qty": 1405}, {"addr": "F-Y2-P56-K2", "qty": 1400}, {"addr": "F-Y1-P76-K3", "qty": 1380}, {"addr": "FT-Y1-P76-K1", "qty": 1354}, {"addr": "F-Y1-P71-K3", "qty": 1040}]}, {"siparis_no": "TDYP-ORDERP-738169_1", "siparis_toplam_adet": 1, "sku": "TDYP-1715-1", "urun_adi": "Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y2-P35-K2", "qty": 1430}, {"addr": "F-Y1-P87-K4", "qty": 1405}, {"addr": "F-Y2-P56-K2", "qty": 1400}, {"addr": "F-Y1-P76-K3", "qty": 1380}, {"addr": "FT-Y1-P76-K1", "qty": 1354}, {"addr": "F-Y1-P71-K3", "qty": 1040}]}, {"siparis_no": "TDYP-ORDERP-738122_1", "siparis_toplam_adet": 13, "sku": "TDYP-1715-1", "urun_adi": "Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y2-P35-K2", "qty": 1430}, {"addr": "F-Y1-P87-K4", "qty": 1405}, {"addr": "F-Y2-P56-K2", "qty": 1400}, {"addr": "F-Y1-P76-K3", "qty": 1380}, {"addr": "FT-Y1-P76-K1", "qty": 1354}, {"addr": "F-Y1-P71-K3", "qty": 1040}]}, {"siparis_no": "TDYP-ORDERP-738082_1", "siparis_toplam_adet": 4, "sku": "TDYP-1715-1", "urun_adi": "Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y2-P35-K2", "qty": 1430}, {"addr": "F-Y1-P87-K4", "qty": 1405}, {"addr": "F-Y2-P56-K2", "qty": 1400}, {"addr": "F-Y1-P76-K3", "qty": 1380}, {"addr": "FT-Y1-P76-K1", "qty": 1354}, {"addr": "F-Y1-P71-K3", "qty": 1040}]}, {"siparis_no": "TDYP-ORDERP-738078_1", "siparis_toplam_adet": 6, "sku": "TDYP-1715-1", "urun_adi": "Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y2-P35-K2", "qty": 1430}, {"addr": "F-Y1-P87-K4", "qty": 1405}, {"addr": "F-Y2-P56-K2", "qty": 1400}, {"addr": "F-Y1-P76-K3", "qty": 1380}, {"addr": "FT-Y1-P76-K1", "qty": 1354}, {"addr": "F-Y1-P71-K3", "qty": 1040}]}, {"siparis_no": "TDYP-ORDERP-738066_1", "siparis_toplam_adet": 10, "sku": "TDYP-1715-1", "urun_adi": "Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y2-P35-K2", "qty": 1430}, {"addr": "F-Y1-P87-K4", "qty": 1405}, {"addr": "F-Y2-P56-K2", "qty": 1400}, {"addr": "F-Y1-P76-K3", "qty": 1380}, {"addr": "FT-Y1-P76-K1", "qty": 1354}, {"addr": "F-Y1-P71-K3", "qty": 1040}]}, {"siparis_no": "TDYP-ORDERP-738065_1", "siparis_toplam_adet": 19, "sku": "TDYP-1715-1", "urun_adi": "Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y2-P35-K2", "qty": 1430}, {"addr": "F-Y1-P87-K4", "qty": 1405}, {"addr": "F-Y2-P56-K2", "qty": 1400}, {"addr": "F-Y1-P76-K3", "qty": 1380}, {"addr": "FT-Y1-P76-K1", "qty": 1354}, {"addr": "F-Y1-P71-K3", "qty": 1040}]}, {"siparis_no": "TDYP-ORDERP-738056_1", "siparis_toplam_adet": 4, "sku": "TDYP-1715-1", "urun_adi": "Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y2-P35-K2", "qty": 1430}, {"addr": "F-Y1-P87-K4", "qty": 1405}, {"addr": "F-Y2-P56-K2", "qty": 1400}, {"addr": "F-Y1-P76-K3", "qty": 1380}, {"addr": "FT-Y1-P76-K1", "qty": 1354}, {"addr": "F-Y1-P71-K3", "qty": 1040}]}, {"siparis_no": "TDYP-ORDERP-738051_1", "siparis_toplam_adet": 14, "sku": "TDYP-1715-1", "urun_adi": "Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y2-P35-K2", "qty": 1430}, {"addr": "F-Y1-P87-K4", "qty": 1405}, {"addr": "F-Y2-P56-K2", "qty": 1400}, {"addr": "F-Y1-P76-K3", "qty": 1380}, {"addr": "FT-Y1-P76-K1", "qty": 1354}, {"addr": "F-Y1-P71-K3", "qty": 1040}]}, {"siparis_no": "TDYP-ORDERP-738048_1", "siparis_toplam_adet": 7, "sku": "TDYP-1715-1", "urun_adi": "Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y2-P35-K2", "qty": 1430}, {"addr": "F-Y1-P87-K4", "qty": 1405}, {"addr": "F-Y2-P56-K2", "qty": 1400}, {"addr": "F-Y1-P76-K3", "qty": 1380}, {"addr": "FT-Y1-P76-K1", "qty": 1354}, {"addr": "F-Y1-P71-K3", "qty": 1040}]}, {"siparis_no": "TDYP-ORDERP-737960_1", "siparis_toplam_adet": 9, "sku": "TDYP-1715-1", "urun_adi": "Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y2-P35-K2", "qty": 1430}, {"addr": "F-Y1-P87-K4", "qty": 1405}, {"addr": "F-Y2-P56-K2", "qty": 1400}, {"addr": "F-Y1-P76-K3", "qty": 1380}, {"addr": "FT-Y1-P76-K1", "qty": 1354}, {"addr": "F-Y1-P71-K3", "qty": 1040}]}, {"siparis_no": "TDYP-ORDERP-737906_1", "siparis_toplam_adet": 11, "sku": "TDYP-1715-1", "urun_adi": "Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y2-P35-K2", "qty": 1430}, {"addr": "F-Y1-P87-K4", "qty": 1405}, {"addr": "F-Y2-P56-K2", "qty": 1400}, {"addr": "F-Y1-P76-K3", "qty": 1380}, {"addr": "FT-Y1-P76-K1", "qty": 1354}, {"addr": "F-Y1-P71-K3", "qty": 1040}]}, {"siparis_no": "TDYP-ORDERP-737855_1", "siparis_toplam_adet": 4, "sku": "TDYP-1715-1", "urun_adi": "Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y2-P35-K2", "qty": 1430}, {"addr": "F-Y1-P87-K4", "qty": 1405}, {"addr": "F-Y2-P56-K2", "qty": 1400}, {"addr": "F-Y1-P76-K3", "qty": 1380}, {"addr": "FT-Y1-P76-K1", "qty": 1354}, {"addr": "F-Y1-P71-K3", "qty": 1040}]}, {"siparis_no": "TDYP-ORDERP-737652_1", "siparis_toplam_adet": 5, "sku": "TDYP-1715-1", "urun_adi": "Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y2-P35-K2", "qty": 1430}, {"addr": "F-Y1-P87-K4", "qty": 1405}, {"addr": "F-Y2-P56-K2", "qty": 1400}, {"addr": "F-Y1-P76-K3", "qty": 1380}, {"addr": "FT-Y1-P76-K1", "qty": 1354}, {"addr": "F-Y1-P71-K3", "qty": 1040}]}, {"siparis_no": "TDYP-ORDERP-737584_1", "siparis_toplam_adet": 5, "sku": "TDYP-1715-1", "urun_adi": "Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y2-P35-K2", "qty": 1430}, {"addr": "F-Y1-P87-K4", "qty": 1405}, {"addr": "F-Y2-P56-K2", "qty": 1400}, {"addr": "F-Y1-P76-K3", "qty": 1380}, {"addr": "FT-Y1-P76-K1", "qty": 1354}, {"addr": "F-Y1-P71-K3", "qty": 1040}]}, {"siparis_no": "TDYP-ORDERP-738239_1", "siparis_toplam_adet": 3, "sku": "TDYP-1791-0", "urun_adi": "Meraklı Minik (Ağustos 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "GT-Y2-P135-K1", "qty": 769}]}, {"siparis_no": "TDYP-ORDERP-738122_1", "siparis_toplam_adet": 13, "sku": "TDYP-1791-0", "urun_adi": "Meraklı Minik (Ağustos 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "GT-Y2-P135-K1", "qty": 769}]}, {"siparis_no": "TDYP-ORDERP-738072_1", "siparis_toplam_adet": 17, "sku": "TDYP-1791-0", "urun_adi": "Meraklı Minik (Ağustos 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "GT-Y2-P135-K1", "qty": 769}]}, {"siparis_no": "TDYP-ORDERP-738071_1", "siparis_toplam_adet": 2, "sku": "TDYP-1791-0", "urun_adi": "Meraklı Minik (Ağustos 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "GT-Y2-P135-K1", "qty": 769}]}, {"siparis_no": "TDYP-ORDERP-738057_1", "siparis_toplam_adet": 5, "sku": "TDYP-1791-0", "urun_adi": "Meraklı Minik (Ağustos 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "GT-Y2-P135-K1", "qty": 769}]}, {"siparis_no": "TDYP-ORDERP-738056_1", "siparis_toplam_adet": 4, "sku": "TDYP-1791-0", "urun_adi": "Meraklı Minik (Ağustos 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "GT-Y2-P135-K1", "qty": 769}]}, {"siparis_no": "TDYP-ORDERP-738019_1", "siparis_toplam_adet": 2, "sku": "TDYP-1791-0", "urun_adi": "Meraklı Minik (Ağustos 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "GT-Y2-P135-K1", "qty": 769}]}, {"siparis_no": "TDYP-ORDERP-737993_1", "siparis_toplam_adet": 5, "sku": "TDYP-1791-0", "urun_adi": "Meraklı Minik (Ağustos 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "GT-Y2-P135-K1", "qty": 769}]}, {"siparis_no": "TDYP-ORDERP-737965_1", "siparis_toplam_adet": 9, "sku": "TDYP-1791-0", "urun_adi": "Meraklı Minik (Ağustos 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "GT-Y2-P135-K1", "qty": 769}]}, {"siparis_no": "TDYP-ORDERP-737823_1", "siparis_toplam_adet": 22, "sku": "TDYP-1791-0", "urun_adi": "Meraklı Minik (Ağustos 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "GT-Y2-P135-K1", "qty": 769}]}, {"siparis_no": "TDYP-ORDERP-738239_1", "siparis_toplam_adet": 3, "sku": "TDYP-1793-0", "urun_adi": "Bilim Çocuk (Ağustos 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "GT-Y2-P136-K1", "qty": 174}]}, {"siparis_no": "TDYP-ORDERP-738218_1", "siparis_toplam_adet": 16, "sku": "TDYP-1793-0", "urun_adi": "Bilim Çocuk (Ağustos 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "GT-Y2-P136-K1", "qty": 174}]}, {"siparis_no": "TDYP-ORDERP-738151_1", "siparis_toplam_adet": 3, "sku": "TDYP-1793-0", "urun_adi": "Bilim Çocuk (Ağustos 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "GT-Y2-P136-K1", "qty": 174}]}, {"siparis_no": "TDYP-ORDERP-737993_1", "siparis_toplam_adet": 5, "sku": "TDYP-1793-0", "urun_adi": "Bilim Çocuk (Ağustos 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "GT-Y2-P136-K1", "qty": 174}]}, {"siparis_no": "TDYP-ORDERP-737976_1", "siparis_toplam_adet": 1, "sku": "TDYP-1793-0", "urun_adi": "Bilim Çocuk (Ağustos 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "GT-Y2-P136-K1", "qty": 174}]}, {"siparis_no": "TDYP-ORDERP-737808_1", "siparis_toplam_adet": 2, "sku": "TDYP-1793-0", "urun_adi": "Bilim Çocuk (Ağustos 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "GT-Y2-P136-K1", "qty": 174}]}, {"siparis_no": "TDYP-ORDERP-738218_1", "siparis_toplam_adet": 16, "sku": "TDYP-1796-1", "urun_adi": "Görevimiz Bilim - Basım Sayısı: 1. Basım", "satir_adet": 2, "tb_stok": 0, "eksik": 2, "bayi": [{"addr": "F-Y1-P120-K5", "qty": 2520}, {"addr": "F-Y1-P134-K5", "qty": 2520}, {"addr": "F-Y1-P119-K5", "qty": 2520}, {"addr": "FT-Y1-P125-K1", "qty": 2520}, {"addr": "FT-Y1-P130-K2", "qty": 2503}, {"addr": "F-Y1-P130-K2", "qty": 2272}]}, {"siparis_no": "TDYP-ORDERP-738207_1", "siparis_toplam_adet": 3, "sku": "TDYP-1796-1", "urun_adi": "Görevimiz Bilim - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P120-K5", "qty": 2520}, {"addr": "F-Y1-P134-K5", "qty": 2520}, {"addr": "F-Y1-P119-K5", "qty": 2520}, {"addr": "FT-Y1-P125-K1", "qty": 2520}, {"addr": "FT-Y1-P130-K2", "qty": 2503}, {"addr": "F-Y1-P130-K2", "qty": 2272}]}, {"siparis_no": "TDYP-ORDERP-738188_1", "siparis_toplam_adet": 1, "sku": "TDYP-1796-1", "urun_adi": "Görevimiz Bilim - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P120-K5", "qty": 2520}, {"addr": "F-Y1-P134-K5", "qty": 2520}, {"addr": "F-Y1-P119-K5", "qty": 2520}, {"addr": "FT-Y1-P125-K1", "qty": 2520}, {"addr": "FT-Y1-P130-K2", "qty": 2503}, {"addr": "F-Y1-P130-K2", "qty": 2272}]}, {"siparis_no": "TDYP-ORDERP-737923_1", "siparis_toplam_adet": 6, "sku": "TDYP-1796-1", "urun_adi": "Görevimiz Bilim - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P120-K5", "qty": 2520}, {"addr": "F-Y1-P134-K5", "qty": 2520}, {"addr": "F-Y1-P119-K5", "qty": 2520}, {"addr": "FT-Y1-P125-K1", "qty": 2520}, {"addr": "FT-Y1-P130-K2", "qty": 2503}, {"addr": "F-Y1-P130-K2", "qty": 2272}]}, {"siparis_no": "TDYP-ORDERP-737805_1", "siparis_toplam_adet": 14, "sku": "TDYP-1796-1", "urun_adi": "Görevimiz Bilim - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P120-K5", "qty": 2520}, {"addr": "F-Y1-P134-K5", "qty": 2520}, {"addr": "F-Y1-P119-K5", "qty": 2520}, {"addr": "FT-Y1-P125-K1", "qty": 2520}, {"addr": "FT-Y1-P130-K2", "qty": 2503}, {"addr": "F-Y1-P130-K2", "qty": 2272}]}, {"siparis_no": "TDYP-ORDERP-737794_1", "siparis_toplam_adet": 21, "sku": "TDYP-1796-1", "urun_adi": "Görevimiz Bilim - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P120-K5", "qty": 2520}, {"addr": "F-Y1-P134-K5", "qty": 2520}, {"addr": "F-Y1-P119-K5", "qty": 2520}, {"addr": "FT-Y1-P125-K1", "qty": 2520}, {"addr": "FT-Y1-P130-K2", "qty": 2503}, {"addr": "F-Y1-P130-K2", "qty": 2272}]}, {"siparis_no": "TDYP-ORDERP-737757_1", "siparis_toplam_adet": 5, "sku": "TDYP-1796-1", "urun_adi": "Görevimiz Bilim - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P120-K5", "qty": 2520}, {"addr": "F-Y1-P134-K5", "qty": 2520}, {"addr": "F-Y1-P119-K5", "qty": 2520}, {"addr": "FT-Y1-P125-K1", "qty": 2520}, {"addr": "FT-Y1-P130-K2", "qty": 2503}, {"addr": "F-Y1-P130-K2", "qty": 2272}]}, {"siparis_no": "TDYP-ORDERP-737725_1", "siparis_toplam_adet": 8, "sku": "TDYP-1796-1", "urun_adi": "Görevimiz Bilim - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P120-K5", "qty": 2520}, {"addr": "F-Y1-P134-K5", "qty": 2520}, {"addr": "F-Y1-P119-K5", "qty": 2520}, {"addr": "FT-Y1-P125-K1", "qty": 2520}, {"addr": "FT-Y1-P130-K2", "qty": 2503}, {"addr": "F-Y1-P130-K2", "qty": 2272}]}, {"siparis_no": "TDYP-ORDERP-737653_1", "siparis_toplam_adet": 18, "sku": "TDYP-1796-1", "urun_adi": "Görevimiz Bilim - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P120-K5", "qty": 2520}, {"addr": "F-Y1-P134-K5", "qty": 2520}, {"addr": "F-Y1-P119-K5", "qty": 2520}, {"addr": "FT-Y1-P125-K1", "qty": 2520}, {"addr": "FT-Y1-P130-K2", "qty": 2503}, {"addr": "F-Y1-P130-K2", "qty": 2272}]}, {"siparis_no": "TDYP-ORDERP-737564_1", "siparis_toplam_adet": 2, "sku": "TDYP-1796-1", "urun_adi": "Görevimiz Bilim - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P120-K5", "qty": 2520}, {"addr": "F-Y1-P134-K5", "qty": 2520}, {"addr": "F-Y1-P119-K5", "qty": 2520}, {"addr": "FT-Y1-P125-K1", "qty": 2520}, {"addr": "FT-Y1-P130-K2", "qty": 2503}, {"addr": "F-Y1-P130-K2", "qty": 2272}]}, {"siparis_no": "TDYP-ORDERP-738239_1", "siparis_toplam_adet": 3, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-738228_1", "siparis_toplam_adet": 1, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-738192_1", "siparis_toplam_adet": 1, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-738151_1", "siparis_toplam_adet": 3, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-738143_1", "siparis_toplam_adet": 1, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-738141_1", "siparis_toplam_adet": 9, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-738122_1", "siparis_toplam_adet": 13, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-738095_1", "siparis_toplam_adet": 1, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-738082_1", "siparis_toplam_adet": 4, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-738072_1", "siparis_toplam_adet": 17, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-738071_1", "siparis_toplam_adet": 2, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-738056_1", "siparis_toplam_adet": 4, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-738047_1", "siparis_toplam_adet": 1, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-738019_1", "siparis_toplam_adet": 2, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-738018_1", "siparis_toplam_adet": 10, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-737993_1", "siparis_toplam_adet": 5, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-737972_1", "siparis_toplam_adet": 1, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-737965_1", "siparis_toplam_adet": 9, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-737906_1", "siparis_toplam_adet": 11, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-737869_1", "siparis_toplam_adet": 9, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-737823_1", "siparis_toplam_adet": 22, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-737808_1", "siparis_toplam_adet": 2, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-737561_1", "siparis_toplam_adet": 1, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-737559_1", "siparis_toplam_adet": 1, "sku": "TDYP-1797-0", "urun_adi": "Meraklı Minik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P128-K1", "qty": 1169}, {"addr": "F-Y1-P67-K3", "qty": 986}, {"addr": "FT-Y1-P129-K1", "qty": 501}]}, {"siparis_no": "TDYP-ORDERP-738057_1", "siparis_toplam_adet": 5, "sku": "TDYP-1798-0", "urun_adi": "Bilim ve Teknik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "G-Y2-P125-K1", "qty": 1653}, {"addr": "G-Y1-P128-K2", "qty": 1271}, {"addr": "GT-Y2-P125-K1", "qty": 389}]}, {"siparis_no": "TDYP-ORDERP-737993_1", "siparis_toplam_adet": 5, "sku": "TDYP-1798-0", "urun_adi": "Bilim ve Teknik (Eylül 2026)", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "G-Y2-P125-K1", "qty": 1653}, {"addr": "G-Y1-P128-K2", "qty": 1271}, {"addr": "GT-Y2-P125-K1", "qty": 389}]}, {"siparis_no": "TDYP-ORDERP-738065_1", "siparis_toplam_adet": 19, "sku": "TDYP-1800-1", "urun_adi": "Yalnızca Ağaçlar Bilir - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P123-K2", "qty": 5100}, {"addr": "H-Y1-P122-K2", "qty": 5100}, {"addr": "G-Y1-P131-K2", "qty": 5080}, {"addr": "H-Y1-P123-K3", "qty": 4499}]}, {"siparis_no": "TDYP-ORDERP-737794_1", "siparis_toplam_adet": 21, "sku": "TDYP-1800-1", "urun_adi": "Yalnızca Ağaçlar Bilir - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P123-K2", "qty": 5100}, {"addr": "H-Y1-P122-K2", "qty": 5100}, {"addr": "G-Y1-P131-K2", "qty": 5080}, {"addr": "H-Y1-P123-K3", "qty": 4499}]}, {"siparis_no": "TDYP-ORDERP-737653_1", "siparis_toplam_adet": 18, "sku": "TDYP-1800-1", "urun_adi": "Yalnızca Ağaçlar Bilir - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P123-K2", "qty": 5100}, {"addr": "H-Y1-P122-K2", "qty": 5100}, {"addr": "G-Y1-P131-K2", "qty": 5080}, {"addr": "H-Y1-P123-K3", "qty": 4499}]}, {"siparis_no": "TDYP-ORDERP-737557_1", "siparis_toplam_adet": 5, "sku": "TDYP-1800-1", "urun_adi": "Yalnızca Ağaçlar Bilir - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P123-K2", "qty": 5100}, {"addr": "H-Y1-P122-K2", "qty": 5100}, {"addr": "G-Y1-P131-K2", "qty": 5080}, {"addr": "H-Y1-P123-K3", "qty": 4499}]}, {"siparis_no": "TDYP-ORDERP-738237_1", "siparis_toplam_adet": 9, "sku": "TDYP-1801-1", "urun_adi": "Vücudumuz Nasıl Çalışır? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P122-K5", "qty": 3120}, {"addr": "G-Y1-P123-K5", "qty": 3120}, {"addr": "G-Y1-P133-K2", "qty": 3099}, {"addr": "G-Y1-P126-K2", "qty": 3080}, {"addr": "G-Y1-P119-K3", "qty": 2253}]}, {"siparis_no": "TDYP-ORDERP-738218_1", "siparis_toplam_adet": 16, "sku": "TDYP-1801-1", "urun_adi": "Vücudumuz Nasıl Çalışır? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P122-K5", "qty": 3120}, {"addr": "G-Y1-P123-K5", "qty": 3120}, {"addr": "G-Y1-P133-K2", "qty": 3099}, {"addr": "G-Y1-P126-K2", "qty": 3080}, {"addr": "G-Y1-P119-K3", "qty": 2253}]}, {"siparis_no": "TDYP-ORDERP-738207_1", "siparis_toplam_adet": 3, "sku": "TDYP-1801-1", "urun_adi": "Vücudumuz Nasıl Çalışır? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P122-K5", "qty": 3120}, {"addr": "G-Y1-P123-K5", "qty": 3120}, {"addr": "G-Y1-P133-K2", "qty": 3099}, {"addr": "G-Y1-P126-K2", "qty": 3080}, {"addr": "G-Y1-P119-K3", "qty": 2253}]}, {"siparis_no": "TDYP-ORDERP-738078_1", "siparis_toplam_adet": 6, "sku": "TDYP-1801-1", "urun_adi": "Vücudumuz Nasıl Çalışır? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P122-K5", "qty": 3120}, {"addr": "G-Y1-P123-K5", "qty": 3120}, {"addr": "G-Y1-P133-K2", "qty": 3099}, {"addr": "G-Y1-P126-K2", "qty": 3080}, {"addr": "G-Y1-P119-K3", "qty": 2253}]}, {"siparis_no": "TDYP-ORDERP-738040_1", "siparis_toplam_adet": 6, "sku": "TDYP-1801-1", "urun_adi": "Vücudumuz Nasıl Çalışır? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P122-K5", "qty": 3120}, {"addr": "G-Y1-P123-K5", "qty": 3120}, {"addr": "G-Y1-P133-K2", "qty": 3099}, {"addr": "G-Y1-P126-K2", "qty": 3080}, {"addr": "G-Y1-P119-K3", "qty": 2253}]}, {"siparis_no": "TDYP-ORDERP-737965_1", "siparis_toplam_adet": 9, "sku": "TDYP-1801-1", "urun_adi": "Vücudumuz Nasıl Çalışır? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P122-K5", "qty": 3120}, {"addr": "G-Y1-P123-K5", "qty": 3120}, {"addr": "G-Y1-P133-K2", "qty": 3099}, {"addr": "G-Y1-P126-K2", "qty": 3080}, {"addr": "G-Y1-P119-K3", "qty": 2253}]}, {"siparis_no": "TDYP-ORDERP-737854_1", "siparis_toplam_adet": 1, "sku": "TDYP-1801-1", "urun_adi": "Vücudumuz Nasıl Çalışır? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P122-K5", "qty": 3120}, {"addr": "G-Y1-P123-K5", "qty": 3120}, {"addr": "G-Y1-P133-K2", "qty": 3099}, {"addr": "G-Y1-P126-K2", "qty": 3080}, {"addr": "G-Y1-P119-K3", "qty": 2253}]}, {"siparis_no": "TDYP-ORDERP-737794_1", "siparis_toplam_adet": 21, "sku": "TDYP-1801-1", "urun_adi": "Vücudumuz Nasıl Çalışır? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P122-K5", "qty": 3120}, {"addr": "G-Y1-P123-K5", "qty": 3120}, {"addr": "G-Y1-P133-K2", "qty": 3099}, {"addr": "G-Y1-P126-K2", "qty": 3080}, {"addr": "G-Y1-P119-K3", "qty": 2253}]}, {"siparis_no": "TDYP-ORDERP-737757_1", "siparis_toplam_adet": 5, "sku": "TDYP-1801-1", "urun_adi": "Vücudumuz Nasıl Çalışır? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P122-K5", "qty": 3120}, {"addr": "G-Y1-P123-K5", "qty": 3120}, {"addr": "G-Y1-P133-K2", "qty": 3099}, {"addr": "G-Y1-P126-K2", "qty": 3080}, {"addr": "G-Y1-P119-K3", "qty": 2253}]}, {"siparis_no": "TDYP-ORDERP-737653_1", "siparis_toplam_adet": 18, "sku": "TDYP-1801-1", "urun_adi": "Vücudumuz Nasıl Çalışır? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P122-K5", "qty": 3120}, {"addr": "G-Y1-P123-K5", "qty": 3120}, {"addr": "G-Y1-P133-K2", "qty": 3099}, {"addr": "G-Y1-P126-K2", "qty": 3080}, {"addr": "G-Y1-P119-K3", "qty": 2253}]}, {"siparis_no": "TDYP-ORDERP-737557_1", "siparis_toplam_adet": 5, "sku": "TDYP-1801-1", "urun_adi": "Vücudumuz Nasıl Çalışır? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P122-K5", "qty": 3120}, {"addr": "G-Y1-P123-K5", "qty": 3120}, {"addr": "G-Y1-P133-K2", "qty": 3099}, {"addr": "G-Y1-P126-K2", "qty": 3080}, {"addr": "G-Y1-P119-K3", "qty": 2253}]}, {"siparis_no": "TDYP-ORDERP-737535_1", "siparis_toplam_adet": 4, "sku": "TDYP-1801-1", "urun_adi": "Vücudumuz Nasıl Çalışır? - Basım Sayısı: 1. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "H-Y1-P122-K5", "qty": 3120}, {"addr": "G-Y1-P123-K5", "qty": 3120}, {"addr": "G-Y1-P133-K2", "qty": 3099}, {"addr": "G-Y1-P126-K2", "qty": 3080}, {"addr": "G-Y1-P119-K3", "qty": 2253}]}, {"siparis_no": "TDYP-ORDERP-738245_1", "siparis_toplam_adet": 14, "sku": "TDYP-348-4", "urun_adi": "Yaprak Dedikleri Var Ya... - Basım Sayısı: 4. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "GT-Y1-P126-K1", "qty": 3270}, {"addr": "H-Y1-P119-K2", "qty": 2799}]}, {"siparis_no": "TDYP-ORDERP-737823_1", "siparis_toplam_adet": 22, "sku": "TDYP-348-4", "urun_adi": "Yaprak Dedikleri Var Ya... - Basım Sayısı: 4. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "GT-Y1-P126-K1", "qty": 3270}, {"addr": "H-Y1-P119-K2", "qty": 2799}]}, {"siparis_no": "TDYP-ORDERP-738172_1", "siparis_toplam_adet": 10, "sku": "TDYP-479-36", "urun_adi": "Matematiğin Aydınlık Dünyası - Basım Sayısı: 36. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P119-K1", "qty": 2090}]}, {"siparis_no": "TDYP-ORDERP-737733_1", "siparis_toplam_adet": 10, "sku": "TDYP-479-36", "urun_adi": "Matematiğin Aydınlık Dünyası - Basım Sayısı: 36. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "FT-Y1-P119-K1", "qty": 2090}]}, {"siparis_no": "TDYP-ORDERP-738186_1", "siparis_toplam_adet": 7, "sku": "TDYP-607-9", "urun_adi": "Aziz Sancar'ın Kendi Kaleminden Hayatı ve Bilimi (sert kapaklı) - Basım Sayısı: 9. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P103-K3", "qty": 1740}, {"addr": "FT-Y2-P115-K1", "qty": 18}]}, {"siparis_no": "TDYP-ORDERP-738172_1", "siparis_toplam_adet": 10, "sku": "TDYP-607-9", "urun_adi": "Aziz Sancar'ın Kendi Kaleminden Hayatı ve Bilimi (sert kapaklı) - Basım Sayısı: 9. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P103-K3", "qty": 1740}, {"addr": "FT-Y2-P115-K1", "qty": 18}]}, {"siparis_no": "TDYP-ORDERP-737869_1", "siparis_toplam_adet": 9, "sku": "TDYP-627-4", "urun_adi": "Ulu Meşeyle Bir Yıl - Basım Sayısı: 4. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "G-Y2-P135-K2", "qty": 3230}]}, {"siparis_no": "TDYP-ORDERP-737950_1", "siparis_toplam_adet": 4, "sku": "TDYP-689-6", "urun_adi": "Etkinlik Kartları - Matematik Bulmacaları - Basım Sayısı: 6. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P127-K3", "qty": 1920}, {"addr": "G-Y2-P121-K2", "qty": 1757}, {"addr": "FT-Y2-P103-K1", "qty": 736}, {"addr": "FT-Y1-P88-K1", "qty": 15}]}, {"siparis_no": "TDYP-ORDERP-737901_1", "siparis_toplam_adet": 8, "sku": "TDYP-689-6", "urun_adi": "Etkinlik Kartları - Matematik Bulmacaları - Basım Sayısı: 6. Basım", "satir_adet": 1, "tb_stok": 0, "eksik": 1, "bayi": [{"addr": "F-Y1-P127-K3", "qty": 1920}, {"addr": "G-Y2-P121-K2", "qty": 1757}, {"addr": "FT-Y2-P103-K1", "qty": 736}, {"addr": "FT-Y1-P88-K1", "qty": 15}]}, {"siparis_no": "TDYP-ORDERP-737965_1", "siparis_toplam_adet": 9, "sku": "TDYP-914-2", "urun_adi": "Bu Şekli Tanıyor musun? - Minikler Serisi Şekiller - Basım Sayısı: 2. Basım", "satir_adet": 1, "tb_stok": 2, "eksik": 1, "bayi": [{"addr": "G-Y2-P119-K4", "qty": 407}]}, {"siparis_no": "TDYP-ORDERP-737652_1", "siparis_toplam_adet": 5, "sku": "TDYP-914-2", "urun_adi": "Bu Şekli Tanıyor musun? - Minikler Serisi Şekiller - Basım Sayısı: 2. Basım", "satir_adet": 1, "tb_stok": 2, "eksik": 1, "bayi": [{"addr": "G-Y2-P119-K4", "qty": 407}]}, {"siparis_no": "TDYP-ORDERP-737650_1", "siparis_toplam_adet": 7, "sku": "TDYP-914-2", "urun_adi": "Bu Şekli Tanıyor musun? - Minikler Serisi Şekiller - Basım Sayısı: 2. Basım", "satir_adet": 1, "tb_stok": 2, "eksik": 1, "bayi": [{"addr": "G-Y2-P119-K4", "qty": 407}]}]
+</script>
+<script type="application/json" id="data-bigorder">
+[]
+</script>
+<script type="application/json" id="data-meta">
+{"updated": "2026-09-12 14:46"}
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(function(){
+  var bayiRaw = JSON.parse(document.getElementById('data-bayi').textContent);
+  var shortRaw = JSON.parse(document.getElementById('data-shortfall').textContent);
+  var bigorderRaw = JSON.parse(document.getElementById('data-bigorder').textContent);
+  var meta = JSON.parse(document.getElementById('data-meta').textContent);
+
+  document.getElementById('updated-text').textContent = 'Son güncelleme: ' + meta.updated;
+
+  var addrRe = /^([A-Z]+)-(Y\d+)-P(\d+)-K(\d+)$/;
+  function formatAddr(addr){
+    var m = addrRe.exec(addr);
+    if (!m) return addr;
+    return m[1] + '-' + m[2] + '-K' + m[4] + '-G' + m[3];
+  }
+
+  var bayi = bayiRaw.map(function(r){
+    var m = addrRe.exec(r.addr);
+    var level = 0, corridor = '?', goz = r.addr;
+    if (m){
+      corridor = m[1].charAt(0);
+      level = parseInt(m[4], 10);
+      goz = m[1] + '-' + m[2] + '-K' + m[4] + '-G' + m[3];
+    }
+    return { sku:r.sku, name:r.name, corridor:corridor, level:level, goz:goz };
+  });
+
+  var uniqSkus = {};
+  bayi.forEach(function(r){ uniqSkus[r.sku] = true; });
+  var uniqOrders = {};
+  shortRaw.forEach(function(r){ uniqOrders[r.siparis_no] = true; });
+
+  var uniqShortSkus = {};
+  shortRaw.forEach(function(r){ uniqShortSkus[r.sku] = true; });
+
+  var uniqBigOrders = {};
+  bigorderRaw.forEach(function(r){ uniqBigOrders[r.siparis_no] = true; });
+
+  document.getElementById('stat-bayi').textContent = Object.keys(uniqSkus).length;
+  document.getElementById('stat-lines').textContent = shortRaw.length;
+  document.getElementById('stat-orders').textContent = Object.keys(uniqOrders).length;
+  document.getElementById('stat-bigorders').textContent = Object.keys(uniqBigOrders).length;
+
+  document.getElementById('tcount-bayi').textContent = bayi.length;
+  document.getElementById('tcount-shortfall').textContent = Object.keys(uniqShortSkus).length;
+  document.getElementById('tcount-bigorder').textContent = bigorderRaw.length;
+
+  var tabTitles = {
+    bayi: 'Bayide Var Webde Yok',
+    shortfall: 'Siparis Yetersizligi',
+    bigorder: '100+ Siparis Bayi Eksigi'
+  };
+  var activeTab = 'bayi';
+
+  function selectTab(name){
+    activeTab = name;
+    ['bayi','shortfall','bigorder'].forEach(function(key){
+      var isActive = key === name;
+      document.getElementById('panel-' + key).hidden = !isActive;
+      document.getElementById('tab-' + key).setAttribute('aria-selected', String(isActive));
+    });
+    document.querySelectorAll('.stat').forEach(function(btn){
+      btn.setAttribute('aria-pressed', String(btn.getAttribute('data-tab') === name));
+    });
+  }
+  document.querySelectorAll('.tabbtn, .stat').forEach(function(el){
+    el.addEventListener('click', function(){ selectTab(el.getAttribute('data-tab')); });
+  });
+  selectTab('bayi');
+
+  var baseTitle = document.title;
+  document.getElementById('print-btn').addEventListener('click', function(){
+    document.title = 'Tubitak - ' + (tabTitles[activeTab] || activeTab);
+    window.print();
+  });
+  window.addEventListener('afterprint', function(){ document.title = baseTitle; });
+
+  function makeSortable(){
+    var state = { key:null, dir:1 };
+    return {
+      apply: function(rows){
+        if (state.key){
+          rows = rows.slice().sort(function(a,b){
+            var av = a[state.key], bv = b[state.key];
+            if (typeof av === 'number' && typeof bv === 'number') return (av - bv) * state.dir;
+            return String(av).localeCompare(String(bv), 'tr') * state.dir;
+          });
+        }
+        return rows;
+      },
+      onHeaderClick: function(key, thEl, allThs){
+        if (state.key === key){ state.dir *= -1; } else { state.key = key; state.dir = 1; }
+        allThs.forEach(function(th){ th.removeAttribute('aria-sort'); });
+        thEl.setAttribute('aria-sort', state.dir === 1 ? 'ascending' : 'descending');
+      }
+    };
+  }
+
+  // ---- Bayi panel ----
+  var bayiFilterCorridor = 'all';
+  var bayiFilterText = '';
+  var bayiSort = makeSortable();
+  var bayiBody = document.getElementById('bayi-body');
+  var bayiThs = document.querySelectorAll('#bayi-table thead th');
+
+  function bayiMatchesChip(r, chip){
+    if (chip === 'all') return true;
+    if (chip === '1') return r.level === 1;
+    return r.level >= 2 && r.corridor === chip;
+  }
+
+  function renderBayi(){
+    var text = bayiFilterText.trim().toLocaleLowerCase('tr');
+    var rows = bayi.filter(function(r){
+      if (!bayiMatchesChip(r, bayiFilterCorridor)) return false;
+      if (!text) return true;
+      return (r.sku + ' ' + r.name).toLocaleLowerCase('tr').indexOf(text) !== -1;
+    });
+    rows = bayiSort.apply(rows);
+    document.getElementById('bayi-count').textContent = rows.length;
+    if (!rows.length){
+      bayiBody.innerHTML = '<tr class="empty-row"><td colspan="5">Filtreyle eşleşen kayıt yok.</td></tr>';
+      return;
+    }
+    bayiBody.innerHTML = rows.map(function(r){
+      return '<tr>' +
+        '<td class="mono">' + esc(r.sku) + '</td>' +
+        '<td class="name">' + esc(r.name) + '</td>' +
+        '<td><span class="badge corridor">' + esc(r.corridor) + '</span></td>' +
+        '<td class="num">' + r.level + '</td>' +
+        '<td class="mono">' + esc(r.goz) + '</td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  bayiThs.forEach(function(th){
+    th.addEventListener('click', function(){ bayiSort.onHeaderClick(th.getAttribute('data-key'), th, bayiThs); renderBayi(); });
+  });
+  document.getElementById('bayi-search').addEventListener('input', function(e){ bayiFilterText = e.target.value; renderBayi(); });
+  document.querySelectorAll('#panel-bayi .chip').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('#panel-bayi .chip').forEach(function(b){ b.setAttribute('aria-pressed', 'false'); });
+      btn.setAttribute('aria-pressed', 'true');
+      bayiFilterCorridor = btn.getAttribute('data-cor');
+      renderBayi();
+    });
+  });
+
+  // ---- Shortfall panel (grouped by SKU: one feed action covers all its orders) ----
+  var shortLines = shortRaw.map(function(r){
+    return {
+      siparis_no: r.siparis_no,
+      siparis_toplam_adet: parseInt(r.siparis_toplam_adet, 10),
+      sku: r.sku,
+      urun_adi: r.urun_adi,
+      satir_adet: parseInt(r.satir_adet, 10),
+      tb_stok: parseInt(r.tb_stok, 10),
+      eksik: parseInt(r.eksik, 10),
+      bayi: r.bayi || []
+    };
+  });
+
+  var shortfallBySku = {};
+  shortLines.forEach(function(r){
+    if (!shortfallBySku[r.sku]){
+      var feedList = r.bayi.map(function(b){
+        return { addr: b.addr, qty: b.qty, formatted: formatAddr(b.addr) };
+      }).sort(function(a, b){ return b.qty - a.qty; });
+      shortfallBySku[r.sku] = {
+        sku: r.sku,
+        urun_adi: r.urun_adi,
+        tb_stok: r.tb_stok,
+        toplam_talep: 0,
+        toplam_eksik: 0,
+        siparisler: [],
+        bayi_list: feedList,
+        bayi_total: feedList.reduce(function(sum, f){ return sum + f.qty; }, 0)
+      };
+    }
+    var g = shortfallBySku[r.sku];
+    g.toplam_talep += r.satir_adet;
+    g.toplam_eksik += r.eksik;
+    g.siparisler.push({ siparis_no: r.siparis_no, siparis_toplam_adet: r.siparis_toplam_adet, satir_adet: r.satir_adet, eksik: r.eksik });
+  });
+  var shortfall = Object.keys(shortfallBySku).map(function(sku){
+    var g = shortfallBySku[sku];
+    g.siparisler.sort(function(a, b){ return b.eksik - a.eksik; });
+    g.siparis_sayisi = g.siparisler.length;
+    return g;
+  });
+
+  var shortFilterText = '';
+  var shortSort = makeSortable();
+  var shortBody = document.getElementById('shortfall-body');
+  var shortThs = document.querySelectorAll('#shortfall-table thead th');
+
+  function renderFeedCell(r){
+    if (!r.bayi_list.length){
+      return '<span class="feed-total">Bayi gözünde de yok</span>';
+    }
+    var top = r.bayi_list[0];
+    var extra = r.bayi_list.length - 1;
+    var title = r.bayi_list.map(function(f){ return f.formatted + ': ' + f.qty + ' adet'; }).join('\n');
+    return '<div title="' + esc(title) + '">' +
+      '<span class="badge feed">' + esc(top.formatted) + '</span>' +
+      (extra > 0 ? '<span class="feed-extra">+' + extra + ' adres</span>' : '') +
+      '<div class="feed-total">Toplam ' + r.bayi_total + ' adet bayi stoku</div>' +
+    '</div>';
+  }
+
+  function renderOrdersCell(r){
+    var LIMIT = 5;
+    var shown = r.siparisler.slice(0, LIMIT);
+    var extra = r.siparisler.length - shown.length;
+    var title = r.siparisler.map(function(o){ return o.siparis_no + ': ' + o.eksik + ' adet eksik (sip. toplam ' + o.siparis_toplam_adet + ')'; }).join('\n');
+    var chips = shown.map(function(o){
+      return '<span class="badge corridor">' + esc(o.siparis_no) + ' <span class="feed-extra">(' + o.eksik + ')</span></span>';
+    }).join(' ');
+    return '<div title="' + esc(title) + '">' + chips +
+      (extra > 0 ? '<div class="feed-total">+' + extra + ' sipariş daha</div>' : '') +
+    '</div>';
+  }
+
+  function renderShortfall(){
+    var text = shortFilterText.trim().toLocaleLowerCase('tr');
+    var rows = shortfall.filter(function(r){
+      if (!text) return true;
+      var orderNos = r.siparisler.map(function(o){ return o.siparis_no; }).join(' ');
+      return (orderNos + ' ' + r.sku + ' ' + r.urun_adi).toLocaleLowerCase('tr').indexOf(text) !== -1;
+    });
+    rows = shortSort.apply(rows);
+    document.getElementById('shortfall-count').textContent = rows.length;
+    if (!rows.length){
+      shortBody.innerHTML = '<tr class="empty-row"><td colspan="8">Filtreyle eşleşen kayıt yok.</td></tr>';
+      return;
+    }
+    shortBody.innerHTML = rows.map(function(r){
+      return '<tr>' +
+        '<td class="mono">' + esc(r.sku) + '</td>' +
+        '<td class="name">' + esc(r.urun_adi) + '</td>' +
+        '<td class="num">' + r.siparis_sayisi + '</td>' +
+        '<td class="num">' + r.toplam_talep + '</td>' +
+        '<td class="num">' + r.tb_stok + '</td>' +
+        '<td class="num"><span class="badge risk">−' + r.toplam_eksik + '</span></td>' +
+        '<td class="feed mono">' + renderFeedCell(r) + '</td>' +
+        '<td class="feed mono">' + renderOrdersCell(r) + '</td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  shortThs.forEach(function(th){
+    th.addEventListener('click', function(){
+      var key = th.getAttribute('data-key');
+      if (!key) return;
+      shortSort.onHeaderClick(key, th, shortThs);
+      renderShortfall();
+    });
+  });
+  document.getElementById('shortfall-search').addEventListener('input', function(e){ shortFilterText = e.target.value; renderShortfall(); });
+
+  // ---- Big order (bayi-insufficient) panel ----
+  var bigorder = bigorderRaw.map(function(r){
+    return {
+      siparis_no: r.siparis_no,
+      durum: r.durum,
+      siparis_toplam_adet: parseInt(r.siparis_toplam_adet, 10),
+      sku: r.sku,
+      urun_adi: r.urun_adi,
+      satir_adet: parseInt(r.satir_adet, 10),
+      bayi_stok: parseInt(r.bayi_stok, 10),
+      eksik: parseInt(r.eksik, 10)
+    };
+  });
+  var bigorderFilterText = '';
+  var bigorderSort = makeSortable();
+  var bigorderBody = document.getElementById('bigorder-body');
+  var bigorderThs = document.querySelectorAll('#bigorder-table thead th');
+
+  function renderBigorder(){
+    var text = bigorderFilterText.trim().toLocaleLowerCase('tr');
+    var rows = bigorder.filter(function(r){
+      if (!text) return true;
+      return (r.siparis_no + ' ' + r.sku + ' ' + r.urun_adi).toLocaleLowerCase('tr').indexOf(text) !== -1;
+    });
+    rows = bigorderSort.apply(rows);
+    document.getElementById('bigorder-count').textContent = rows.length;
+    if (!rows.length){
+      bigorderBody.innerHTML = '<tr class="empty-row"><td colspan="8">Filtreyle eşleşen kayıt yok.</td></tr>';
+      return;
+    }
+    bigorderBody.innerHTML = rows.map(function(r){
+      return '<tr>' +
+        '<td class="mono">' + esc(r.siparis_no) + '</td>' +
+        '<td>' + esc(r.durum) + '</td>' +
+        '<td class="num">' + r.siparis_toplam_adet + '</td>' +
+        '<td class="mono">' + esc(r.sku) + '</td>' +
+        '<td class="name">' + esc(r.urun_adi) + '</td>' +
+        '<td class="num">' + r.satir_adet + '</td>' +
+        '<td class="num">' + r.bayi_stok + '</td>' +
+        '<td class="num"><span class="badge risk">−' + r.eksik + '</span></td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  bigorderThs.forEach(function(th){
+    th.addEventListener('click', function(){ bigorderSort.onHeaderClick(th.getAttribute('data-key'), th, bigorderThs); renderBigorder(); });
+  });
+  document.getElementById('bigorder-search').addEventListener('input', function(e){ bigorderFilterText = e.target.value; renderBigorder(); });
+
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  // default sort: shortfall by toplam_eksik desc, bayi by name asc
+  shortSort.onHeaderClick('toplam_eksik', document.querySelector('#shortfall-table th[data-key="toplam_eksik"]'), shortThs);
+  shortSort.onHeaderClick('toplam_eksik', document.querySelector('#shortfall-table th[data-key="toplam_eksik"]'), shortThs);
+  bayiSort.onHeaderClick('name', document.querySelector('#bayi-table th[data-key="name"]'), bayiThs);
+  bigorderSort.onHeaderClick('eksik', document.querySelector('#bigorder-table th[data-key="eksik"]'), bigorderThs);
+  bigorderSort.onHeaderClick('eksik', document.querySelector('#bigorder-table th[data-key="eksik"]'), bigorderThs);
+
+  renderBayi();
+  renderShortfall();
+  renderBigorder();
+
+  // ---- Share / phone QR ----
+  var shareOverlay = document.getElementById('share-overlay');
+  var shareQrEl = document.getElementById('share-qr');
+  var shareLinkInput = document.getElementById('share-link-input');
+  var qrRendered = false;
+
+  document.getElementById('share-btn').addEventListener('click', function(){
+    var url = window.location.href;
+    shareLinkInput.value = url;
+    if (!qrRendered && window.QRCode){
+      new QRCode(shareQrEl, { text: url, width: 176, height: 176, colorDark: '#141413', colorLight: '#ffffff' });
+      qrRendered = true;
+    }
+    shareOverlay.hidden = false;
+  });
+  document.getElementById('share-close-btn').addEventListener('click', function(){ shareOverlay.hidden = true; });
+  shareOverlay.addEventListener('click', function(e){ if (e.target === shareOverlay) shareOverlay.hidden = true; });
+  document.getElementById('share-copy-btn').addEventListener('click', function(){
+    shareLinkInput.select();
+    shareLinkInput.setSelectionRange(0, 99999);
+    var btn = document.getElementById('share-copy-btn');
+    function fallback(){
+      try { document.execCommand('copy'); btn.textContent = 'Kopyalandı'; } catch(e){ btn.textContent = 'Kopyalanamadı'; }
+      setTimeout(function(){ btn.textContent = 'Kopyala'; }, 1500);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(shareLinkInput.value).then(function(){
+        btn.textContent = 'Kopyalandı';
+        setTimeout(function(){ btn.textContent = 'Kopyala'; }, 1500);
+      }, fallback);
+    } else {
+      fallback();
+    }
+  });
+})();
+</script>
+
+</body></html>
