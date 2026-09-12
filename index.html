@@ -801,9 +801,9 @@
   function setLiveStatus(ok, detail){
     lastFetchOk = ok;
     if (updatedDotEl) updatedDotEl.style.background = ok ? '' : 'var(--risk)';
-    nextUpdateEl.textContent = ok
-      ? ('Canlı · her ' + AUTO_REFRESH_SECONDS + ' sn otomatik yenilenir')
-      : ('Veri alınamadı, tekrar denenecek' + (detail ? ' (' + detail + ')' : ''));
+    // Sabit bir sonraki-güncelleme zamanlaması yok (sayfa canlı sorguluyor);
+    // bu satır sadece bir sorun olduğunda görünür, başarılı durumda boş kalır.
+    nextUpdateEl.textContent = ok ? '' : ('Veri alınamadı, tekrar denenecek' + (detail ? ' (' + detail + ')' : ''));
   }
 
   function loadAndRender(){
