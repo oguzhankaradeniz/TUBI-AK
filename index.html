@@ -1,99 +1,120 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Tübitak Göz Takibi</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
   :root{
-    --paper:#f5f1e6;
-    --paper-raised:#fbf8f1;
-    --ink:#211c14;
-    --ink-soft:#4a4030;
-    --muted:#8a7c60;
-    --line:#ddd2b8;
-    --accent:#c1631f;
-    --accent-ink:#7a3c10;
-    --accent-soft:#f2ddc4;
-    --ok:#3c7a53;
-    --ok-soft:#dcecdf;
-    --risk:#ad3324;
-    --risk-soft:#f6ded9;
-    --shadow: 0 1px 2px rgba(33,28,20,.06), 0 6px 16px rgba(33,28,20,.05);
+    --bg:#eef0f4;
+    --surface:#ffffff;
+    --surface-alt:#f3f5f9;
+    --ink:#151822;
+    --ink-soft:#4b5468;
+    --muted:#8991a3;
+    --line:#e2e5ed;
+    --accent:#4338ca;
+    --accent-2:#6d28d9;
+    --accent-ink:#3730a3;
+    --accent-soft:#eeecfe;
+    --ok:#15803d;
+    --ok-soft:#dcfce7;
+    --risk:#dc2626;
+    --risk-soft:#fee2e2;
+    --radius:14px;
+    --radius-sm:9px;
+    --shadow: 0 1px 2px rgba(21,24,34,.04), 0 10px 26px rgba(21,24,34,.07);
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --paper:#1c1811;
-      --paper-raised:#252017;
-      --ink:#eee6d4;
-      --ink-soft:#cabf9f;
-      --muted:#9c8f70;
-      --line:#3c3423;
-      --accent:#e0904a;
-      --accent-ink:#f6cf9d;
-      --accent-soft:#3a2a17;
-      --ok:#6ebd8b;
-      --ok-soft:#22362a;
-      --risk:#e2695a;
-      --risk-soft:#3c2521;
-      --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 24px rgba(0,0,0,.35);
+      --bg:#0e1015;
+      --surface:#171a22;
+      --surface-alt:#1e222c;
+      --ink:#eceef3;
+      --ink-soft:#b4bacb;
+      --muted:#7d859b;
+      --line:#2a2f3c;
+      --accent:#8b7bf7;
+      --accent-2:#a78bfa;
+      --accent-ink:#c7bfff;
+      --accent-soft:#241f45;
+      --ok:#4ade80;
+      --ok-soft:#123521;
+      --risk:#f87171;
+      --risk-soft:#3a1518;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 30px rgba(0,0,0,.45);
     }
   }
   :root[data-theme="dark"]{
-    --paper:#1c1811;
-    --paper-raised:#252017;
-    --ink:#eee6d4;
-    --ink-soft:#cabf9f;
-    --muted:#9c8f70;
-    --line:#3c3423;
-    --accent:#e0904a;
-    --accent-ink:#f6cf9d;
-    --accent-soft:#3a2a17;
-    --ok:#6ebd8b;
-    --ok-soft:#22362a;
-    --risk:#e2695a;
-    --risk-soft:#3c2521;
-    --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 24px rgba(0,0,0,.35);
+    --bg:#0e1015;
+    --surface:#171a22;
+    --surface-alt:#1e222c;
+    --ink:#eceef3;
+    --ink-soft:#b4bacb;
+    --muted:#7d859b;
+    --line:#2a2f3c;
+    --accent:#8b7bf7;
+    --accent-2:#a78bfa;
+    --accent-ink:#c7bfff;
+    --accent-soft:#241f45;
+    --ok:#4ade80;
+    --ok-soft:#123521;
+    --risk:#f87171;
+    --risk-soft:#3a1518;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 30px rgba(0,0,0,.45);
   }
 
   *{box-sizing:border-box}
   body{
     margin:0;
-    background:var(--paper);
+    background:
+      radial-gradient(1100px 420px at 12% -10%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 60%),
+      var(--bg);
     color:var(--ink);
-    font-family:"Public Sans", system-ui, -apple-system, sans-serif;
+    font-family:"Inter", system-ui, -apple-system, sans-serif;
     padding-inline:20px;
-    padding-block:0 40px;
+    padding-block:0 48px;
+    -webkit-font-smoothing:antialiased;
   }
   ::selection{ background:var(--accent-soft); color:var(--accent-ink); }
 
-  .wrap{ max-width:1080px; margin:0 auto; }
+  .wrap{ max-width:1160px; margin:0 auto; }
 
   header.top{
-    display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between;
-    gap:16px 24px;
-    padding-block:28px 18px;
-    border-bottom:2px solid var(--line);
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
+    gap:14px 20px;
+    padding-block:26px 18px;
   }
-  .brand{ display:flex; flex-direction:column; gap:2px; }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand-mark{
+    display:grid; place-items:center;
+    width:42px; height:42px; flex:none;
+    border-radius:12px;
+    background:linear-gradient(155deg, var(--accent), var(--accent-2));
+    color:#fff; font-weight:800; font-size:1.05rem; letter-spacing:-.02em;
+    box-shadow:var(--shadow);
+  }
+  .brand-text{ display:flex; flex-direction:column; gap:1px; }
   .eyebrow{
-    font-family:"IBM Plex Mono", monospace;
-    font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
-    color:var(--accent-ink); font-weight:500;
+    font-size:.72rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--muted); font-weight:600;
   }
   h1{
-    font-family:"Barlow Condensed", sans-serif;
-    font-weight:700;
-    font-size:clamp(2rem, 5vw, 2.9rem);
-    letter-spacing:.01em;
+    font-weight:800;
+    font-size:clamp(1.5rem, 4vw, 1.9rem);
+    letter-spacing:-.02em;
     margin:0;
-    text-wrap:balance;
-    line-height:1;
+    line-height:1.15;
   }
+  .head-actions{
+    display:flex; flex-wrap:wrap; align-items:center; gap:10px 12px;
+    margin-left:auto;
+  }
+  .updated-group{ display:flex; flex-direction:column; align-items:flex-end; gap:4px; }
   .updated{
-    font-family:"IBM Plex Mono", monospace;
-    font-size:.82rem;
-    color:var(--muted);
-    display:flex; align-items:center; gap:8px;
-    padding:9px 14px;
-    background:var(--paper-raised);
+    font-size:.8rem;
+    font-weight:600;
+    color:var(--ink-soft);
+    display:flex; align-items:center; gap:7px;
+    padding:7px 13px;
+    background:var(--surface);
     border:1px solid var(--line);
     border-radius:999px;
     box-shadow:var(--shadow);
@@ -105,102 +126,137 @@
     flex:none;
   }
   #next-update-text{
-    font-family:"IBM Plex Mono", monospace;
-    font-size:.76rem;
+    font-size:.74rem;
+    font-weight:500;
     color:var(--muted);
     padding-right:4px;
   }
   #next-update-text:empty{ display:none; }
+  .btn-row{ display:flex; gap:8px; }
 
   .stats{
     display:grid;
     grid-template-columns:repeat(4, 1fr);
-    gap:14px;
-    margin-block:22px 30px;
+    gap:12px;
+    margin-block:20px 28px;
   }
   .stat{
-    background:var(--paper-raised);
+    position:relative;
+    overflow:hidden;
+    background:var(--surface);
     border:1px solid var(--line);
-    border-radius:10px;
+    border-radius:var(--radius);
     padding:16px 18px;
     box-shadow:var(--shadow);
-  }
-  .stat .n{
-    font-family:"Barlow Condensed", sans-serif;
-    font-weight:700;
-    font-size:2.4rem;
-    line-height:1;
-    font-variant-numeric:tabular-nums;
-    color:var(--accent-ink);
-  }
-  .stat .l{
-    margin-top:6px;
-    font-size:.86rem;
-    color:var(--ink-soft);
-    max-width:26ch;
-  }
-  .stat{
     cursor:pointer;
     text-align:left;
     font:inherit;
     color:inherit;
-    transition:border-color .15s ease;
+    transition:transform .15s ease, border-color .15s ease;
   }
-  .stat:hover, .stat:focus-visible{ border-color:var(--accent); }
-  .stat[aria-pressed="true"]{ border-color:var(--accent); box-shadow:var(--shadow), inset 0 0 0 1px var(--accent); }
+  .stat::before{
+    content:"";
+    position:absolute; inset:0 auto 0 0; width:4px;
+    background:linear-gradient(180deg, var(--accent), var(--accent-2));
+    opacity:0;
+    transition:opacity .15s ease;
+  }
+  .stat .n{
+    font-weight:800;
+    font-size:2.1rem;
+    line-height:1;
+    letter-spacing:-.03em;
+    font-variant-numeric:tabular-nums;
+    color:var(--ink);
+  }
+  .stat .l{
+    margin-top:7px;
+    font-size:.82rem;
+    color:var(--muted);
+    max-width:26ch;
+    line-height:1.35;
+  }
+  .stat:hover{ transform:translateY(-1px); border-color:color-mix(in srgb, var(--accent) 40%, var(--line)); }
+  .stat:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  .stat[aria-pressed="true"]{ border-color:var(--accent); }
+  .stat[aria-pressed="true"]::before{ opacity:1; }
+  .stat[aria-pressed="true"] .n{ color:var(--accent-ink); }
   @media (max-width:860px){ .stats{ grid-template-columns:repeat(2, 1fr); } }
-  @media (max-width:480px){ .stats{ grid-template-columns:1fr; } }
+  @media (max-width:480px){
+    .stats{ grid-template-columns:1fr 1fr; gap:9px; }
+    .stat{ padding:13px 14px; }
+    .stat .n{ font-size:1.7rem; }
+    .stat .l{ font-size:.76rem; }
+  }
+  @media (max-width:560px){
+    header.top{ flex-direction:column; align-items:stretch; }
+    .head-actions{ margin-left:0; justify-content:space-between; }
+    .updated-group{ align-items:flex-start; }
+    .btn-row{ flex:1; }
+    .btn-row .print-btn{ flex:1; justify-content:center; }
+  }
 
   .tabbar{
     display:flex;
-    flex-wrap:wrap;
-    gap:4px 8px;
-    border-bottom:2px solid var(--line);
-    margin-block:28px 22px;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    gap:6px;
+    padding:5px;
+    margin-block:22px 22px;
+    background:var(--surface-alt);
+    border:1px solid var(--line);
+    border-radius:999px;
   }
+  .tabbar::-webkit-scrollbar{ display:none; }
   .tabbtn{
-    font-family:"Barlow Condensed", sans-serif;
-    font-weight:700;
-    font-size:1.05rem;
-    letter-spacing:.01em;
+    font-weight:600;
+    font-size:.86rem;
+    letter-spacing:-.01em;
+    white-space:nowrap;
+    flex:none;
     background:none;
     border:none;
-    color:var(--muted);
-    padding:9px 4px 12px;
-    margin-bottom:-2px;
-    border-bottom:3px solid transparent;
+    color:var(--ink-soft);
+    padding:9px 16px;
+    border-radius:999px;
     cursor:pointer;
+    transition:background .15s ease, color .15s ease;
   }
-  .tabbtn:hover{ color:var(--ink-soft); }
-  .tabbtn[aria-selected="true"]{ color:var(--ink); border-bottom-color:var(--accent); }
+  .tabbtn:hover{ color:var(--ink); background:color-mix(in srgb, var(--surface) 60%, transparent); }
+  .tabbtn[aria-selected="true"]{
+    color:#fff;
+    background:linear-gradient(135deg, var(--accent), var(--accent-2));
+    box-shadow:var(--shadow);
+  }
   .tabbtn:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
   .tabbtn .tcount{
-    font-family:"IBM Plex Mono", monospace;
-    font-weight:500;
-    font-size:.78rem;
-    color:var(--muted);
+    font-weight:600;
+    font-size:.74rem;
+    opacity:.75;
     margin-left:6px;
   }
 
   section.panel{ margin-block:0; }
   section.panel[hidden]{ display:none; }
   .panel-head{
-    display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
+    display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between;
     gap:10px 20px;
     margin-bottom:14px;
   }
   .panel-head h2{
-    font-family:"Barlow Condensed", sans-serif;
     font-weight:700;
-    font-size:1.5rem;
+    font-size:1.15rem;
     margin:0;
-    letter-spacing:.01em;
+    letter-spacing:-.01em;
   }
   .panel-head p{
-    margin:2px 0 0;
-    font-size:.86rem;
+    margin:4px 0 0;
+    font-size:.84rem;
     color:var(--muted);
-    max-width:60ch;
+    max-width:64ch;
+    line-height:1.5;
   }
 
   .controls{
@@ -209,45 +265,51 @@
   }
   input.search{
     font:inherit;
-    font-family:"Public Sans", sans-serif;
     font-size:.88rem;
-    padding:8px 12px;
+    padding:9px 13px;
     border:1px solid var(--line);
-    border-radius:7px;
-    background:var(--paper-raised);
+    border-radius:var(--radius-sm);
+    background:var(--surface);
     color:var(--ink);
     min-width:220px;
     flex:1 1 220px;
+    box-shadow:var(--shadow);
   }
+  input.search::placeholder{ color:var(--muted); }
   input.search:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
   .chip{
-    font-family:"IBM Plex Mono", monospace;
-    font-size:.76rem;
-    letter-spacing:.02em;
-    padding:7px 12px;
+    font-size:.8rem;
+    font-weight:600;
+    letter-spacing:-.01em;
+    padding:8px 14px;
     border-radius:999px;
     border:1px solid var(--line);
-    background:var(--paper-raised);
+    background:var(--surface);
     color:var(--ink-soft);
     cursor:pointer;
+    transition:background .15s ease, color .15s ease, border-color .15s ease;
   }
+  .chip:hover{ border-color:color-mix(in srgb, var(--accent) 40%, var(--line)); }
   .chip:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
   .chip[aria-pressed="true"]{
-    background:var(--accent);
-    border-color:var(--accent);
-    color:#fff8ee;
+    background:linear-gradient(135deg, var(--accent), var(--accent-2));
+    border-color:transparent;
+    color:#fff;
   }
   .count-pill{
-    font-family:"IBM Plex Mono", monospace;
-    font-size:.76rem;
+    font-size:.78rem;
+    font-weight:600;
     color:var(--muted);
+    background:var(--surface-alt);
+    padding:5px 11px;
+    border-radius:999px;
   }
 
   .table-scroll{
     overflow-x:auto;
     border:1px solid var(--line);
-    border-radius:10px;
-    background:var(--paper-raised);
+    border-radius:var(--radius);
+    background:var(--surface);
     box-shadow:var(--shadow);
   }
   table{
@@ -257,98 +319,172 @@
   }
   thead th{
     position:sticky; top:0;
-    background:var(--paper-raised);
+    background:var(--surface);
     text-align:left;
-    font-family:"IBM Plex Mono", monospace;
-    font-weight:500;
-    font-size:.72rem;
-    letter-spacing:.06em;
+    font-weight:600;
+    font-size:.71rem;
+    letter-spacing:.05em;
     text-transform:uppercase;
     color:var(--muted);
-    padding:11px 14px;
+    padding:12px 14px;
     border-bottom:1px solid var(--line);
     cursor:pointer;
     white-space:nowrap;
     user-select:none;
   }
   thead th.num{ text-align:right; }
-  thead th .arrow{ opacity:.35; margin-left:4px; }
+  thead th .arrow{ opacity:.3; margin-left:4px; }
   thead th[aria-sort="ascending"] .arrow, thead th[aria-sort="descending"] .arrow{ opacity:1; color:var(--accent); }
   tbody td{
-    padding:9px 14px;
+    padding:10px 14px;
     border-bottom:1px solid var(--line);
     vertical-align:top;
   }
   tbody tr:last-child td{ border-bottom:none; }
-  tbody tr:hover td{ background:var(--accent-soft); }
+  tbody tr:hover td{ background:var(--surface-alt); }
   td.num, th.num{ text-align:right; font-variant-numeric:tabular-nums; }
-  td.mono, .mono{ font-family:"IBM Plex Mono", monospace; font-size:.82rem; }
+  td.mono, .mono{ font-family:"IBM Plex Mono", monospace; font-size:.81rem; }
   td.name{ max-width:38ch; }
 
   .badge{
     display:inline-flex; align-items:center; gap:5px;
-    padding:3px 9px;
+    padding:3px 10px;
     border-radius:999px;
     font-family:"IBM Plex Mono", monospace;
-    font-size:.78rem;
+    font-size:.77rem;
     font-weight:500;
     font-variant-numeric:tabular-nums;
   }
   .badge.risk{ background:var(--risk-soft); color:var(--risk); }
-  .badge.corridor{ background:var(--paper); border:1px solid var(--line); color:var(--ink-soft); }
+  .badge.corridor{ background:var(--surface-alt); border:1px solid var(--line); color:var(--ink-soft); }
   .badge.feed{ background:var(--ok-soft); color:var(--ok); border:1px solid transparent; }
-  .feed-extra{ font-family:"IBM Plex Mono", monospace; font-size:.74rem; color:var(--muted); margin-left:5px; }
-  .feed-total{ font-size:.72rem; color:var(--muted); margin-top:3px; }
-  td.feed{ min-width:15ch; }
+  .feed-extra{ font-family:"IBM Plex Mono", monospace; font-size:.73rem; color:var(--muted); margin-left:5px; }
+  .feed-total{ font-size:.72rem; color:var(--muted); margin-top:4px; }
+  td.feed{ min-width:16ch; }
 
-  .empty-row td{ text-align:center; color:var(--muted); padding:26px; font-style:italic; }
+  .expand-btn{
+    display:inline-block;
+    font:inherit;
+    font-size:.74rem;
+    font-weight:600;
+    color:var(--accent-ink);
+    background:var(--accent-soft);
+    border:none;
+    border-radius:999px;
+    padding:2px 9px;
+    margin:4px 0 0;
+    cursor:pointer;
+  }
+  .expand-btn:hover{ background:color-mix(in srgb, var(--accent-soft) 60%, var(--accent) 15%); }
+  .expand-btn:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+  ul.expand-panel{
+    list-style:none;
+    margin:8px 0 0;
+    padding:8px 10px;
+    background:var(--surface-alt);
+    border:1px solid var(--line);
+    border-radius:var(--radius-sm);
+    font-size:.78rem;
+    line-height:1.7;
+    max-width:32ch;
+  }
+  ul.expand-panel li{ display:flex; justify-content:space-between; gap:10px; }
+
+  .empty-row td{ text-align:center; color:var(--muted); padding:30px; }
 
   footer{
-    margin-top:40px;
+    margin-top:36px;
     padding-top:16px;
     border-top:1px solid var(--line);
     font-size:.78rem;
     color:var(--muted);
-    line-height:1.6;
+    line-height:1.65;
   }
-  footer code{ font-family:"IBM Plex Mono", monospace; background:var(--paper-raised); padding:1px 5px; border-radius:4px; border:1px solid var(--line); }
+  footer code{ font-family:"IBM Plex Mono", monospace; background:var(--surface-alt); padding:1px 5px; border-radius:4px; border:1px solid var(--line); font-size:.85em; }
 
   .print-btn{
-    font-family:"IBM Plex Mono", monospace;
-    font-size:.78rem;
-    letter-spacing:.02em;
-    padding:9px 14px;
+    font-size:.83rem;
+    font-weight:600;
+    padding:9px 15px;
     border-radius:999px;
     border:1px solid var(--line);
-    background:var(--paper-raised);
+    background:var(--surface);
     color:var(--ink-soft);
     cursor:pointer;
     display:inline-flex;
     align-items:center;
     gap:6px;
     box-shadow:var(--shadow);
+    transition:border-color .15s ease, color .15s ease, background .15s ease;
   }
-  .print-btn:hover, .print-btn:focus-visible{ border-color:var(--accent); color:var(--ink); }
+  .print-btn:hover, .print-btn:focus-visible{ border-color:var(--accent); color:var(--accent-ink); }
+  .print-btn.primary{
+    background:linear-gradient(135deg, var(--accent), var(--accent-2));
+    border-color:transparent;
+    color:#fff;
+  }
+  .print-btn.primary:hover{ color:#fff; filter:brightness(1.06); }
+
+  /* ---- Mobile: tabloları kart görünümüne çevir ---- */
+  @media screen and (max-width:720px){
+    .table-scroll{ border:none; box-shadow:none; background:none; border-radius:0; overflow:visible; }
+    table, tbody, tr{ display:block; width:100%; }
+    thead{ display:none; }
+    tbody tr{
+      background:var(--surface);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:4px 14px;
+      margin-bottom:10px;
+    }
+    tbody tr:hover td{ background:none; }
+    tbody tr.empty-row{ box-shadow:none; border-style:dashed; }
+    td{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+      padding:9px 0;
+      border-bottom:1px dashed var(--line);
+      text-align:right;
+    }
+    tbody tr td:last-child{ border-bottom:none; }
+    td::before{
+      content:attr(data-label);
+      flex:none;
+      font-weight:600;
+      font-size:.7rem;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      color:var(--muted);
+      text-align:left;
+      padding-top:.15em;
+    }
+    td.name, td.feed{ display:block; text-align:left; }
+    td.name::before, td.feed::before{ display:block; margin-bottom:5px; }
+    .empty-row{ display:block; text-align:center; }
+    .empty-row td{ display:block; }
+    .empty-row td::before{ display:none; }
+  }
 
   .share-overlay{
-    position:fixed; inset:0; background:rgba(20,16,10,.5);
+    position:fixed; inset:0; background:rgba(10,10,18,.55);
+    backdrop-filter:blur(2px);
     display:flex; align-items:center; justify-content:center;
     padding:20px; z-index:100;
   }
   .share-overlay[hidden]{ display:none; }
   .share-card{
-    background:var(--paper-raised); border:1px solid var(--line); border-radius:14px;
-    box-shadow:var(--shadow); padding:24px; max-width:340px; width:100%;
+    background:var(--surface); border:1px solid var(--line); border-radius:18px;
+    box-shadow:var(--shadow); padding:26px; max-width:340px; width:100%;
     text-align:center;
   }
   .share-card h3{
-    font-family:"Barlow Condensed", sans-serif; font-weight:700; font-size:1.3rem;
+    font-weight:800; font-size:1.2rem; letter-spacing:-.01em;
     margin:0 0 6px;
   }
-  .share-card p{ font-size:.82rem; color:var(--ink-soft); margin:0 0 16px; line-height:1.5; }
+  .share-card p{ font-size:.84rem; color:var(--muted); margin:0 0 16px; line-height:1.5; }
   .share-qr{
     display:flex; align-items:center; justify-content:center;
-    background:#fff; border-radius:10px; padding:12px; margin:0 auto 14px;
+    background:#fff; border-radius:12px; padding:12px; margin:0 auto 14px;
     width:200px; height:200px;
   }
   .share-link-row{
@@ -356,46 +492,55 @@
   }
   .share-link-row input{
     flex:1; font-family:"IBM Plex Mono", monospace; font-size:.76rem;
-    padding:8px 10px; border:1px solid var(--line); border-radius:7px;
-    background:var(--paper); color:var(--ink);
+    padding:9px 10px; border:1px solid var(--line); border-radius:var(--radius-sm);
+    background:var(--surface-alt); color:var(--ink);
   }
   .share-copy-btn, .share-close-btn{
-    font-family:"IBM Plex Mono", monospace; font-size:.78rem;
-    padding:8px 12px; border-radius:7px; border:1px solid var(--line);
-    background:var(--paper); color:var(--ink-soft); cursor:pointer;
+    font-size:.82rem; font-weight:600;
+    padding:9px 13px; border-radius:var(--radius-sm); border:1px solid var(--line);
+    background:var(--surface-alt); color:var(--ink-soft); cursor:pointer;
   }
-  .share-copy-btn:hover, .share-close-btn:hover{ border-color:var(--accent); color:var(--ink); }
-  .share-close-btn{ margin-top:6px; width:100%; }
+  .share-copy-btn:hover, .share-close-btn:hover{ border-color:var(--accent); color:var(--accent-ink); }
+  .share-close-btn{ margin-top:8px; width:100%; }
   .share-note{ font-size:.74rem; color:var(--muted); margin-top:14px; line-height:1.5; text-align:left; }
 
   @media print{
     @page{ size:landscape; margin:10mm; }
-    header.top .updated, #next-update-text, .stats, .tabbar, .controls, footer, .print-btn, .share-overlay{ display:none !important; }
+    header.top .updated-group, .stats, .tabbar, .controls, footer, .print-btn, .share-overlay{ display:none !important; }
     body{ background:#fff; color:#000; padding:0; }
     .wrap{ max-width:none; }
     header.top{ border-bottom:2px solid #000; padding-block:0 10px; }
+    .brand-mark{ background:none !important; color:#000 !important; box-shadow:none; border:2px solid #000; }
     .eyebrow{ color:#000; }
     section.panel[hidden]{ display:none !important; }
     .panel-head p{ color:#333; }
-    .table-scroll{ border:none; box-shadow:none; overflow:visible; border-radius:0; }
-    table{ font-size:9px; width:100%; table-layout:fixed; border-collapse:collapse; }
+    .table-scroll{ border:none; box-shadow:none; overflow:visible; border-radius:0; background:none; }
+    table, tbody, tr{ display:table-row-group !important; }
+    table{ display:table !important; font-size:9px; width:100%; table-layout:fixed; border-collapse:collapse; }
+    thead{ display:table-header-group !important; }
+    tbody tr{ display:table-row !important; background:none; border:none; box-shadow:none; padding:0; margin:0; }
     thead th{ position:static; background:#fff; color:#000; border-bottom:1px solid #000; white-space:normal; word-break:break-word; padding:4px 5px; }
-    tbody td{ color:#000; border-bottom:1px solid #ccc; white-space:normal; word-break:break-word; overflow-wrap:break-word; padding:4px 5px; vertical-align:top; }
-    td.mono, td.num, td.name, td.feed, td.orders{ max-width:none; }
+    tbody td{ display:table-cell !important; color:#000; border-bottom:1px solid #ccc; white-space:normal; word-break:break-word; overflow-wrap:break-word; padding:4px 5px; vertical-align:top; text-align:left !important; }
+    td::before{ content:none !important; }
+    td.num{ text-align:right !important; }
+    td.mono, td.num, td.name, td.feed{ max-width:none; }
     tbody tr:hover td{ background:none; }
     tr, td, th{ page-break-inside:avoid; }
     .badge{ border:1px solid #000 !important; background:none !important; color:#000 !important; white-space:normal !important; }
     .feed-extra, .feed-total{ color:#333; }
-    .feed div[title], .orders div[title]{ white-space:normal; }
+    .expand-btn, .expand-panel{ display:none !important; }
 
-    :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(1), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(1){ width:9%; }
-    :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(2), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(2){ width:19%; }
+    /* Yazdırmada sadece temel alanlar: SKU, Ürün Adı, Sipariş Sayısı, Toplam Talep,
+       Toplam Eksik, Besleme Adresi. Stok ve Bağlı Siparişler sütunları (çok veri
+       içerip sayfa sayısını artırdığı için) çıktıya dahil edilmez. */
+    :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(5), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(5),
+    :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(8), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(8){ display:none !important; }
+    :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(1), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(1){ width:10%; }
+    :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(2), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(2){ width:30%; }
     :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(3), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(3),
     :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(4), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(4),
-    :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(5), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(5),
-    :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(6), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(6){ width:7%; }
-    :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(7), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(7){ width:18%; }
-    :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(8), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(8){ width:18%; }
+    :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(6), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(6){ width:12%; }
+    :is(#shortfall-table, #trt-table, #lidya-table) th:nth-child(7), :is(#shortfall-table, #trt-table, #lidya-table) td:nth-child(7){ width:24%; }
     #bigorder-table th:nth-child(1), #bigorder-table td:nth-child(1){ width:14%; }
     #bigorder-table th:nth-child(2), #bigorder-table td:nth-child(2){ width:8%; }
     #bigorder-table th:nth-child(4), #bigorder-table td:nth-child(4){ width:9%; }
@@ -407,15 +552,22 @@
 
   <header class="top">
     <div class="brand">
-      <span class="eyebrow">Akyurt Deposu · Tübitak</span>
-      <h1>Göz Takibi</h1>
+      <div class="brand-mark" aria-hidden="true">AK</div>
+      <div class="brand-text">
+        <span class="eyebrow">Akyurt Deposu · Tübitak</span>
+        <h1>Göz Takibi</h1>
+      </div>
     </div>
-    <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
-      <div class="updated"><span class="dot"></span><span id="updated-text">—</span></div>
-      <span id="next-update-text"></span>
+    <div class="head-actions">
+      <div class="updated-group">
+        <div class="updated"><span class="dot"></span><span id="updated-text">—</span></div>
+        <span id="next-update-text"></span>
+      </div>
+      <div class="btn-row">
+        <button class="print-btn" type="button" id="share-btn">📱 Paylaş</button>
+        <button class="print-btn primary" type="button" id="print-btn">🖨️ Yazdır</button>
+      </div>
     </div>
-    <button class="print-btn" type="button" id="share-btn">Telefondan aç / paylaş</button>
-    <button class="print-btn" type="button" id="print-btn">Açık tabloyu yazdır</button>
   </header>
 
   <div class="share-overlay" id="share-overlay" hidden>
@@ -622,12 +774,12 @@
 
 </div>
 
-<script type="application/json" id="data-bayi">[{"sku":"TDYP-1506-1","name":"ASTRODALGIÇ - Basım Sayısı: 1. Basım","addr":"G-Y2-P118-K3"},{"sku":"TDYP-1390-2","name":"Anadolu\u0027daki Vahşi Kediler - Basım Sayısı: 2. Basım","addr":"HT-Y1-P123-K1"},{"sku":"TDYP-1390-3","name":"Anadolu\u0027daki Vahşi Kediler - Basım Sayısı: 3. Basım","addr":"F-Y2-P33-K2"},{"sku":"TDYP-1390-3","name":"Anadolu\u0027daki Vahşi Kediler - Basım Sayısı: 3. Basım","addr":"F-Y2-P33-K3"},{"sku":"TDYP-1390-3","name":"Anadolu\u0027daki Vahşi Kediler - Basım Sayısı: 3. Basım","addr":"F-Y2-P34-K3"},{"sku":"TDYP-1390-3","name":"Anadolu\u0027daki Vahşi Kediler - Basım Sayısı: 3. Basım","addr":"F-Y2-P35-K3"},{"sku":"TDYP-1207-2","name":"Balık - Basım Sayısı: 2. Basım","addr":"F-Y1-P114-K3"},{"sku":"TDYP-494-3","name":"Bilim Bunu Çözer - Burun Bilir - Basım Sayısı: 3. Basım","addr":"F-Y1-P70-K3"},{"sku":"TDYP-494-3","name":"Bilim Bunu Çözer - Burun Bilir - Basım Sayısı: 3. Basım","addr":"F-Y2-P101-K3"},{"sku":"TDYP-494-3","name":"Bilim Bunu Çözer - Burun Bilir - Basım Sayısı: 3. Basım","addr":"F-Y2-P108-K1"},{"sku":"TDYP-494-3","name":"Bilim Bunu Çözer - Burun Bilir - Basım Sayısı: 3. Basım","addr":"F-Y2-P78-K3"},{"sku":"TDYP-502-3","name":"Bilim Bunu Çözer - Küf Gizemi - Basım Sayısı: 3. Basım","addr":"F-Y1-P102-K4"},{"sku":"TDYP-502-3","name":"Bilim Bunu Çözer - Küf Gizemi - Basım Sayısı: 3. Basım","addr":"F-Y1-P104-K1"},{"sku":"TDYP-502-3","name":"Bilim Bunu Çözer - Küf Gizemi - Basım Sayısı: 3. Basım","addr":"F-Y2-P100-K3"},{"sku":"TDYP-502-3","name":"Bilim Bunu Çözer - Küf Gizemi - Basım Sayısı: 3. Basım","addr":"F-Y2-P82-K3"},{"sku":"TDYP-1472-1","name":"Bilimle El Ele: Madde - Basım Sayısı: 1. Basım","addr":"F-Y2-P114-K4"},{"sku":"TDYP-1472-1","name":"Bilimle El Ele: Madde - Basım Sayısı: 1. Basım","addr":"GT-Y1-P132-K1"},{"sku":"TDYP-1715-1","name":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","addr":"F-Y1-P71-K3"},{"sku":"TDYP-1715-1","name":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","addr":"F-Y1-P76-K3"},{"sku":"TDYP-1715-1","name":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","addr":"F-Y1-P87-K4"},{"sku":"TDYP-1715-1","name":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","addr":"F-Y2-P35-K2"},{"sku":"TDYP-1715-1","name":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","addr":"F-Y2-P56-K2"},{"sku":"TDYP-1715-1","name":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","addr":"FT-Y1-P76-K1"},{"sku":"TDYP-1583-1","name":"Bir Kitap Nasıl Hazırlanır? - Basım Sayısı: 1. Basım","addr":"F-Y1-P123-K4"},{"sku":"TDYP-1583-1","name":"Bir Kitap Nasıl Hazırlanır? - Basım Sayısı: 1. Basım","addr":"FT-Y2-P79-K1"},{"sku":"TDYP-1716-1","name":"Derin Öğrenme - Basım Sayısı: 1. Basım","addr":"F-Y1-P72-K3"},{"sku":"TDYP-1716-1","name":"Derin Öğrenme - Basım Sayısı: 1. Basım","addr":"FT-Y1-P67-K1"},{"sku":"TDYP-1716-1","name":"Derin Öğrenme - Basım Sayısı: 1. Basım","addr":"FT-Y1-P83-K1"},{"sku":"TDYP-1812-1","name":"Doğada Bir An - Basım Sayısı: 1. Basım","addr":"F-Y2-P79-K3"},{"sku":"TDYP-1809-1","name":"En Muhteşem Fikir - Basım Sayısı: 1. Basım","addr":"F-Y1-P100-K4"},{"sku":"TDYP-1491-2","name":"Farklı Düşün Farklı Yaz - Basım Sayısı: 2. Basım","addr":"F-Y1-P97-K2"},{"sku":"TDYP-1806-1","name":"Flamingo - Basım Sayısı: 1. Basım","addr":"F-Y1-P67-K1"},{"sku":"TDYP-1806-1","name":"Flamingo - Basım Sayısı: 1. Basım","addr":"GT-Y2-P130-K1"},{"sku":"TDYP-431-5","name":"Genç Astronotun El Kitabı - Basım Sayısı: 5. Basım","addr":"F-Y1-P118-K5"},{"sku":"TDYP-431-5","name":"Genç Astronotun El Kitabı - Basım Sayısı: 5. Basım","addr":"FT-Y1-P127-K1"},{"sku":"TDYP-1804-1","name":"Haydi Hayvanlara Bak! - Basım Sayısı: 1. Basım","addr":"F-Y2-P78-K1"},{"sku":"TDYP-1805-1","name":"Haydi Şekillere Bak! - Basım Sayısı: 1. Basım","addr":"F-Y1-P66-K1"},{"sku":"TDYP-460-6","name":"Işığın Öyküsü - Basım Sayısı: 6. Basım","addr":"FT-Y2-P100-K1"},{"sku":"TDYP-1407-2","name":"Keşfedin! İnsan Vücüdu - Basım Sayısı: 2. Basım","addr":"F-Y2-P80-K3"},{"sku":"TDYP-1670-1","name":"Matematikçiler  Yıldızları Sayıyor! - Basım Sayısı: 1. Basım","addr":"F-Y2-P94-K3"},{"sku":"TDYP-1670-1","name":"Matematikçiler  Yıldızları Sayıyor! - Basım Sayısı: 1. Basım","addr":"FT-Y1-P92-K1"},{"sku":"TDYP-1670-1","name":"Matematikçiler  Yıldızları Sayıyor! - Basım Sayısı: 1. Basım","addr":"FT-Y1-P93-K1"},{"sku":"TDYP-1797-0","name":"Meraklı Minik (Eylül 2026)","addr":"F-Y1-P67-K3"},{"sku":"TDYP-1797-0","name":"Meraklı Minik (Eylül 2026)","addr":"FT-Y1-P128-K1"},{"sku":"TDYP-1797-0","name":"Meraklı Minik (Eylül 2026)","addr":"FT-Y1-P129-K1"},{"sku":"TDYP-1729-0","name":"Meraklı Minik (Mart 2026)","addr":"G-Y1-P132-K3"},{"sku":"TDYP-1195-3","name":"Mimarlık Karalama Kitabı - Basım Sayısı: 3. Basım","addr":"FT-Y2-P125-K1"},{"sku":"TDYP-929-4","name":"Neden Formda Kalmalıyım - Basım Sayısı: 4. Basım","addr":"F-Y2-P76-K3"},{"sku":"TDYP-929-4","name":"Neden Formda Kalmalıyım - Basım Sayısı: 4. Basım","addr":"F-Y2-P84-K3"},{"sku":"TDYP-929-4","name":"Neden Formda Kalmalıyım - Basım Sayısı: 4. Basım","addr":"GT-Y1-P132-K1"},{"sku":"TDYP-1198-3","name":"STEAM Buluşlar Karalama Kitabı - Basım Sayısı: 3. Basım","addr":"F-Y1-P120-K3"},{"sku":"TDYP-1401-3","name":"Teknolojiye İlham Veren Hayvanlar - Basım Sayısı: 3. Basım","addr":"G-Y1-P116-K5"},{"sku":"TDYP-1698-3","name":"Yakın Uzay (Sert Kapak) - Basım Sayısı: 3. Basım","addr":"FT-Y1-P112-K1"},{"sku":"TDYP-1454-3","name":"Çizgini Konuştur - Basım Sayısı: 3. Basım","addr":"F-Y1-P119-K3"},{"sku":"TDYP-1454-3","name":"Çizgini Konuştur - Basım Sayısı: 3. Basım","addr":"F-Y1-P123-K5"},{"sku":"TDYP-1454-3","name":"Çizgini Konuştur - Basım Sayısı: 3. Basım","addr":"F-Y1-P135-K4"},{"sku":"TDYP-1454-3","name":"Çizgini Konuştur - Basım Sayısı: 3. Basım","addr":"FT-Y2-P108-K1"},{"sku":"TDYP-385-7","name":"İlk Okuma - Yağmur Ormanları - Basım Sayısı: 7. Basım","addr":"G-Y2-P127-K4"},{"sku":"TDYP-1810-1","name":"İnsan Vücudu Hakkında Her Şeyi Bildiğini mi Sanıyorsun? - Basım Sayısı: 1. Basım","addr":"G-Y2-P124-K5"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y1-P131-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y1-P135-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y2-P122-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y2-P129-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y2-P131-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y2-P132-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y2-P133-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"G-Y2-P128-K4"}]</script>
-<script type="application/json" id="data-shortfall">[{"siparis_no":"TDYP-ORDERP-738237_1","siparis_toplam_adet":9,"sku":"TDYP-1715-1","urun_adi":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y2-P35-K2","qty":1430},{"addr":"F-Y2-P56-K2","qty":1400},{"addr":"F-Y1-P71-K3","qty":1040},{"addr":"FT-Y1-P76-K1","qty":1354},{"addr":"F-Y1-P76-K3","qty":1380},{"addr":"F-Y1-P87-K4","qty":1405}]},{"siparis_no":"TDYP-ORDERP-738169_1","siparis_toplam_adet":1,"sku":"TDYP-1715-1","urun_adi":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y2-P35-K2","qty":1430},{"addr":"F-Y2-P56-K2","qty":1400},{"addr":"F-Y1-P71-K3","qty":1040},{"addr":"FT-Y1-P76-K1","qty":1354},{"addr":"F-Y1-P76-K3","qty":1380},{"addr":"F-Y1-P87-K4","qty":1405}]},{"siparis_no":"TDYP-ORDERP-738122_1","siparis_toplam_adet":13,"sku":"TDYP-1715-1","urun_adi":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y2-P35-K2","qty":1430},{"addr":"F-Y2-P56-K2","qty":1400},{"addr":"F-Y1-P71-K3","qty":1040},{"addr":"FT-Y1-P76-K1","qty":1354},{"addr":"F-Y1-P76-K3","qty":1380},{"addr":"F-Y1-P87-K4","qty":1405}]},{"siparis_no":"TDYP-ORDERP-738082_1","siparis_toplam_adet":4,"sku":"TDYP-1715-1","urun_adi":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y2-P35-K2","qty":1430},{"addr":"F-Y2-P56-K2","qty":1400},{"addr":"F-Y1-P71-K3","qty":1040},{"addr":"FT-Y1-P76-K1","qty":1354},{"addr":"F-Y1-P76-K3","qty":1380},{"addr":"F-Y1-P87-K4","qty":1405}]},{"siparis_no":"TDYP-ORDERP-738078_1","siparis_toplam_adet":6,"sku":"TDYP-1715-1","urun_adi":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y2-P35-K2","qty":1430},{"addr":"F-Y2-P56-K2","qty":1400},{"addr":"F-Y1-P71-K3","qty":1040},{"addr":"FT-Y1-P76-K1","qty":1354},{"addr":"F-Y1-P76-K3","qty":1380},{"addr":"F-Y1-P87-K4","qty":1405}]},{"siparis_no":"TDYP-ORDERP-738066_1","siparis_toplam_adet":10,"sku":"TDYP-1715-1","urun_adi":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y2-P35-K2","qty":1430},{"addr":"F-Y2-P56-K2","qty":1400},{"addr":"F-Y1-P71-K3","qty":1040},{"addr":"FT-Y1-P76-K1","qty":1354},{"addr":"F-Y1-P76-K3","qty":1380},{"addr":"F-Y1-P87-K4","qty":1405}]},{"siparis_no":"TDYP-ORDERP-738065_1","siparis_toplam_adet":19,"sku":"TDYP-1715-1","urun_adi":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y2-P35-K2","qty":1430},{"addr":"F-Y2-P56-K2","qty":1400},{"addr":"F-Y1-P71-K3","qty":1040},{"addr":"FT-Y1-P76-K1","qty":1354},{"addr":"F-Y1-P76-K3","qty":1380},{"addr":"F-Y1-P87-K4","qty":1405}]},{"siparis_no":"TDYP-ORDERP-738056_1","siparis_toplam_adet":4,"sku":"TDYP-1715-1","urun_adi":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y2-P35-K2","qty":1430},{"addr":"F-Y2-P56-K2","qty":1400},{"addr":"F-Y1-P71-K3","qty":1040},{"addr":"FT-Y1-P76-K1","qty":1354},{"addr":"F-Y1-P76-K3","qty":1380},{"addr":"F-Y1-P87-K4","qty":1405}]},{"siparis_no":"TDYP-ORDERP-738051_1","siparis_toplam_adet":14,"sku":"TDYP-1715-1","urun_adi":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y2-P35-K2","qty":1430},{"addr":"F-Y2-P56-K2","qty":1400},{"addr":"F-Y1-P71-K3","qty":1040},{"addr":"FT-Y1-P76-K1","qty":1354},{"addr":"F-Y1-P76-K3","qty":1380},{"addr":"F-Y1-P87-K4","qty":1405}]},{"siparis_no":"TDYP-ORDERP-738048_1","siparis_toplam_adet":7,"sku":"TDYP-1715-1","urun_adi":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y2-P35-K2","qty":1430},{"addr":"F-Y2-P56-K2","qty":1400},{"addr":"F-Y1-P71-K3","qty":1040},{"addr":"FT-Y1-P76-K1","qty":1354},{"addr":"F-Y1-P76-K3","qty":1380},{"addr":"F-Y1-P87-K4","qty":1405}]},{"siparis_no":"TDYP-ORDERP-737960_1","siparis_toplam_adet":9,"sku":"TDYP-1715-1","urun_adi":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y2-P35-K2","qty":1430},{"addr":"F-Y2-P56-K2","qty":1400},{"addr":"F-Y1-P71-K3","qty":1040},{"addr":"FT-Y1-P76-K1","qty":1354},{"addr":"F-Y1-P76-K3","qty":1380},{"addr":"F-Y1-P87-K4","qty":1405}]},{"siparis_no":"TDYP-ORDERP-737906_1","siparis_toplam_adet":11,"sku":"TDYP-1715-1","urun_adi":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y2-P35-K2","qty":1430},{"addr":"F-Y2-P56-K2","qty":1400},{"addr":"F-Y1-P71-K3","qty":1040},{"addr":"FT-Y1-P76-K1","qty":1354},{"addr":"F-Y1-P76-K3","qty":1380},{"addr":"F-Y1-P87-K4","qty":1405}]},{"siparis_no":"TDYP-ORDERP-737855_1","siparis_toplam_adet":4,"sku":"TDYP-1715-1","urun_adi":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y2-P35-K2","qty":1430},{"addr":"F-Y2-P56-K2","qty":1400},{"addr":"F-Y1-P71-K3","qty":1040},{"addr":"FT-Y1-P76-K1","qty":1354},{"addr":"F-Y1-P76-K3","qty":1380},{"addr":"F-Y1-P87-K4","qty":1405}]},{"siparis_no":"TDYP-ORDERP-737652_1","siparis_toplam_adet":5,"sku":"TDYP-1715-1","urun_adi":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y2-P35-K2","qty":1430},{"addr":"F-Y2-P56-K2","qty":1400},{"addr":"F-Y1-P71-K3","qty":1040},{"addr":"FT-Y1-P76-K1","qty":1354},{"addr":"F-Y1-P76-K3","qty":1380},{"addr":"F-Y1-P87-K4","qty":1405}]},{"siparis_no":"TDYP-ORDERP-737584_1","siparis_toplam_adet":5,"sku":"TDYP-1715-1","urun_adi":"Bir Elmadan Neler Doğar? - Basım Sayısı: 1. Basım","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y2-P35-K2","qty":1430},{"addr":"F-Y2-P56-K2","qty":1400},{"addr":"F-Y1-P71-K3","qty":1040},{"addr":"FT-Y1-P76-K1","qty":1354},{"addr":"F-Y1-P76-K3","qty":1380},{"addr":"F-Y1-P87-K4","qty":1405}]},{"siparis_no":"TDYP-ORDERP-738239_1","siparis_toplam_adet":3,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-738228_1","siparis_toplam_adet":1,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-738192_1","siparis_toplam_adet":1,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-738151_1","siparis_toplam_adet":3,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-738143_1","siparis_toplam_adet":1,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-738141_1","siparis_toplam_adet":9,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-738122_1","siparis_toplam_adet":13,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-738095_1","siparis_toplam_adet":1,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-738082_1","siparis_toplam_adet":4,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-738072_1","siparis_toplam_adet":17,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-738071_1","siparis_toplam_adet":2,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-738056_1","siparis_toplam_adet":4,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-738047_1","siparis_toplam_adet":1,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-738019_1","siparis_toplam_adet":2,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-738018_1","siparis_toplam_adet":10,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-737993_1","siparis_toplam_adet":5,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-737972_1","siparis_toplam_adet":1,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-737965_1","siparis_toplam_adet":9,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-737906_1","siparis_toplam_adet":11,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-737869_1","siparis_toplam_adet":9,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-737823_1","siparis_toplam_adet":22,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-737808_1","siparis_toplam_adet":2,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-737561_1","siparis_toplam_adet":1,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-737559_1","siparis_toplam_adet":1,"sku":"TDYP-1797-0","urun_adi":"Meraklı Minik (Eylül 2026)","satir_adet":1,"tb_stok":0,"eksik":1,"bayi":[{"addr":"F-Y1-P67-K3","qty":986},{"addr":"FT-Y1-P128-K1","qty":1169},{"addr":"FT-Y1-P129-K1","qty":501}]},{"siparis_no":"TDYP-ORDERP-738048_1","siparis_toplam_adet":7,"sku":"TDYP-914-2","urun_adi":"Bu Şekli Tanıyor musun? - Minikler Serisi Şekiller - Basım Sayısı: 2. Basım","satir_adet":1,"tb_stok":1,"eksik":1,"bayi":[{"addr":"G-Y2-P119-K4","qty":407}]},{"siparis_no":"TDYP-ORDERP-737965_1","siparis_toplam_adet":9,"sku":"TDYP-914-2","urun_adi":"Bu Şekli Tanıyor musun? - Minikler Serisi Şekiller - Basım Sayısı: 2. Basım","satir_adet":1,"tb_stok":1,"eksik":1,"bayi":[{"addr":"G-Y2-P119-K4","qty":407}]},{"siparis_no":"TDYP-ORDERP-737652_1","siparis_toplam_adet":5,"sku":"TDYP-914-2","urun_adi":"Bu Şekli Tanıyor musun? - Minikler Serisi Şekiller - Basım Sayısı: 2. Basım","satir_adet":1,"tb_stok":1,"eksik":1,"bayi":[{"addr":"G-Y2-P119-K4","qty":407}]}]</script>
+<script type="application/json" id="data-bayi">[{"sku":"TDYP-1506-1","name":"ASTRODALGIÇ - Basım Sayısı: 1. Basım","addr":"G-Y2-P118-K3"},{"sku":"TDYP-1390-2","name":"Anadolu\u0027daki Vahşi Kediler - Basım Sayısı: 2. Basım","addr":"HT-Y1-P123-K1"},{"sku":"TDYP-1390-3","name":"Anadolu\u0027daki Vahşi Kediler - Basım Sayısı: 3. Basım","addr":"F-Y2-P33-K2"},{"sku":"TDYP-1390-3","name":"Anadolu\u0027daki Vahşi Kediler - Basım Sayısı: 3. Basım","addr":"F-Y2-P33-K3"},{"sku":"TDYP-1390-3","name":"Anadolu\u0027daki Vahşi Kediler - Basım Sayısı: 3. Basım","addr":"F-Y2-P34-K3"},{"sku":"TDYP-1390-3","name":"Anadolu\u0027daki Vahşi Kediler - Basım Sayısı: 3. Basım","addr":"F-Y2-P35-K3"},{"sku":"TDYP-1207-2","name":"Balık - Basım Sayısı: 2. Basım","addr":"F-Y1-P114-K3"},{"sku":"TDYP-494-3","name":"Bilim Bunu Çözer - Burun Bilir - Basım Sayısı: 3. Basım","addr":"F-Y1-P70-K3"},{"sku":"TDYP-494-3","name":"Bilim Bunu Çözer - Burun Bilir - Basım Sayısı: 3. Basım","addr":"F-Y2-P101-K3"},{"sku":"TDYP-494-3","name":"Bilim Bunu Çözer - Burun Bilir - Basım Sayısı: 3. Basım","addr":"F-Y2-P108-K1"},{"sku":"TDYP-494-3","name":"Bilim Bunu Çözer - Burun Bilir - Basım Sayısı: 3. Basım","addr":"F-Y2-P78-K3"},{"sku":"TDYP-502-3","name":"Bilim Bunu Çözer - Küf Gizemi - Basım Sayısı: 3. Basım","addr":"F-Y1-P102-K4"},{"sku":"TDYP-502-3","name":"Bilim Bunu Çözer - Küf Gizemi - Basım Sayısı: 3. Basım","addr":"F-Y1-P104-K1"},{"sku":"TDYP-502-3","name":"Bilim Bunu Çözer - Küf Gizemi - Basım Sayısı: 3. Basım","addr":"F-Y2-P100-K3"},{"sku":"TDYP-502-3","name":"Bilim Bunu Çözer - Küf Gizemi - Basım Sayısı: 3. Basım","addr":"F-Y2-P82-K3"},{"sku":"TDYP-1472-1","name":"Bilimle El Ele: Madde - Basım Sayısı: 1. Basım","addr":"F-Y2-P114-K4"},{"sku":"TDYP-1472-1","name":"Bilimle El Ele: Madde - Basım Sayısı: 1. Basım","addr":"GT-Y1-P132-K1"},{"sku":"TDYP-1583-1","name":"Bir Kitap Nasıl Hazırlanır? - Basım Sayısı: 1. Basım","addr":"F-Y1-P123-K4"},{"sku":"TDYP-1583-1","name":"Bir Kitap Nasıl Hazırlanır? - Basım Sayısı: 1. Basım","addr":"FT-Y2-P79-K1"},{"sku":"TDYP-1716-1","name":"Derin Öğrenme - Basım Sayısı: 1. Basım","addr":"F-Y1-P72-K3"},{"sku":"TDYP-1716-1","name":"Derin Öğrenme - Basım Sayısı: 1. Basım","addr":"FT-Y1-P67-K1"},{"sku":"TDYP-1716-1","name":"Derin Öğrenme - Basım Sayısı: 1. Basım","addr":"FT-Y1-P83-K1"},{"sku":"TDYP-1812-1","name":"Doğada Bir An - Basım Sayısı: 1. Basım","addr":"F-Y2-P79-K3"},{"sku":"TDYP-1809-1","name":"En Muhteşem Fikir - Basım Sayısı: 1. Basım","addr":"F-Y1-P100-K4"},{"sku":"TDYP-1491-2","name":"Farklı Düşün Farklı Yaz - Basım Sayısı: 2. Basım","addr":"F-Y1-P97-K2"},{"sku":"TDYP-1806-1","name":"Flamingo - Basım Sayısı: 1. Basım","addr":"F-Y1-P67-K1"},{"sku":"TDYP-1806-1","name":"Flamingo - Basım Sayısı: 1. Basım","addr":"GT-Y2-P130-K1"},{"sku":"TDYP-431-5","name":"Genç Astronotun El Kitabı - Basım Sayısı: 5. Basım","addr":"F-Y1-P118-K5"},{"sku":"TDYP-431-5","name":"Genç Astronotun El Kitabı - Basım Sayısı: 5. Basım","addr":"FT-Y1-P127-K1"},{"sku":"TDYP-1804-1","name":"Haydi Hayvanlara Bak! - Basım Sayısı: 1. Basım","addr":"F-Y2-P78-K1"},{"sku":"TDYP-1805-1","name":"Haydi Şekillere Bak! - Basım Sayısı: 1. Basım","addr":"F-Y1-P66-K1"},{"sku":"TDYP-460-6","name":"Işığın Öyküsü - Basım Sayısı: 6. Basım","addr":"FT-Y2-P100-K1"},{"sku":"TDYP-1407-2","name":"Keşfedin! İnsan Vücüdu - Basım Sayısı: 2. Basım","addr":"F-Y2-P80-K3"},{"sku":"TDYP-1670-1","name":"Matematikçiler  Yıldızları Sayıyor! - Basım Sayısı: 1. Basım","addr":"F-Y2-P94-K3"},{"sku":"TDYP-1670-1","name":"Matematikçiler  Yıldızları Sayıyor! - Basım Sayısı: 1. Basım","addr":"FT-Y1-P92-K1"},{"sku":"TDYP-1670-1","name":"Matematikçiler  Yıldızları Sayıyor! - Basım Sayısı: 1. Basım","addr":"FT-Y1-P93-K1"},{"sku":"TDYP-1729-0","name":"Meraklı Minik (Mart 2026)","addr":"G-Y1-P132-K3"},{"sku":"TDYP-1195-3","name":"Mimarlık Karalama Kitabı - Basım Sayısı: 3. Basım","addr":"FT-Y2-P125-K1"},{"sku":"TDYP-929-4","name":"Neden Formda Kalmalıyım - Basım Sayısı: 4. Basım","addr":"F-Y2-P76-K3"},{"sku":"TDYP-929-4","name":"Neden Formda Kalmalıyım - Basım Sayısı: 4. Basım","addr":"F-Y2-P84-K3"},{"sku":"TDYP-929-4","name":"Neden Formda Kalmalıyım - Basım Sayısı: 4. Basım","addr":"GT-Y1-P132-K1"},{"sku":"TDYP-1198-3","name":"STEAM Buluşlar Karalama Kitabı - Basım Sayısı: 3. Basım","addr":"F-Y1-P120-K3"},{"sku":"TDYP-1401-3","name":"Teknolojiye İlham Veren Hayvanlar - Basım Sayısı: 3. Basım","addr":"G-Y1-P116-K5"},{"sku":"TDYP-1698-3","name":"Yakın Uzay (Sert Kapak) - Basım Sayısı: 3. Basım","addr":"FT-Y1-P112-K1"},{"sku":"TDYP-1454-3","name":"Çizgini Konuştur - Basım Sayısı: 3. Basım","addr":"F-Y1-P119-K3"},{"sku":"TDYP-1454-3","name":"Çizgini Konuştur - Basım Sayısı: 3. Basım","addr":"F-Y1-P123-K5"},{"sku":"TDYP-1454-3","name":"Çizgini Konuştur - Basım Sayısı: 3. Basım","addr":"F-Y1-P135-K4"},{"sku":"TDYP-1454-3","name":"Çizgini Konuştur - Basım Sayısı: 3. Basım","addr":"FT-Y2-P108-K1"},{"sku":"TDYP-385-7","name":"İlk Okuma - Yağmur Ormanları - Basım Sayısı: 7. Basım","addr":"G-Y2-P127-K4"},{"sku":"TDYP-1810-1","name":"İnsan Vücudu Hakkında Her Şeyi Bildiğini mi Sanıyorsun? - Basım Sayısı: 1. Basım","addr":"G-Y2-P124-K5"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y1-P131-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y1-P135-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y2-P122-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y2-P129-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y2-P131-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y2-P132-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"F-Y2-P133-K3"},{"sku":"TDYP-912-4","name":"Şu Matematik Dedikleri... - Basım Sayısı: 4. Basım","addr":"G-Y2-P128-K4"}]</script>
+<script type="application/json" id="data-shortfall">[]</script>
 <script type="application/json" id="data-bigorder">[]</script>
-<script type="application/json" id="data-meta">{"updated":"2026-09-12 18:06"}</script>
+<script type="application/json" id="data-meta">{"updated":"2026-09-12 18:34"}</script>
 
-<script type="application/json" id="data-trt">[{"siparis_no":"kocaeliKITAP-2_1","sku":"H-E-291","urun_adi":"Kare ile Kavramları Öğreniyorum 5 kitap Seti","satir_adet":50,"toplam_stok":49,"eksik":1,"adres":[{"addr":"F-Y2-P9-K1","qty":14},{"addr":"A-Y2-P25-K2","qty":1},{"addr":"A-Y2-P44-K2","qty":25}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"H-E-291","urun_adi":"Kare ile Kavramları Öğreniyorum 5 kitap Seti","satir_adet":39,"toplam_stok":49,"eksik":39,"adres":[{"addr":"F-Y2-P9-K1","qty":14},{"addr":"A-Y2-P25-K2","qty":1},{"addr":"A-Y2-P44-K2","qty":25}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"H-E-521","urun_adi":"Ege ile Gaga Etkinlik Kitabım (4 Kitap)","satir_adet":50,"toplam_stok":105,"eksik":45,"adres":[{"addr":"F-Y1-P45-K1","qty":199}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"H-E-6","urun_adi":"Aslan Tamir Çantası","satir_adet":50,"toplam_stok":32,"eksik":48,"adres":[{"addr":"F-Y1-P1-K2","qty":20},{"addr":"F-Y1-P3-K1","qty":6},{"addr":"F-Y2-P11-K3","qty":10},{"addr":"A-Y2-P11-K2","qty":350},{"addr":"G-Y1-P17-K3","qty":160},{"addr":"A-Y2-P25-K2","qty":2}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"H-E-745","urun_adi":"Aslan Yutan Çöp Kovası","satir_adet":20,"toplam_stok":18,"eksik":2,"adres":[{"addr":"G-Y1-P16-K1","qty":4},{"addr":"F-Y2-P21-K1","qty":166},{"addr":"A-Y2-P25-K2","qty":6}]},{"siparis_no":"kocaeliKITAP-2_1","sku":"H-E-864","urun_adi":"Elifin Düşleri Ayva Bahçesinde Düş Zamanı","satir_adet":2,"toplam_stok":1,"eksik":1,"adres":[{"addr":"A-Y2-P44-K2","qty":1}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"H-E-888","urun_adi":"Z Takımı Diş Fırçası","satir_adet":30,"toplam_stok":6,"eksik":24,"adres":[{"addr":"F-Y1-P3-K2","qty":72}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"H-E-893","urun_adi":"Tozkoparan İskender \"Kurt Kapanı\"","satir_adet":100,"toplam_stok":26,"eksik":74,"adres":[{"addr":"A-Y2-P41-K3","qty":272}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"H-E-893","urun_adi":"Tozkoparan İskender \"Kurt Kapanı\"","satir_adet":20,"toplam_stok":26,"eksik":20,"adres":[{"addr":"A-Y2-P41-K3","qty":272}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"TM0010101001","urun_adi":"Rafadan Tayfa \"Göbeklitepe\"","satir_adet":250,"toplam_stok":11,"eksik":239,"adres":[{"addr":"F-Y1-P43-K1","qty":574}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0010101001","urun_adi":"Rafadan Tayfa \"Göbeklitepe\"","satir_adet":10,"toplam_stok":11,"eksik":10,"adres":[{"addr":"F-Y1-P43-K1","qty":574}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"TM0010101005","urun_adi":"Rafadan Tayfa - Veri Muhafızları Kitabı","satir_adet":200,"toplam_stok":118,"eksik":82,"adres":[{"addr":"F-Y1-P43-K1","qty":587}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0010101005","urun_adi":"Rafadan Tayfa - Veri Muhafızları Kitabı","satir_adet":50,"toplam_stok":118,"eksik":50,"adres":[{"addr":"F-Y1-P43-K1","qty":587}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0010203009","urun_adi":"Rafadan Tayfa Saplı Klasör Çanta - Mor","satir_adet":20,"toplam_stok":0,"eksik":20,"adres":[{"addr":"A-Y2-P50-K2","qty":134}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0010203028","urun_adi":"Rafadan Tayfa Saplı Klasör Çanta - Mavi","satir_adet":10,"toplam_stok":9,"eksik":1,"adres":[{"addr":"F-Y1-P48-K1","qty":115}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0010304002","urun_adi":"Rafadan Tayfa Bilmece Avı","satir_adet":100,"toplam_stok":56,"eksik":44,"adres":[{"addr":"F-Y1-P1-K3","qty":408},{"addr":"F-Y1-P4-K3","qty":576},{"addr":"F-Y1-P6-K3","qty":384},{"addr":"G-Y1-P20-K2","qty":139},{"addr":"F-Y1-P20-K3","qty":384},{"addr":"A-Y2-P49-K3","qty":384}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0040304002","urun_adi":"Pırıl Puzzle 70\u0027li","satir_adet":25,"toplam_stok":23,"eksik":22,"adres":[{"addr":"G-Y1-P13-K1","qty":504},{"addr":"A-Y2-P13-K2","qty":504},{"addr":"A-Y2-P14-K2","qty":324},{"addr":"F-Y2-P15-K2","qty":504},{"addr":"G-Y1-P15-K1","qty":504}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0040410001","urun_adi":"Pırıl Boy Cetveli","satir_adet":10,"toplam_stok":9,"eksik":1,"adres":[{"addr":"G-Y1-P16-K1","qty":34}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0050304002","urun_adi":"Aslan Tuz Boyama - Aslan","satir_adet":20,"toplam_stok":9,"eksik":11,"adres":[{"addr":"G-Y1-P28-K1","qty":46}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0050304003","urun_adi":"Aslan Tuz Boyama - Zeynep","satir_adet":2,"toplam_stok":0,"eksik":2,"adres":[]},{"siparis_no":"kocaeliPUZZLEE_1","sku":"TM0050304006","urun_adi":"Aslan Puzzle 70 Parça","satir_adet":20,"toplam_stok":18,"eksik":2,"adres":[{"addr":"G-Y1-P12-K1","qty":504},{"addr":"F-Y2-P14-K2","qty":276},{"addr":"A-Y2-P16-K2","qty":492},{"addr":"F-Y2-P18-K3","qty":504},{"addr":"F-Y2-P20-K1","qty":504},{"addr":"F-Y2-P26-K3","qty":94}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0050304006","urun_adi":"Aslan Puzzle 70 Parça","satir_adet":25,"toplam_stok":18,"eksik":25,"adres":[{"addr":"G-Y1-P12-K1","qty":504},{"addr":"F-Y2-P14-K2","qty":276},{"addr":"A-Y2-P16-K2","qty":492},{"addr":"F-Y2-P18-K3","qty":504},{"addr":"F-Y2-P20-K1","qty":504},{"addr":"F-Y2-P26-K3","qty":94}]},{"siparis_no":"kocaeliPUZZLEE_1","sku":"TM0050304007","urun_adi":"Aslan Buluşçu Puzzle 2\u0027li","satir_adet":20,"toplam_stok":9,"eksik":11,"adres":[{"addr":"A-Y2-P25-K2","qty":1},{"addr":"A-Y2-P54-K3","qty":597}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0050304007","urun_adi":"Aslan Buluşçu Puzzle 2\u0027li","satir_adet":25,"toplam_stok":9,"eksik":25,"adres":[{"addr":"A-Y2-P25-K2","qty":1},{"addr":"A-Y2-P54-K3","qty":597}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0050305001","urun_adi":"Aslan Tamir Çantası","satir_adet":30,"toplam_stok":53,"eksik":7,"adres":[{"addr":"G-Y2-P4-K3","qty":52},{"addr":"F-Y2-P9-K1","qty":10},{"addr":"G-Y1-P16-K1","qty":4},{"addr":"A-Y2-P47-K2","qty":340},{"addr":"A-Y2-P48-K2","qty":370},{"addr":"A-Y2-P52-K3","qty":400},{"addr":"A-Y2-P53-K2","qty":20},{"addr":"A-Y2-P55-K3","qty":410}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0050410001","urun_adi":"Aslan Boy Cetveli","satir_adet":10,"toplam_stok":7,"eksik":3,"adres":[{"addr":"G-Y1-P28-K1","qty":200}]},{"siparis_no":"kocaeliKITAP-2_1","sku":"TM0060101001","urun_adi":"Elif ve Arkadaşları: Kapadokya","satir_adet":50,"toplam_stok":15,"eksik":35,"adres":[{"addr":"A-Y2-P41-K3","qty":69}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0060101001","urun_adi":"Elif ve Arkadaşları: Kapadokya","satir_adet":10,"toplam_stok":15,"eksik":10,"adres":[{"addr":"A-Y2-P41-K3","qty":69}]},{"siparis_no":"kocaeliPUZZLEE_1","sku":"TM0060304004","urun_adi":"Elif ve Arkadaşları Puzzle 100lü","satir_adet":20,"toplam_stok":10,"eksik":10,"adres":[{"addr":"F-Y2-P18-K2","qty":67}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0060304004","urun_adi":"Elif ve Arkadaşları Puzzle 100lü","satir_adet":25,"toplam_stok":10,"eksik":25,"adres":[{"addr":"F-Y2-P18-K2","qty":67}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0060304006","urun_adi":"Elif ve Arkadaşları Puzzle 2li","satir_adet":40,"toplam_stok":29,"eksik":31,"adres":[{"addr":"A-Y2-P17-K3","qty":323},{"addr":"A-Y2-P18-K3","qty":311},{"addr":"A-Y2-P20-K3","qty":324},{"addr":"A-Y2-P21-K3","qty":324},{"addr":"A-Y2-P22-K3","qty":160}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0060304007","urun_adi":"Elif ve Arkadaşları Hafıza Oyunu - 32 Parça","satir_adet":40,"toplam_stok":14,"eksik":26,"adres":[{"addr":"G-Y2-P5-K3","qty":681},{"addr":"G-Y1-P19-K3","qty":804},{"addr":"A-Y2-P25-K2","qty":5}]},{"siparis_no":"urfateknofest-GIYIM_1","sku":"TM0070407007-001","urun_adi":"Elif ve Arkadaşları Pijama Takımı - Pembe 6-7 PEMBE","satir_adet":10,"toplam_stok":5,"eksik":5,"adres":[{"addr":"A-Y2-P1-K3","qty":250},{"addr":"A-Y2-P40-K2","qty":97}]},{"siparis_no":"kocaeliKITAP-2_1","sku":"TM0080101001","urun_adi":"Kaptan Pengu ve Arkadaşları Buz Mandası Efsanesi Kitabı","satir_adet":27,"toplam_stok":22,"eksik":5,"adres":[{"addr":"A-Y2-P25-K2","qty":1},{"addr":"F-Y2-P25-K2","qty":4}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"TM0080101002","urun_adi":"Kaptan Pengu - Cırt Cırtlı Kitap","satir_adet":50,"toplam_stok":37,"eksik":13,"adres":[{"addr":"F-Y1-P3-K2","qty":26},{"addr":"G-Y1-P22-K1","qty":100},{"addr":"F-Y1-P51-K1","qty":100}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0080101002","urun_adi":"Kaptan Pengu - Cırt Cırtlı Kitap","satir_adet":10,"toplam_stok":37,"eksik":10,"adres":[{"addr":"F-Y1-P3-K2","qty":26},{"addr":"G-Y1-P22-K1","qty":100},{"addr":"F-Y1-P51-K1","qty":100}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0080101004","urun_adi":"Kaptan Pengu - Dokun ve Hisset Kitap","satir_adet":10,"toplam_stok":63,"eksik":2,"adres":[{"addr":"F-Y1-P3-K2","qty":10},{"addr":"F-Y1-P51-K1","qty":200}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0080304001","urun_adi":"Kaptan Pengu Baby Puzzle","satir_adet":25,"toplam_stok":36,"eksik":9,"adres":[{"addr":"A-Y2-P3-K3","qty":393},{"addr":"F-Y2-P13-K1","qty":234},{"addr":"A-Y2-P14-K3","qty":360},{"addr":"F-Y2-P20-K2","qty":360},{"addr":"A-Y2-P24-K2","qty":360}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0080304003","urun_adi":"Kaptan Pengu Puzzle 24\u0027lü","satir_adet":25,"toplam_stok":23,"eksik":22,"adres":[{"addr":"A-Y2-P18-K2","qty":408},{"addr":"A-Y2-P25-K2","qty":1},{"addr":"A-Y2-P42-K2","qty":218}]},{"siparis_no":"kocaeliPUZZLEE_1","sku":"TM0080304006","urun_adi":"Kaptan Pengu Puzzle 2li","satir_adet":20,"toplam_stok":1,"eksik":19,"adres":[{"addr":"G-Y1-P10-K1","qty":6},{"addr":"A-Y2-P23-K3","qty":179}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0080304006","urun_adi":"Kaptan Pengu Puzzle 2li","satir_adet":30,"toplam_stok":1,"eksik":30,"adres":[{"addr":"G-Y1-P10-K1","qty":6},{"addr":"A-Y2-P23-K3","qty":179}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0080304008","urun_adi":"Kaptan Pengu Hafıza Oyunu - 32 Parça","satir_adet":30,"toplam_stok":9,"eksik":21,"adres":[{"addr":"A-Y2-P50-K3","qty":215}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0080305005","urun_adi":"Kaptan Pengu ve Arkadaşları - Zıp Zıp Top","satir_adet":30,"toplam_stok":20,"eksik":10,"adres":[{"addr":"G-Y1-P26-K2","qty":227}]},{"siparis_no":"kocaeliKITAP-2_1","sku":"TM0090101002","urun_adi":"Akıllı Tavşan Momo - Oynar Gözlü Kitap","satir_adet":50,"toplam_stok":3,"eksik":47,"adres":[{"addr":"F-Y1-P51-K1","qty":219}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0090101002","urun_adi":"Akıllı Tavşan Momo - Oynar Gözlü Kitap","satir_adet":10,"toplam_stok":3,"eksik":10,"adres":[{"addr":"F-Y1-P51-K1","qty":219}]},{"siparis_no":"kocaeliKITAP-2_1","sku":"TM0090101003","urun_adi":"Akıllı Tavşan Momo - Dokun ve Hisset Kitap","satir_adet":50,"toplam_stok":44,"eksik":6,"adres":[{"addr":"F-Y1-P3-K2","qty":4},{"addr":"G-Y1-P22-K1","qty":190}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0090101003","urun_adi":"Akıllı Tavşan Momo - Dokun ve Hisset Kitap","satir_adet":10,"toplam_stok":44,"eksik":10,"adres":[{"addr":"F-Y1-P3-K2","qty":4},{"addr":"G-Y1-P22-K1","qty":190}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0090203002","urun_adi":"Akıllı Tavşan Momo - Kalemlik","satir_adet":25,"toplam_stok":68,"eksik":7,"adres":[{"addr":"F-Y1-P7-K2","qty":178},{"addr":"A-Y2-P13-K3","qty":26},{"addr":"A-Y2-P15-K3","qty":378},{"addr":"G-Y2-P18-K3","qty":360},{"addr":"A-Y2-P25-K2","qty":104}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0090304001","urun_adi":"Akıllı Tavşan Momo Baby Puzzle - 1","satir_adet":25,"toplam_stok":20,"eksik":25,"adres":[{"addr":"A-Y2-P10-K3","qty":360},{"addr":"A-Y2-P11-K3","qty":360},{"addr":"G-Y1-P14-K1","qty":280},{"addr":"A-Y2-P23-K2","qty":360},{"addr":"F-Y1-P37-K1","qty":360}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0090304002","urun_adi":"Akıllı Tavşan Momo Puzzle 24\u0027lü","satir_adet":25,"toplam_stok":37,"eksik":8,"adres":[{"addr":"F-Y2-P19-K1","qty":475},{"addr":"F-Y2-P24-K2","qty":284}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0090304004","urun_adi":"Akıllı Tavşan Momo Kanvas Boyama Kiti","satir_adet":30,"toplam_stok":3,"eksik":27,"adres":[{"addr":"F-Y2-P12-K2","qty":65},{"addr":"A-Y2-P25-K2","qty":10}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0090304005-0005","urun_adi":"Akıllı Tavşan Momo Plaj Oyunu – Yeşil","satir_adet":30,"toplam_stok":1,"eksik":29,"adres":[{"addr":"F-Y1-P1-K2","qty":13},{"addr":"G-Y1-P2-K3","qty":50},{"addr":"F-Y1-P3-K1","qty":17},{"addr":"G-Y2-P20-K2","qty":18},{"addr":"F-Y2-P22-K2","qty":10},{"addr":"A-Y2-P27-K3","qty":22}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0100101004","urun_adi":"Kuzucuk Fenerli Kitap","satir_adet":10,"toplam_stok":59,"eksik":1,"adres":[{"addr":"G-Y2-P22-K2","qty":50}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"TM0100101006","urun_adi":"Kuzucuk Doğamızı ve Hayvanları Koruyalım","satir_adet":50,"toplam_stok":32,"eksik":18,"adres":[{"addr":"F-Y2-P28-K2","qty":239}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0100101006","urun_adi":"Kuzucuk Doğamızı ve Hayvanları Koruyalım","satir_adet":10,"toplam_stok":32,"eksik":10,"adres":[{"addr":"F-Y2-P28-K2","qty":239}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0160203012","urun_adi":"Z Takımı Tuz Boyama - Arda","satir_adet":20,"toplam_stok":4,"eksik":16,"adres":[{"addr":"F-Y2-P6-K2","qty":60},{"addr":"A-Y2-P25-K2","qty":14}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0160304001","urun_adi":"Z Takımı Puzzle 100 Parça","satir_adet":25,"toplam_stok":33,"eksik":12,"adres":[{"addr":"F-Y1-P44-K1","qty":280}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0160304005","urun_adi":"Z Takımı Puzzle 200\u0027lü","satir_adet":20,"toplam_stok":25,"eksik":15,"adres":[{"addr":"A-Y2-P54-K2","qty":285}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"TM0180101002","urun_adi":"Tozkoparan İskender  \"Simurg Ateşi\"","satir_adet":100,"toplam_stok":78,"eksik":22,"adres":[{"addr":"A-Y2-P25-K2","qty":5},{"addr":"F-Y2-P26-K3","qty":265},{"addr":"G-Y1-P28-K2","qty":1}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0180101002","urun_adi":"Tozkoparan İskender  \"Simurg Ateşi\"","satir_adet":20,"toplam_stok":78,"eksik":20,"adres":[{"addr":"A-Y2-P25-K2","qty":5},{"addr":"F-Y2-P26-K3","qty":265},{"addr":"G-Y1-P28-K2","qty":1}]},{"siparis_no":"kocaeliKITAP-2_1","sku":"TM0180101003","urun_adi":"Tozkoparan İskender - Çöl Aslanı","satir_adet":100,"toplam_stok":29,"eksik":71,"adres":[{"addr":"F-Y2-P26-K3","qty":228}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0180101003","urun_adi":"Tozkoparan İskender - Çöl Aslanı","satir_adet":20,"toplam_stok":29,"eksik":20,"adres":[{"addr":"F-Y2-P26-K3","qty":228}]},{"siparis_no":"kocaeliKITAP-2_1","sku":"TM0200101001","urun_adi":"Diriliş Ertuğrul Kitabı","satir_adet":3,"toplam_stok":2,"eksik":1,"adres":[{"addr":"A-Y2-P25-K2","qty":1}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0280304007","urun_adi":"Sürpriz Kutusu - Sanat","satir_adet":30,"toplam_stok":20,"eksik":10,"adres":[{"addr":"F-Y1-P6-K2","qty":25}]},{"siparis_no":"kocaeliPUZZLEE_1","sku":"TM0290304002","urun_adi":"TRT Çocuk Puzzle 24 Parça","satir_adet":100,"toplam_stok":2,"eksik":98,"adres":[{"addr":"A-Y2-P42-K3","qty":2814}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0290304002","urun_adi":"TRT Çocuk Puzzle 24 Parça","satir_adet":25,"toplam_stok":2,"eksik":25,"adres":[{"addr":"A-Y2-P42-K3","qty":2814}]},{"siparis_no":"kocaeliPUZZLEE_1","sku":"TM0290304003","urun_adi":"TRT Çocuk Puzzle 48 Parça","satir_adet":100,"toplam_stok":28,"eksik":72,"adres":[{"addr":"A-Y2-P8-K2","qty":2135},{"addr":"A-Y2-P25-K2","qty":2},{"addr":"G-Y2-P27-K2","qty":944},{"addr":"A-Y2-P48-K3","qty":3237}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0290304003","urun_adi":"TRT Çocuk Puzzle 48 Parça","satir_adet":25,"toplam_stok":28,"eksik":25,"adres":[{"addr":"A-Y2-P8-K2","qty":2135},{"addr":"A-Y2-P25-K2","qty":2},{"addr":"G-Y2-P27-K2","qty":944},{"addr":"A-Y2-P48-K3","qty":3237}]},{"siparis_no":"oplog-571_1","sku":"TM0300923044","urun_adi":"TRT Haber Logolu Beyaz Kupa","satir_adet":6,"toplam_stok":40,"eksik":2,"adres":[{"addr":"A-Y2-P56-K3","qty":615}]},{"siparis_no":"urfateknofest-KUPA_1","sku":"TM0300923044","urun_adi":"TRT Haber Logolu Beyaz Kupa","satir_adet":10,"toplam_stok":40,"eksik":10,"adres":[{"addr":"A-Y2-P56-K3","qty":615}]},{"siparis_no":"90181_1","sku":"TM0300923044","urun_adi":"TRT Haber Logolu Beyaz Kupa","satir_adet":1,"toplam_stok":40,"eksik":1,"adres":[{"addr":"A-Y2-P56-K3","qty":615}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0300923066","urun_adi":"TRT Spor Logolu Dart Seti","satir_adet":50,"toplam_stok":64,"eksik":36,"adres":[{"addr":"A-Y2-P36-K3","qty":213}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0310101001","urun_adi":"TAY - Bir Hicret Yolculuğu Kitabı","satir_adet":10,"toplam_stok":27,"eksik":3,"adres":[{"addr":"F-Y1-P21-K2","qty":1301}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0340101006","urun_adi":"Mavi Dünya ile Okula Hazırlık - Görsel Dikkat Etkinlikleri","satir_adet":10,"toplam_stok":50,"eksik":10,"adres":[{"addr":"F-Y2-P18-K1","qty":425},{"addr":"A-Y2-P25-K2","qty":1},{"addr":"F-Y1-P28-K1","qty":661}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"TM0340101012","urun_adi":"Mavi Dünya - Oynar Gözlü Kitap","satir_adet":50,"toplam_stok":25,"eksik":25,"adres":[{"addr":"G-Y1-P22-K1","qty":40},{"addr":"F-Y1-P51-K1","qty":200}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0340101012","urun_adi":"Mavi Dünya - Oynar Gözlü Kitap","satir_adet":10,"toplam_stok":25,"eksik":10,"adres":[{"addr":"G-Y1-P22-K1","qty":40},{"addr":"F-Y1-P51-K1","qty":200}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"TM0340101015","urun_adi":"Mavi Dünya Boyama Kitabı","satir_adet":100,"toplam_stok":0,"eksik":100,"adres":[{"addr":"F-Y2-P10-K2","qty":329}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0340101015","urun_adi":"Mavi Dünya Boyama Kitabı","satir_adet":10,"toplam_stok":0,"eksik":10,"adres":[{"addr":"F-Y2-P10-K2","qty":329}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"TM0340101016","urun_adi":"Mavi Dünya Üçüz Balıkların Keşfi","satir_adet":50,"toplam_stok":32,"eksik":18,"adres":[{"addr":"A-Y2-P25-K2","qty":18},{"addr":"F-Y2-P28-K2","qty":223}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0340101016","urun_adi":"Mavi Dünya Üçüz Balıkların Keşfi","satir_adet":10,"toplam_stok":32,"eksik":10,"adres":[{"addr":"A-Y2-P25-K2","qty":18},{"addr":"F-Y2-P28-K2","qty":223}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"TM0380101004","urun_adi":"Eymen ile Çimen Boyama Kitabı","satir_adet":100,"toplam_stok":4,"eksik":96,"adres":[{"addr":"F-Y2-P8-K2","qty":316}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0380101004","urun_adi":"Eymen ile Çimen Boyama Kitabı","satir_adet":10,"toplam_stok":4,"eksik":10,"adres":[{"addr":"F-Y2-P8-K2","qty":316}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"TM0380101005","urun_adi":"Eymen ile Çimen Sevginin Gücü","satir_adet":50,"toplam_stok":22,"eksik":28,"adres":[{"addr":"F-Y2-P28-K2","qty":242}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0380101005","urun_adi":"Eymen ile Çimen Sevginin Gücü","satir_adet":10,"toplam_stok":22,"eksik":10,"adres":[{"addr":"F-Y2-P28-K2","qty":242}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0410101001","urun_adi":"Ekip: Siberay – Kimlik Hırsızları","satir_adet":20,"toplam_stok":39,"eksik":1,"adres":[{"addr":"A-Y2-P25-K2","qty":3}]},{"siparis_no":"kocaeliKITAP-2_1","sku":"TM0460101001","urun_adi":"TRT2 Kitaplığı - Felsefe Söyleşileri \"Ş. Teoman Duralı\" 1.Cilt","satir_adet":50,"toplam_stok":31,"eksik":19,"adres":[{"addr":"F-Y1-P50-K1","qty":200}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0460101001","urun_adi":"TRT2 Kitaplığı - Felsefe Söyleşileri \"Ş. Teoman Duralı\" 1.Cilt","satir_adet":10,"toplam_stok":31,"eksik":10,"adres":[{"addr":"F-Y1-P50-K1","qty":200}]},{"siparis_no":"kocaeliKITAP-2_1","sku":"TM0460101004","urun_adi":"Hülya Koçyiğit ile Film Gibi Hayatlar Cilt 1","satir_adet":20,"toplam_stok":13,"eksik":7,"adres":[{"addr":"A-Y2-P25-K2","qty":4},{"addr":"F-Y2-P25-K1","qty":226}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0460101004","urun_adi":"Hülya Koçyiğit ile Film Gibi Hayatlar Cilt 1","satir_adet":5,"toplam_stok":13,"eksik":5,"adres":[{"addr":"A-Y2-P25-K2","qty":4},{"addr":"F-Y2-P25-K1","qty":226}]},{"siparis_no":"kocaeliKITAP-2_1","sku":"TM0460101005","urun_adi":"Hülya Koçyiğit ile Film Gibi Hayatlar Cilt 2","satir_adet":20,"toplam_stok":13,"eksik":7,"adres":[{"addr":"A-Y2-P25-K2","qty":230}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0460101005","urun_adi":"Hülya Koçyiğit ile Film Gibi Hayatlar Cilt 2","satir_adet":5,"toplam_stok":13,"eksik":5,"adres":[{"addr":"A-Y2-P25-K2","qty":230}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0480305001","urun_adi":"TRT Spor Yıldız - Dev Tangram","satir_adet":40,"toplam_stok":15,"eksik":25,"adres":[{"addr":"F-Y1-P12-K1","qty":208},{"addr":"F-Y1-P21-K3","qty":594},{"addr":"A-Y2-P25-K2","qty":7}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0480305002","urun_adi":"TRT Spor Yıldız - Ahşap Denge Oyunu","satir_adet":50,"toplam_stok":21,"eksik":29,"adres":[{"addr":"F-Y1-P11-K1","qty":172},{"addr":"F-Y1-P33-K3","qty":556}]}]</script>
+<script type="application/json" id="data-trt">[{"siparis_no":"kocaeliKITAP-2_1","sku":"H-E-291","urun_adi":"Kare ile Kavramları Öğreniyorum 5 kitap Seti","satir_adet":50,"toplam_stok":49,"eksik":1,"adres":[{"addr":"F-Y2-P9-K1","qty":14},{"addr":"A-Y2-P25-K2","qty":1},{"addr":"A-Y2-P44-K2","qty":25}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"H-E-291","urun_adi":"Kare ile Kavramları Öğreniyorum 5 kitap Seti","satir_adet":39,"toplam_stok":49,"eksik":39,"adres":[{"addr":"F-Y2-P9-K1","qty":14},{"addr":"A-Y2-P25-K2","qty":1},{"addr":"A-Y2-P44-K2","qty":25}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"H-E-521","urun_adi":"Ege ile Gaga Etkinlik Kitabım (4 Kitap)","satir_adet":50,"toplam_stok":105,"eksik":45,"adres":[{"addr":"F-Y1-P45-K1","qty":199}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"H-E-6","urun_adi":"Aslan Tamir Çantası","satir_adet":50,"toplam_stok":32,"eksik":48,"adres":[{"addr":"F-Y1-P1-K2","qty":20},{"addr":"F-Y1-P3-K1","qty":6},{"addr":"F-Y2-P11-K3","qty":10},{"addr":"A-Y2-P11-K2","qty":350},{"addr":"G-Y1-P17-K3","qty":160},{"addr":"A-Y2-P25-K2","qty":2}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"H-E-745","urun_adi":"Aslan Yutan Çöp Kovası","satir_adet":20,"toplam_stok":18,"eksik":2,"adres":[{"addr":"G-Y1-P16-K1","qty":4},{"addr":"F-Y2-P21-K1","qty":166},{"addr":"A-Y2-P25-K2","qty":6}]},{"siparis_no":"kocaeliKITAP-2_1","sku":"H-E-864","urun_adi":"Elifin Düşleri Ayva Bahçesinde Düş Zamanı","satir_adet":2,"toplam_stok":1,"eksik":1,"adres":[{"addr":"A-Y2-P44-K2","qty":1}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"H-E-888","urun_adi":"Z Takımı Diş Fırçası","satir_adet":30,"toplam_stok":6,"eksik":24,"adres":[{"addr":"F-Y1-P3-K2","qty":72}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"H-E-893","urun_adi":"Tozkoparan İskender \"Kurt Kapanı\"","satir_adet":100,"toplam_stok":26,"eksik":74,"adres":[{"addr":"A-Y2-P41-K3","qty":272}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"H-E-893","urun_adi":"Tozkoparan İskender \"Kurt Kapanı\"","satir_adet":20,"toplam_stok":26,"eksik":20,"adres":[{"addr":"A-Y2-P41-K3","qty":272}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"TM0010101001","urun_adi":"Rafadan Tayfa \"Göbeklitepe\"","satir_adet":250,"toplam_stok":11,"eksik":239,"adres":[{"addr":"F-Y1-P43-K1","qty":574}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0010101001","urun_adi":"Rafadan Tayfa \"Göbeklitepe\"","satir_adet":10,"toplam_stok":11,"eksik":10,"adres":[{"addr":"F-Y1-P43-K1","qty":574}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"TM0010101005","urun_adi":"Rafadan Tayfa - Veri Muhafızları Kitabı","satir_adet":200,"toplam_stok":118,"eksik":82,"adres":[{"addr":"F-Y1-P43-K1","qty":587}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0010101005","urun_adi":"Rafadan Tayfa - Veri Muhafızları Kitabı","satir_adet":50,"toplam_stok":118,"eksik":50,"adres":[{"addr":"F-Y1-P43-K1","qty":587}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0010203009","urun_adi":"Rafadan Tayfa Saplı Klasör Çanta - Mor","satir_adet":20,"toplam_stok":0,"eksik":20,"adres":[{"addr":"A-Y2-P50-K2","qty":134}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0010203028","urun_adi":"Rafadan Tayfa Saplı Klasör Çanta - Mavi","satir_adet":10,"toplam_stok":9,"eksik":1,"adres":[{"addr":"F-Y1-P48-K1","qty":115}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0010304002","urun_adi":"Rafadan Tayfa Bilmece Avı","satir_adet":100,"toplam_stok":56,"eksik":44,"adres":[{"addr":"F-Y1-P1-K3","qty":408},{"addr":"F-Y1-P4-K3","qty":576},{"addr":"F-Y1-P6-K3","qty":384},{"addr":"G-Y1-P20-K2","qty":139},{"addr":"F-Y1-P20-K3","qty":384},{"addr":"A-Y2-P49-K3","qty":384}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0040410001","urun_adi":"Pırıl Boy Cetveli","satir_adet":10,"toplam_stok":9,"eksik":1,"adres":[{"addr":"G-Y1-P16-K1","qty":34}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0050304002","urun_adi":"Aslan Tuz Boyama - Aslan","satir_adet":20,"toplam_stok":9,"eksik":11,"adres":[{"addr":"G-Y1-P28-K1","qty":46}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0050304003","urun_adi":"Aslan Tuz Boyama - Zeynep","satir_adet":2,"toplam_stok":0,"eksik":2,"adres":[]},{"siparis_no":"kocaeliPUZZLEE_1","sku":"TM0050304007","urun_adi":"Aslan Buluşçu Puzzle 2\u0027li","satir_adet":20,"toplam_stok":9,"eksik":11,"adres":[{"addr":"A-Y2-P25-K2","qty":1},{"addr":"A-Y2-P54-K3","qty":597}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0050304007","urun_adi":"Aslan Buluşçu Puzzle 2\u0027li","satir_adet":25,"toplam_stok":9,"eksik":25,"adres":[{"addr":"A-Y2-P25-K2","qty":1},{"addr":"A-Y2-P54-K3","qty":597}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0050305001","urun_adi":"Aslan Tamir Çantası","satir_adet":30,"toplam_stok":53,"eksik":7,"adres":[{"addr":"G-Y2-P4-K3","qty":52},{"addr":"F-Y2-P9-K1","qty":10},{"addr":"G-Y1-P16-K1","qty":4},{"addr":"A-Y2-P47-K2","qty":340},{"addr":"A-Y2-P48-K2","qty":370},{"addr":"A-Y2-P52-K3","qty":400},{"addr":"A-Y2-P53-K2","qty":20},{"addr":"A-Y2-P55-K3","qty":410}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0050410001","urun_adi":"Aslan Boy Cetveli","satir_adet":10,"toplam_stok":7,"eksik":3,"adres":[{"addr":"G-Y1-P28-K1","qty":200}]},{"siparis_no":"kocaeliKITAP-2_1","sku":"TM0060101001","urun_adi":"Elif ve Arkadaşları: Kapadokya","satir_adet":50,"toplam_stok":15,"eksik":35,"adres":[{"addr":"A-Y2-P41-K3","qty":69}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0060101001","urun_adi":"Elif ve Arkadaşları: Kapadokya","satir_adet":10,"toplam_stok":15,"eksik":10,"adres":[{"addr":"A-Y2-P41-K3","qty":69}]},{"siparis_no":"kocaeliPUZZLEE_1","sku":"TM0060304004","urun_adi":"Elif ve Arkadaşları Puzzle 100lü","satir_adet":20,"toplam_stok":10,"eksik":10,"adres":[{"addr":"F-Y2-P18-K2","qty":67}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0060304004","urun_adi":"Elif ve Arkadaşları Puzzle 100lü","satir_adet":25,"toplam_stok":10,"eksik":25,"adres":[{"addr":"F-Y2-P18-K2","qty":67}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0060304006","urun_adi":"Elif ve Arkadaşları Puzzle 2li","satir_adet":40,"toplam_stok":29,"eksik":31,"adres":[{"addr":"A-Y2-P17-K3","qty":323},{"addr":"A-Y2-P18-K3","qty":311},{"addr":"A-Y2-P20-K3","qty":324},{"addr":"A-Y2-P21-K3","qty":324},{"addr":"A-Y2-P22-K3","qty":160}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0060304007","urun_adi":"Elif ve Arkadaşları Hafıza Oyunu - 32 Parça","satir_adet":40,"toplam_stok":14,"eksik":26,"adres":[{"addr":"G-Y2-P5-K3","qty":681},{"addr":"G-Y1-P19-K3","qty":804},{"addr":"A-Y2-P25-K2","qty":5}]},{"siparis_no":"urfateknofest-GIYIM_1","sku":"TM0070407007-001","urun_adi":"Elif ve Arkadaşları Pijama Takımı - Pembe 6-7 PEMBE","satir_adet":10,"toplam_stok":5,"eksik":5,"adres":[{"addr":"A-Y2-P1-K3","qty":250},{"addr":"A-Y2-P40-K2","qty":97}]},{"siparis_no":"kocaeliKITAP-2_1","sku":"TM0080101001","urun_adi":"Kaptan Pengu ve Arkadaşları Buz Mandası Efsanesi Kitabı","satir_adet":27,"toplam_stok":22,"eksik":5,"adres":[{"addr":"A-Y2-P25-K2","qty":1},{"addr":"F-Y2-P25-K2","qty":4}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"TM0080101002","urun_adi":"Kaptan Pengu - Cırt Cırtlı Kitap","satir_adet":50,"toplam_stok":37,"eksik":13,"adres":[{"addr":"F-Y1-P3-K2","qty":26},{"addr":"G-Y1-P22-K1","qty":100},{"addr":"F-Y1-P51-K1","qty":100}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0080101002","urun_adi":"Kaptan Pengu - Cırt Cırtlı Kitap","satir_adet":10,"toplam_stok":37,"eksik":10,"adres":[{"addr":"F-Y1-P3-K2","qty":26},{"addr":"G-Y1-P22-K1","qty":100},{"addr":"F-Y1-P51-K1","qty":100}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0080101004","urun_adi":"Kaptan Pengu - Dokun ve Hisset Kitap","satir_adet":10,"toplam_stok":63,"eksik":2,"adres":[{"addr":"F-Y1-P3-K2","qty":10},{"addr":"F-Y1-P51-K1","qty":200}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0080304001","urun_adi":"Kaptan Pengu Baby Puzzle","satir_adet":25,"toplam_stok":36,"eksik":9,"adres":[{"addr":"A-Y2-P3-K3","qty":393},{"addr":"F-Y2-P13-K1","qty":234},{"addr":"A-Y2-P14-K3","qty":360},{"addr":"F-Y2-P20-K2","qty":360},{"addr":"A-Y2-P24-K2","qty":360}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0080304003","urun_adi":"Kaptan Pengu Puzzle 24\u0027lü","satir_adet":25,"toplam_stok":23,"eksik":22,"adres":[{"addr":"A-Y2-P18-K2","qty":408},{"addr":"A-Y2-P25-K2","qty":1},{"addr":"A-Y2-P42-K2","qty":218}]},{"siparis_no":"kocaeliPUZZLEE_1","sku":"TM0080304006","urun_adi":"Kaptan Pengu Puzzle 2li","satir_adet":20,"toplam_stok":1,"eksik":19,"adres":[{"addr":"G-Y1-P10-K1","qty":6},{"addr":"A-Y2-P23-K3","qty":179}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0080304006","urun_adi":"Kaptan Pengu Puzzle 2li","satir_adet":30,"toplam_stok":1,"eksik":30,"adres":[{"addr":"G-Y1-P10-K1","qty":6},{"addr":"A-Y2-P23-K3","qty":179}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0080304008","urun_adi":"Kaptan Pengu Hafıza Oyunu - 32 Parça","satir_adet":30,"toplam_stok":9,"eksik":21,"adres":[{"addr":"A-Y2-P50-K3","qty":215}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0080305005","urun_adi":"Kaptan Pengu ve Arkadaşları - Zıp Zıp Top","satir_adet":30,"toplam_stok":20,"eksik":10,"adres":[{"addr":"G-Y1-P26-K2","qty":227}]},{"siparis_no":"kocaeliKITAP-2_1","sku":"TM0090101002","urun_adi":"Akıllı Tavşan Momo - Oynar Gözlü Kitap","satir_adet":50,"toplam_stok":3,"eksik":47,"adres":[{"addr":"F-Y1-P51-K1","qty":219}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0090101002","urun_adi":"Akıllı Tavşan Momo - Oynar Gözlü Kitap","satir_adet":10,"toplam_stok":3,"eksik":10,"adres":[{"addr":"F-Y1-P51-K1","qty":219}]},{"siparis_no":"kocaeliKITAP-2_1","sku":"TM0090101003","urun_adi":"Akıllı Tavşan Momo - Dokun ve Hisset Kitap","satir_adet":50,"toplam_stok":44,"eksik":6,"adres":[{"addr":"F-Y1-P3-K2","qty":4},{"addr":"G-Y1-P22-K1","qty":190}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0090101003","urun_adi":"Akıllı Tavşan Momo - Dokun ve Hisset Kitap","satir_adet":10,"toplam_stok":44,"eksik":10,"adres":[{"addr":"F-Y1-P3-K2","qty":4},{"addr":"G-Y1-P22-K1","qty":190}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0090203002","urun_adi":"Akıllı Tavşan Momo - Kalemlik","satir_adet":25,"toplam_stok":68,"eksik":7,"adres":[{"addr":"F-Y1-P7-K2","qty":178},{"addr":"A-Y2-P13-K3","qty":26},{"addr":"A-Y2-P15-K3","qty":378},{"addr":"G-Y2-P18-K3","qty":360},{"addr":"A-Y2-P25-K2","qty":104}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0090304001","urun_adi":"Akıllı Tavşan Momo Baby Puzzle - 1","satir_adet":25,"toplam_stok":20,"eksik":25,"adres":[{"addr":"A-Y2-P10-K3","qty":360},{"addr":"A-Y2-P11-K3","qty":360},{"addr":"G-Y1-P14-K1","qty":280},{"addr":"A-Y2-P23-K2","qty":360},{"addr":"F-Y1-P37-K1","qty":360}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0090304002","urun_adi":"Akıllı Tavşan Momo Puzzle 24\u0027lü","satir_adet":25,"toplam_stok":37,"eksik":8,"adres":[{"addr":"F-Y2-P19-K1","qty":475},{"addr":"F-Y2-P24-K2","qty":284}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0090304004","urun_adi":"Akıllı Tavşan Momo Kanvas Boyama Kiti","satir_adet":30,"toplam_stok":3,"eksik":27,"adres":[{"addr":"F-Y2-P12-K2","qty":65},{"addr":"A-Y2-P25-K2","qty":10}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0090304005-0005","urun_adi":"Akıllı Tavşan Momo Plaj Oyunu – Yeşil","satir_adet":30,"toplam_stok":1,"eksik":29,"adres":[{"addr":"F-Y1-P1-K2","qty":13},{"addr":"G-Y1-P2-K3","qty":50},{"addr":"F-Y1-P3-K1","qty":17},{"addr":"G-Y2-P20-K2","qty":18},{"addr":"F-Y2-P22-K2","qty":10},{"addr":"A-Y2-P27-K3","qty":22}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0100101004","urun_adi":"Kuzucuk Fenerli Kitap","satir_adet":10,"toplam_stok":59,"eksik":1,"adres":[{"addr":"G-Y2-P22-K2","qty":50}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"TM0100101006","urun_adi":"Kuzucuk Doğamızı ve Hayvanları Koruyalım","satir_adet":50,"toplam_stok":32,"eksik":18,"adres":[{"addr":"F-Y2-P28-K2","qty":239}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0100101006","urun_adi":"Kuzucuk Doğamızı ve Hayvanları Koruyalım","satir_adet":10,"toplam_stok":32,"eksik":10,"adres":[{"addr":"F-Y2-P28-K2","qty":239}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0160203012","urun_adi":"Z Takımı Tuz Boyama - Arda","satir_adet":20,"toplam_stok":4,"eksik":16,"adres":[{"addr":"F-Y2-P6-K2","qty":60},{"addr":"A-Y2-P25-K2","qty":14}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0160304001","urun_adi":"Z Takımı Puzzle 100 Parça","satir_adet":25,"toplam_stok":33,"eksik":12,"adres":[{"addr":"F-Y1-P44-K1","qty":280}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0160304005","urun_adi":"Z Takımı Puzzle 200\u0027lü","satir_adet":20,"toplam_stok":25,"eksik":15,"adres":[{"addr":"A-Y2-P54-K2","qty":285}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"TM0180101002","urun_adi":"Tozkoparan İskender  \"Simurg Ateşi\"","satir_adet":100,"toplam_stok":78,"eksik":22,"adres":[{"addr":"A-Y2-P25-K2","qty":5},{"addr":"F-Y2-P26-K3","qty":265},{"addr":"G-Y1-P28-K2","qty":1}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0180101002","urun_adi":"Tozkoparan İskender  \"Simurg Ateşi\"","satir_adet":20,"toplam_stok":78,"eksik":20,"adres":[{"addr":"A-Y2-P25-K2","qty":5},{"addr":"F-Y2-P26-K3","qty":265},{"addr":"G-Y1-P28-K2","qty":1}]},{"siparis_no":"kocaeliKITAP-2_1","sku":"TM0180101003","urun_adi":"Tozkoparan İskender - Çöl Aslanı","satir_adet":100,"toplam_stok":29,"eksik":71,"adres":[{"addr":"F-Y2-P26-K3","qty":228}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0180101003","urun_adi":"Tozkoparan İskender - Çöl Aslanı","satir_adet":20,"toplam_stok":29,"eksik":20,"adres":[{"addr":"F-Y2-P26-K3","qty":228}]},{"siparis_no":"kocaeliKITAP-2_1","sku":"TM0200101001","urun_adi":"Diriliş Ertuğrul Kitabı","satir_adet":3,"toplam_stok":2,"eksik":1,"adres":[{"addr":"A-Y2-P25-K2","qty":1}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0280304007","urun_adi":"Sürpriz Kutusu - Sanat","satir_adet":30,"toplam_stok":20,"eksik":10,"adres":[{"addr":"F-Y1-P6-K2","qty":25}]},{"siparis_no":"kocaeliPUZZLEE_1","sku":"TM0290304002","urun_adi":"TRT Çocuk Puzzle 24 Parça","satir_adet":100,"toplam_stok":2,"eksik":98,"adres":[{"addr":"A-Y2-P42-K3","qty":2814}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0290304002","urun_adi":"TRT Çocuk Puzzle 24 Parça","satir_adet":25,"toplam_stok":2,"eksik":25,"adres":[{"addr":"A-Y2-P42-K3","qty":2814}]},{"siparis_no":"kocaeliPUZZLEE_1","sku":"TM0290304003","urun_adi":"TRT Çocuk Puzzle 48 Parça","satir_adet":100,"toplam_stok":28,"eksik":72,"adres":[{"addr":"A-Y2-P8-K2","qty":2135},{"addr":"A-Y2-P25-K2","qty":2},{"addr":"G-Y2-P27-K2","qty":944},{"addr":"A-Y2-P48-K3","qty":3237}]},{"siparis_no":"urfateknofest-PUZZLE_1","sku":"TM0290304003","urun_adi":"TRT Çocuk Puzzle 48 Parça","satir_adet":25,"toplam_stok":28,"eksik":25,"adres":[{"addr":"A-Y2-P8-K2","qty":2135},{"addr":"A-Y2-P25-K2","qty":2},{"addr":"G-Y2-P27-K2","qty":944},{"addr":"A-Y2-P48-K3","qty":3237}]},{"siparis_no":"oplog-571_1","sku":"TM0300923044","urun_adi":"TRT Haber Logolu Beyaz Kupa","satir_adet":6,"toplam_stok":40,"eksik":2,"adres":[{"addr":"A-Y2-P56-K3","qty":615}]},{"siparis_no":"urfateknofest-KUPA_1","sku":"TM0300923044","urun_adi":"TRT Haber Logolu Beyaz Kupa","satir_adet":10,"toplam_stok":40,"eksik":10,"adres":[{"addr":"A-Y2-P56-K3","qty":615}]},{"siparis_no":"90181_1","sku":"TM0300923044","urun_adi":"TRT Haber Logolu Beyaz Kupa","satir_adet":1,"toplam_stok":40,"eksik":1,"adres":[{"addr":"A-Y2-P56-K3","qty":615}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0300923066","urun_adi":"TRT Spor Logolu Dart Seti","satir_adet":50,"toplam_stok":64,"eksik":36,"adres":[{"addr":"A-Y2-P36-K3","qty":213}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0310101001","urun_adi":"TAY - Bir Hicret Yolculuğu Kitabı","satir_adet":10,"toplam_stok":27,"eksik":3,"adres":[{"addr":"F-Y1-P21-K2","qty":1301}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0340101006","urun_adi":"Mavi Dünya ile Okula Hazırlık - Görsel Dikkat Etkinlikleri","satir_adet":10,"toplam_stok":50,"eksik":10,"adres":[{"addr":"F-Y2-P18-K1","qty":425},{"addr":"A-Y2-P25-K2","qty":1},{"addr":"F-Y1-P28-K1","qty":661}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"TM0340101012","urun_adi":"Mavi Dünya - Oynar Gözlü Kitap","satir_adet":50,"toplam_stok":25,"eksik":25,"adres":[{"addr":"G-Y1-P22-K1","qty":40},{"addr":"F-Y1-P51-K1","qty":200}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0340101012","urun_adi":"Mavi Dünya - Oynar Gözlü Kitap","satir_adet":10,"toplam_stok":25,"eksik":10,"adres":[{"addr":"G-Y1-P22-K1","qty":40},{"addr":"F-Y1-P51-K1","qty":200}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"TM0340101015","urun_adi":"Mavi Dünya Boyama Kitabı","satir_adet":100,"toplam_stok":0,"eksik":100,"adres":[{"addr":"F-Y2-P10-K2","qty":329}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0340101015","urun_adi":"Mavi Dünya Boyama Kitabı","satir_adet":10,"toplam_stok":0,"eksik":10,"adres":[{"addr":"F-Y2-P10-K2","qty":329}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"TM0340101016","urun_adi":"Mavi Dünya Üçüz Balıkların Keşfi","satir_adet":50,"toplam_stok":32,"eksik":18,"adres":[{"addr":"A-Y2-P25-K2","qty":18},{"addr":"F-Y2-P28-K2","qty":223}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0340101016","urun_adi":"Mavi Dünya Üçüz Balıkların Keşfi","satir_adet":10,"toplam_stok":32,"eksik":10,"adres":[{"addr":"A-Y2-P25-K2","qty":18},{"addr":"F-Y2-P28-K2","qty":223}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"TM0380101004","urun_adi":"Eymen ile Çimen Boyama Kitabı","satir_adet":100,"toplam_stok":4,"eksik":96,"adres":[{"addr":"F-Y2-P8-K2","qty":316}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0380101004","urun_adi":"Eymen ile Çimen Boyama Kitabı","satir_adet":10,"toplam_stok":4,"eksik":10,"adres":[{"addr":"F-Y2-P8-K2","qty":316}]},{"siparis_no":"kocaeliKITAP-1_1","sku":"TM0380101005","urun_adi":"Eymen ile Çimen Sevginin Gücü","satir_adet":50,"toplam_stok":22,"eksik":28,"adres":[{"addr":"F-Y2-P28-K2","qty":242}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0380101005","urun_adi":"Eymen ile Çimen Sevginin Gücü","satir_adet":10,"toplam_stok":22,"eksik":10,"adres":[{"addr":"F-Y2-P28-K2","qty":242}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0410101001","urun_adi":"Ekip: Siberay – Kimlik Hırsızları","satir_adet":20,"toplam_stok":39,"eksik":1,"adres":[{"addr":"A-Y2-P25-K2","qty":3}]},{"siparis_no":"kocaeliKITAP-2_1","sku":"TM0460101001","urun_adi":"TRT2 Kitaplığı - Felsefe Söyleşileri \"Ş. Teoman Duralı\" 1.Cilt","satir_adet":50,"toplam_stok":31,"eksik":19,"adres":[{"addr":"F-Y1-P50-K1","qty":200}]},{"siparis_no":"urfateknofest-KITAP_1","sku":"TM0460101001","urun_adi":"TRT2 Kitaplığı - Felsefe Söyleşileri \"Ş. Teoman Duralı\" 1.Cilt","satir_adet":10,"toplam_stok":31,"eksik":10,"adres":[{"addr":"F-Y1-P50-K1","qty":200}]},{"siparis_no":"kocaeliKITAP-2_1","sku":"TM0460101004","urun_adi":"Hülya Koçyiğit ile Film Gibi Hayatlar Cilt 1","satir_adet":20,"toplam_stok":13,"eksik":7,"adres":[{"addr":"A-Y2-P25-K2","qty":4},{"addr":"F-Y2-P25-K1","qty":226}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0460101004","urun_adi":"Hülya Koçyiğit ile Film Gibi Hayatlar Cilt 1","satir_adet":5,"toplam_stok":13,"eksik":5,"adres":[{"addr":"A-Y2-P25-K2","qty":4},{"addr":"F-Y2-P25-K1","qty":226}]},{"siparis_no":"kocaeliKITAP-2_1","sku":"TM0460101005","urun_adi":"Hülya Koçyiğit ile Film Gibi Hayatlar Cilt 2","satir_adet":20,"toplam_stok":13,"eksik":7,"adres":[{"addr":"A-Y2-P25-K2","qty":230}]},{"siparis_no":"urtateknofest-KITAP_1","sku":"TM0460101005","urun_adi":"Hülya Koçyiğit ile Film Gibi Hayatlar Cilt 2","satir_adet":5,"toplam_stok":13,"eksik":5,"adres":[{"addr":"A-Y2-P25-K2","qty":230}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0480305001","urun_adi":"TRT Spor Yıldız - Dev Tangram","satir_adet":40,"toplam_stok":15,"eksik":25,"adres":[{"addr":"F-Y1-P12-K1","qty":208},{"addr":"F-Y1-P21-K3","qty":594},{"addr":"A-Y2-P25-K2","qty":7}]},{"siparis_no":"urfateknofest-OYUNCAK_1","sku":"TM0480305002","urun_adi":"TRT Spor Yıldız - Ahşap Denge Oyunu","satir_adet":50,"toplam_stok":21,"eksik":29,"adres":[{"addr":"F-Y1-P11-K1","qty":172},{"addr":"F-Y1-P33-K3","qty":556}]}]</script>
 <script type="application/json" id="data-lidya">[{"siparis_no":"4900_1","sku":"100172164","urun_adi":"Kedi True Fresh Tahılsız Tavuklu Kuru Mama 4,8 kg (Kısırlaştırılmış)","satir_adet":1,"toplam_stok":0,"eksik":1,"adres":[{"addr":"G-Y2-P16-K2","qty":5}]}]</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
@@ -806,11 +958,11 @@
     }
     bayiBody.innerHTML = rows.map(function(r){
       return '<tr>' +
-        '<td class="mono">' + esc(r.sku) + '</td>' +
-        '<td class="name">' + esc(r.name) + '</td>' +
-        '<td><span class="badge corridor">' + esc(r.corridor) + '</span></td>' +
-        '<td class="num">' + r.level + '</td>' +
-        '<td class="mono">' + esc(r.goz) + '</td>' +
+        '<td class="mono" data-label="SKU">' + esc(r.sku) + '</td>' +
+        '<td class="name" data-label="Ürün Adı">' + esc(r.name) + '</td>' +
+        '<td data-label="Koridor"><span class="badge corridor">' + esc(r.corridor) + '</span></td>' +
+        '<td class="num" data-label="Kat">' + r.level + '</td>' +
+        '<td class="mono" data-label="Göz">' + esc(r.goz) + '</td>' +
       '</tr>';
     }).join('');
   }
@@ -877,32 +1029,54 @@
   var shortBody = document.getElementById('shortfall-body');
   var shortThs = document.querySelectorAll('#shortfall-table thead th');
 
-  function renderFeedCell(r){
+  // Genişlet/daralt: adres ve sipariş listelerinin tamamı, hover'a dayanan
+  // title tooltip yerine dokunmatik uyumlu bir butonla açılır (mobilde hover yok).
+  function wireExpand(container){
+    container.addEventListener('click', function(e){
+      var btn = e.target.closest('.expand-btn');
+      if (!btn) return;
+      var panel = document.getElementById(btn.getAttribute('data-target'));
+      if (!panel) return;
+      panel.hidden = !panel.hidden;
+      btn.setAttribute('aria-expanded', String(!panel.hidden));
+    });
+  }
+
+  function renderFeedCell(r, uid){
     if (!r.bayi_list.length){
       return '<span class="feed-total">Bayi gözünde de yok</span>';
     }
     var top = r.bayi_list[0];
     var extra = r.bayi_list.length - 1;
-    var title = r.bayi_list.map(function(f){ return f.formatted + ': ' + f.qty + ' adet'; }).join('\n');
-    return '<div title="' + esc(title) + '">' +
+    var panelId = 'feed-panel-' + uid;
+    var listHtml = r.bayi_list.map(function(f){
+      return '<li>' + esc(f.formatted) + '<span class="mono">' + f.qty + ' adet</span></li>';
+    }).join('');
+    return '<div>' +
       '<span class="badge feed">' + esc(top.formatted) + '</span>' +
-      (extra > 0 ? '<span class="feed-extra">+' + extra + ' adres</span>' : '') +
+      (extra > 0 ? '<button type="button" class="expand-btn" data-target="' + panelId + '" aria-expanded="false">+' + extra + ' adres</button>' : '') +
       '<div class="feed-total">Toplam ' + r.bayi_total + ' adet bayi stoku</div>' +
+      (extra > 0 ? '<ul class="expand-panel" id="' + panelId + '" hidden>' + listHtml + '</ul>' : '') +
     '</div>';
   }
 
-  function renderOrdersCell(r){
+  function renderOrdersCell(r, uid){
     var LIMIT = 5;
     var shown = r.siparisler.slice(0, LIMIT);
     var extra = r.siparisler.length - shown.length;
-    var title = r.siparisler.map(function(o){
-      return o.siparis_no + ': ' + o.eksik + ' adet eksik' + (o.siparis_toplam_adet ? ' (sip. toplam ' + o.siparis_toplam_adet + ')' : '');
-    }).join('\n');
     var chips = shown.map(function(o){
       return '<span class="badge corridor">' + esc(o.siparis_no) + ' <span class="feed-extra">(' + o.eksik + ')</span></span>';
     }).join(' ');
-    return '<div title="' + esc(title) + '">' + chips +
-      (extra > 0 ? '<div class="feed-total">+' + extra + ' sipariş daha</div>' : '') +
+    if (!extra){
+      return '<div>' + chips + '</div>';
+    }
+    var panelId = 'orders-panel-' + uid;
+    var restHtml = r.siparisler.slice(LIMIT).map(function(o){
+      return '<li>' + esc(o.siparis_no) + '<span>' + o.eksik + ' adet eksik' + (o.siparis_toplam_adet ? ' (sip. toplam ' + o.siparis_toplam_adet + ')' : '') + '</span></li>';
+    }).join('');
+    return '<div>' + chips +
+      '<button type="button" class="expand-btn" data-target="' + panelId + '" aria-expanded="false">+' + extra + ' sipariş daha</button>' +
+      '<ul class="expand-panel" id="' + panelId + '" hidden>' + restHtml + '</ul>' +
     '</div>';
   }
 
@@ -919,16 +1093,16 @@
       shortBody.innerHTML = '<tr class="empty-row"><td colspan="8">Filtreyle eşleşen kayıt yok.</td></tr>';
       return;
     }
-    shortBody.innerHTML = rows.map(function(r){
+    shortBody.innerHTML = rows.map(function(r, i){
       return '<tr>' +
-        '<td class="mono">' + esc(r.sku) + '</td>' +
-        '<td class="name">' + esc(r.urun_adi) + '</td>' +
-        '<td class="num">' + r.siparis_sayisi + '</td>' +
-        '<td class="num">' + r.toplam_talep + '</td>' +
-        '<td class="num">' + r.tb_stok + '</td>' +
-        '<td class="num"><span class="badge risk">−' + r.toplam_eksik + '</span></td>' +
-        '<td class="feed mono">' + renderFeedCell(r) + '</td>' +
-        '<td class="feed mono">' + renderOrdersCell(r) + '</td>' +
+        '<td class="mono" data-label="SKU">' + esc(r.sku) + '</td>' +
+        '<td class="name" data-label="Ürün Adı">' + esc(r.urun_adi) + '</td>' +
+        '<td class="num" data-label="Sipariş Sayısı">' + r.siparis_sayisi + '</td>' +
+        '<td class="num" data-label="Toplam Talep">' + r.toplam_talep + '</td>' +
+        '<td class="num" data-label="TB Stok">' + r.tb_stok + '</td>' +
+        '<td class="num" data-label="Toplam Eksik"><span class="badge risk">−' + r.toplam_eksik + '</span></td>' +
+        '<td class="feed mono" data-label="Besleme Adresi">' + renderFeedCell(r, 'sf' + i) + '</td>' +
+        '<td class="feed mono" data-label="Bağlı Siparişler">' + renderOrdersCell(r, 'sfo' + i) + '</td>' +
       '</tr>';
     }).join('');
   }
@@ -942,6 +1116,7 @@
     });
   });
   document.getElementById('shortfall-search').addEventListener('input', function(e){ shortFilterText = e.target.value; renderShortfall(); });
+  wireExpand(shortBody);
 
   // ---- Big order (bayi-insufficient) panel ----
   var bigorder = bigorderRaw.map(function(r){
@@ -975,14 +1150,14 @@
     }
     bigorderBody.innerHTML = rows.map(function(r){
       return '<tr>' +
-        '<td class="mono">' + esc(r.siparis_no) + '</td>' +
-        '<td>' + esc(r.durum) + '</td>' +
-        '<td class="num">' + r.siparis_toplam_adet + '</td>' +
-        '<td class="mono">' + esc(r.sku) + '</td>' +
-        '<td class="name">' + esc(r.urun_adi) + '</td>' +
-        '<td class="num">' + r.satir_adet + '</td>' +
-        '<td class="num">' + r.bayi_stok + '</td>' +
-        '<td class="num"><span class="badge risk">−' + r.eksik + '</span></td>' +
+        '<td class="mono" data-label="Sipariş No">' + esc(r.siparis_no) + '</td>' +
+        '<td data-label="Durum">' + esc(r.durum) + '</td>' +
+        '<td class="num" data-label="Sip. Toplam">' + r.siparis_toplam_adet + '</td>' +
+        '<td class="mono" data-label="SKU">' + esc(r.sku) + '</td>' +
+        '<td class="name" data-label="Ürün Adı">' + esc(r.urun_adi) + '</td>' +
+        '<td class="num" data-label="Kalem Adet">' + r.satir_adet + '</td>' +
+        '<td class="num" data-label="Bayi Stok">' + r.bayi_stok + '</td>' +
+        '<td class="num" data-label="Web\'den Tamamlanacak"><span class="badge risk">−' + r.eksik + '</span></td>' +
       '</tr>';
     }).join('');
   }
@@ -1024,17 +1199,21 @@
     }).sort(function(a, b){ return a.addr_goz - b.addr_goz; });
   }
 
-  function renderAddrCell(r){
+  function renderAddrCell(r, uid){
     if (!r.adres_list.length){
       return '<span class="feed-total">Rezervde de yok</span>';
     }
     var top = r.adres_list[0];
     var extra = r.adres_list.length - 1;
-    var title = r.adres_list.map(function(a){ return a.formatted + ': ' + a.qty + ' adet'; }).join('\n');
-    return '<div title="' + esc(title) + '">' +
+    var panelId = 'addr-panel-' + uid;
+    var listHtml = r.adres_list.map(function(a){
+      return '<li>' + esc(a.formatted) + '<span class="mono">' + a.qty + ' adet</span></li>';
+    }).join('');
+    return '<div>' +
       '<span class="badge feed">' + esc(top.formatted) + '</span>' +
-      (extra > 0 ? '<span class="feed-extra">+' + extra + ' adres</span>' : '') +
+      (extra > 0 ? '<button type="button" class="expand-btn" data-target="' + panelId + '" aria-expanded="false">+' + extra + ' adres</button>' : '') +
       '<div class="feed-total">Toplam ' + r.adres_total + ' adet rezerv stoku</div>' +
+      (extra > 0 ? '<ul class="expand-panel" id="' + panelId + '" hidden>' + listHtml + '</ul>' : '') +
     '</div>';
   }
 
@@ -1058,16 +1237,17 @@
         body.innerHTML = '<tr class="empty-row"><td colspan="8">Filtreyle eşleşen kayıt yok.</td></tr>';
         return;
       }
-      body.innerHTML = rows.map(function(r){
+      body.innerHTML = rows.map(function(r, i){
+        var uid = opts.tableId + '-' + i;
         return '<tr>' +
-          '<td class="mono">' + esc(r.sku) + '</td>' +
-          '<td class="name">' + esc(r.urun_adi) + '</td>' +
-          '<td class="num">' + r.siparis_sayisi + '</td>' +
-          '<td class="num">' + r.toplam_talep + '</td>' +
-          '<td class="num">' + r.toplam_stok + '</td>' +
-          '<td class="num"><span class="badge risk">−' + r.toplam_eksik + '</span></td>' +
-          '<td class="feed mono">' + renderAddrCell(r) + '</td>' +
-          '<td class="feed mono">' + renderOrdersCell(r) + '</td>' +
+          '<td class="mono" data-label="SKU">' + esc(r.sku) + '</td>' +
+          '<td class="name" data-label="Ürün Adı">' + esc(r.urun_adi) + '</td>' +
+          '<td class="num" data-label="Sipariş Sayısı">' + r.siparis_sayisi + '</td>' +
+          '<td class="num" data-label="Toplam Talep">' + r.toplam_talep + '</td>' +
+          '<td class="num" data-label="Toplam Stok">' + r.toplam_stok + '</td>' +
+          '<td class="num" data-label="Toplam Eksik"><span class="badge risk">−' + r.toplam_eksik + '</span></td>' +
+          '<td class="feed mono" data-label="Besleme Adresi">' + renderAddrCell(r, 'a' + uid) + '</td>' +
+          '<td class="feed mono" data-label="Bağlı Siparişler">' + renderOrdersCell(r, 'o' + uid) + '</td>' +
         '</tr>';
       }).join('');
     }
@@ -1081,6 +1261,7 @@
       });
     });
     document.getElementById(opts.searchId).addEventListener('input', function(e){ filterText = e.target.value; render(); });
+    wireExpand(body);
     sort.onHeaderClick('addr_goz', document.querySelector('#' + opts.tableId + ' th[data-key="addr_goz"]'), ths);
     render();
   }
