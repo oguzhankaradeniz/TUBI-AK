@@ -2,6 +2,10 @@
 <title>Tübitak Göz Takibi</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
+  .ops-nav{ display:flex; gap:16px; max-width:1100px; margin:0 auto; padding:10px 20px 0; font:600 12px -apple-system,BlinkMacSystemFont,sans-serif; }
+  .ops-nav a{ text-decoration:none; color:#8991a3; padding-bottom:6px; border-bottom:2px solid transparent; }
+  .ops-nav a.active{ color:#4338ca; border-bottom-color:#4338ca; }
+  @media (prefers-color-scheme: dark){ .ops-nav a{ color:#7d859b; } .ops-nav a.active{ color:#8b7bf7; border-bottom-color:#8b7bf7; } }
   :root{
     --bg:#eef0f4;
     --surface:#ffffff;
@@ -578,6 +582,11 @@
     #bigorder-table th:nth-child(8), #bigorder-table td:nth-child(8){ width:17%; }
   }
 </style>
+
+<nav class="ops-nav">
+  <a href="./" class="active">TÜBİTAK Besleme</a>
+  <a href="sevkiyat/">Sevkiyat L2-L3</a>
+</nav>
 
 <div class="wrap">
 
