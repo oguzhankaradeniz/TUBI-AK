@@ -242,6 +242,23 @@
     margin-left:6px;
   }
 
+  /* ---- Animasyonlar: giris + kritik/yeni oge vurgusu. prefers-reduced-motion'a saygili. ---- */
+  @keyframes fadeSlideUp{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:translateY(0); } }
+  @keyframes popIn{ 0%{ opacity:0; transform:scale(.92); } 100%{ opacity:1; transform:scale(1); } }
+  @keyframes urgentGlow{ 0%,100%{ box-shadow:0 0 0 0 color-mix(in srgb, var(--risk) 45%, transparent); } 50%{ box-shadow:0 0 0 6px transparent; } }
+  @keyframes justCriticalFlash{ 0%{ box-shadow:0 0 0 0 color-mix(in srgb, var(--risk) 65%, transparent); } 55%{ box-shadow:0 0 0 16px transparent; } 100%{ box-shadow:0 0 0 0 transparent; } }
+  @keyframes livePulse{ 0%,100%{ opacity:1; } 50%{ opacity:.3; } }
+  .stat{ animation:fadeSlideUp .4s cubic-bezier(.16,.8,.3,1) both; animation-delay:var(--stagger,0ms); }
+  .tabbtn[aria-selected="true"]{ animation:popIn .22s ease; }
+  section.panel:not([hidden]){ animation:fadeSlideUp .32s cubic-bezier(.16,.8,.3,1) both; }
+  tbody tr{ animation:fadeSlideUp .28s ease both; animation-delay:var(--stagger,0ms); }
+  .badge.risk{ animation:urgentGlow 1.8s ease-in-out infinite; }
+  tr.row-new{ animation-name:fadeSlideUp, justCriticalFlash; animation-duration:.28s, 1.5s; animation-timing-function:ease, ease-out; animation-delay:var(--stagger,0ms), 0s; animation-fill-mode:both, none; }
+  .updated .dot{ animation:livePulse 1.7s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+  }
+
   section.panel{ margin-block:0; }
   section.panel[hidden]{ display:none; }
   .panel-head{
@@ -822,6 +839,28 @@
   var WORKER_URL = 'https://tubitak-goz-takibi-api.oguzhan-kdeniz.workers.dev/';
   var AUTO_REFRESH_SECONDS = 60;
 
+  var _lastVals = {};
+  function animateNumber(el, key, target, opts){
+    opts = opts || {};
+    var duration = opts.duration || 550;
+    var start = _lastVals[key] !== undefined ? _lastVals[key] : target;
+    _lastVals[key] = target;
+    if(start === target || !el){ if(el) el.textContent = target.toLocaleString('tr-TR'); return; }
+    var t0 = performance.now();
+    (function tick(now){
+      var p = Math.min(1, (now - t0) / duration);
+      var eased = 1 - Math.pow(1 - p, 3);
+      var val = Math.round(start + (target - start) * eased);
+      el.textContent = val.toLocaleString('tr-TR');
+      if(p < 1) requestAnimationFrame(tick);
+    })(t0);
+  }
+  function applyStagger(container, selector, stepMs){
+    (container.querySelectorAll ? container.querySelectorAll(selector) : []).forEach(function(el, i){
+      el.style.setProperty('--stagger', Math.min(i * (stepMs || 25), 400) + 'ms');
+    });
+  }
+
   var bayiRaw = [], shortRaw = [], bigorderRaw = [], trtRaw = [], lidyaRaw = [];
 
   var updatedTextEl = document.getElementById('updated-text');
@@ -896,10 +935,10 @@
     var uniqBigOrders = {};
     bigorderRaw.forEach(function(r){ uniqBigOrders[r.siparis_no] = true; });
 
-    document.getElementById('stat-bayi').textContent = Object.keys(uniqSkus).length;
-    document.getElementById('stat-lines').textContent = shortRaw.length;
-    document.getElementById('stat-orders').textContent = Object.keys(uniqOrders).length;
-    document.getElementById('stat-bigorders').textContent = Object.keys(uniqBigOrders).length;
+    animateNumber(document.getElementById('stat-bayi'), 'stat-bayi', Object.keys(uniqSkus).length);
+    animateNumber(document.getElementById('stat-lines'), 'stat-lines', shortRaw.length);
+    animateNumber(document.getElementById('stat-orders'), 'stat-orders', Object.keys(uniqOrders).length);
+    animateNumber(document.getElementById('stat-bigorders'), 'stat-bigorders', Object.keys(uniqBigOrders).length);
 
     var uniqTrtSkus = {};
     trtRaw.forEach(function(r){ uniqTrtSkus[r.sku] = true; });
@@ -1030,6 +1069,7 @@
         '<td class="mono" data-label="Göz">' + esc(r.goz) + '</td>' +
       '</tr>';
     }).join('');
+    applyStagger(bayiBody, 'tr', 15);
   }
 
   bayiThs.forEach(function(th){
@@ -1148,6 +1188,9 @@
     '</div>';
   }
 
+  // Onceki yenilemede goruleni tutar; ilk kez goruleni tek seferlik flasla isaretler
+  // ("canli, surekli izlenmesi gereken ekran" hissi -- kullanici, 2026-09-13).
+  var _prevShortSkus = null;
   function renderShortfall(){
     var text = shortFilterText.trim().toLocaleLowerCase('tr');
     var rows = shortfall.filter(function(r){
@@ -1159,10 +1202,12 @@
     document.getElementById('shortfall-count').textContent = rows.length;
     if (!rows.length){
       shortBody.innerHTML = '<tr class="empty-row"><td colspan="8">Filtreyle eşleşen kayıt yok.</td></tr>';
+      _prevShortSkus = new Set();
       return;
     }
     shortBody.innerHTML = rows.map(function(r, i){
-      return '<tr>' +
+      var isNew = _prevShortSkus !== null && !_prevShortSkus.has(r.sku);
+      return '<tr' + (isNew ? ' class="row-new"' : '') + '>' +
         '<td class="mono" data-label="SKU">' + esc(r.sku) + '</td>' +
         '<td class="name" data-label="Ürün Adı">' + esc(r.urun_adi) + '</td>' +
         '<td class="num" data-label="Sipariş Sayısı">' + r.siparis_sayisi + '</td>' +
@@ -1173,6 +1218,8 @@
         '<td class="feed mono" data-label="Bağlı Siparişler">' + renderOrdersCell(r, 'sfo' + i) + '</td>' +
       '</tr>';
     }).join('');
+    _prevShortSkus = new Set(rows.map(function(r){ return r.sku; }));
+    applyStagger(shortBody, 'tr', 15);
   }
 
   shortThs.forEach(function(th){
@@ -1207,6 +1254,7 @@
   var bigorderBody = document.getElementById('bigorder-body');
   var bigorderThs = document.querySelectorAll('#bigorder-table thead th');
 
+  var _prevBigorderKeys = null;
   function renderBigorder(){
     var text = bigorderFilterText.trim().toLocaleLowerCase('tr');
     var rows = bigorder.filter(function(r){
@@ -1217,10 +1265,13 @@
     document.getElementById('bigorder-count').textContent = rows.length;
     if (!rows.length){
       bigorderBody.innerHTML = '<tr class="empty-row"><td colspan="8">Filtreyle eşleşen kayıt yok.</td></tr>';
+      _prevBigorderKeys = new Set();
       return;
     }
     bigorderBody.innerHTML = rows.map(function(r){
-      return '<tr>' +
+      var key = r.siparis_no + '|' + r.sku;
+      var isNew = _prevBigorderKeys !== null && !_prevBigorderKeys.has(key);
+      return '<tr' + (isNew ? ' class="row-new"' : '') + '>' +
         '<td class="mono" data-label="Sipariş No">' + esc(r.siparis_no) + '</td>' +
         '<td data-label="Durum">' + esc(r.durum) + '</td>' +
         '<td class="num" data-label="Sip. Toplam">' + r.siparis_toplam_adet + '</td>' +
@@ -1231,6 +1282,8 @@
         '<td class="num" data-label="Web\'den Tamamlanacak"><span class="badge risk">−' + r.eksik + '</span></td>' +
       '</tr>';
     }).join('');
+    _prevBigorderKeys = new Set(rows.map(function(r){ return r.siparis_no + '|' + r.sku; }));
+    applyStagger(bigorderBody, 'tr', 15);
   }
 
   bigorderThs.forEach(function(th){
@@ -1294,6 +1347,7 @@
     var sort = makeSortable();
     var body = document.getElementById(opts.bodyId);
     var ths = document.querySelectorAll('#' + opts.tableId + ' thead th');
+    var prevKeys = null;
 
     function render(){
       var text = filterText.trim().toLocaleLowerCase('tr');
@@ -1306,11 +1360,13 @@
       document.getElementById(opts.countId).textContent = rows.length;
       if (!rows.length){
         body.innerHTML = '<tr class="empty-row"><td colspan="8">Filtreyle eşleşen kayıt yok.</td></tr>';
+        prevKeys = new Set();
         return;
       }
       body.innerHTML = rows.map(function(r, i){
         var uid = opts.tableId + '-' + i;
-        return '<tr>' +
+        var isNew = prevKeys !== null && !prevKeys.has(r.sku);
+        return '<tr' + (isNew ? ' class="row-new"' : '') + '>' +
           '<td class="mono" data-label="SKU">' + esc(r.sku) + '</td>' +
           '<td class="name" data-label="Ürün Adı">' + esc(r.urun_adi) + '</td>' +
           '<td class="num" data-label="Sipariş Sayısı">' + r.siparis_sayisi + '</td>' +
@@ -1321,6 +1377,8 @@
           '<td class="feed mono" data-label="Bağlı Siparişler">' + renderOrdersCell(r, 'o' + uid) + '</td>' +
         '</tr>';
       }).join('');
+      prevKeys = new Set(rows.map(function(r){ return r.sku; }));
+      applyStagger(body, 'tr', 15);
     }
 
     ths.forEach(function(th){
